@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:gaia/features/announcement/data/models/announcement_model.dart';
+import 'package:icarus/features/announcement/data/models/announcement_model.dart';
 
 class AnnouncementRemoteDataSource {
   final Dio _dio;

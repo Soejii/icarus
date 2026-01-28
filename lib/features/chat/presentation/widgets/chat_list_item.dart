@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gaia/app/theme/brand_palette.dart';
+import 'package:icarus/app/theme/brand_palette.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:gaia/features/chat/domain/entity/chat_entity.dart';
-import 'package:gaia/shared/core/infrastructure/routes/route_name.dart';
+import 'package:icarus/features/chat/domain/entity/chat_entity.dart';
+import 'package:icarus/shared/core/infrastructure/routes/route_name.dart';
 import 'package:intl/intl.dart';
 
 class ChatListItem extends ConsumerWidget {

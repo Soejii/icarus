@@ -1,4 +1,4 @@
-import 'package:gaia/features/notifications/domain/type/notification_type.dart';
+import 'package:icarus/features/notifications/domain/type/notification_type.dart';
 
 class NotificationEntity {
   final int id;

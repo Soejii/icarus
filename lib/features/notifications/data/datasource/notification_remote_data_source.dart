@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:gaia/features/notifications/data/models/notification_model.dart';
+import 'package:icarus/features/notifications/data/models/notification_model.dart';
 
 class NotificationRemoteDataSource {
   final Dio _dio;

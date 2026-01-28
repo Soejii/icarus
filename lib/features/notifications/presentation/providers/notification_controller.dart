@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gaia/features/notifications/domain/entities/notification_entity.dart';
-import 'package:gaia/features/notifications/presentation/providers/notification_providers.dart';
-import 'package:gaia/shared/presentation/paged.dart';
+import 'package:icarus/features/notifications/domain/entities/notification_entity.dart';
+import 'package:icarus/features/notifications/presentation/providers/notification_providers.dart';
+import 'package:icarus/shared/presentation/paged.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'notification_controller.g.dart';

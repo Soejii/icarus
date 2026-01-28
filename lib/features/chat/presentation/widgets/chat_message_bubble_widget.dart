@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gaia/app/theme/brand_palette.dart';
+import 'package:icarus/app/theme/brand_palette.dart';
 import 'package:intl/intl.dart';
-import 'package:gaia/features/chat/domain/entity/chat_message_entity.dart';
+import 'package:icarus/features/chat/domain/entity/chat_message_entity.dart';
 
 class ChatMessageBubbleWidget extends StatelessWidget {
   final ChatMessageEntity message;

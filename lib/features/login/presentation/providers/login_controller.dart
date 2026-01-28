@@ -1,7 +1,7 @@
-import 'package:gaia/features/login/domain/entities/login_entity.dart';
-import 'package:gaia/features/login/presentation/providers/login_providers.dart';
-import 'package:gaia/shared/core/infrastructure/analytics/analytics_providers.dart';
-import 'package:gaia/shared/core/infrastructure/auth/auth_state_provider.dart';
+import 'package:icarus/features/login/domain/entities/login_entity.dart';
+import 'package:icarus/features/login/presentation/providers/login_providers.dart';
+import 'package:icarus/shared/core/infrastructure/analytics/analytics_providers.dart';
+import 'package:icarus/shared/core/infrastructure/auth/auth_state_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'login_controller.g.dart';

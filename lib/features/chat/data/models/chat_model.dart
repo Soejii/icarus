@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:gaia/features/chat/data/models/contact_model.dart';
-import 'package:gaia/features/chat/data/models/message_model.dart';
+import 'package:icarus/features/chat/data/models/contact_model.dart';
+import 'package:icarus/features/chat/data/models/message_model.dart';
 
 part 'chat_model.freezed.dart';
 part 'chat_model.g.dart';

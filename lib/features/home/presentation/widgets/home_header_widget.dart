@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gaia/features/home/presentation/widgets/header_background.dart';
-import 'package:gaia/features/home/presentation/widgets/quick_home_grid.dart';
-import 'package:gaia/features/home/presentation/widgets/school_avatar_widget.dart';
-import 'package:gaia/features/home/presentation/widgets/user_avatar_widget.dart';
-import 'package:gaia/features/home/presentation/widgets/user_info_column.dart';
-import 'package:gaia/shared/core/infrastructure/routes/route_name.dart';
+import 'package:icarus/features/home/presentation/widgets/header_background.dart';
+import 'package:icarus/features/home/presentation/widgets/quick_home_grid.dart';
+import 'package:icarus/features/home/presentation/widgets/school_avatar_widget.dart';
+import 'package:icarus/features/home/presentation/widgets/user_avatar_widget.dart';
+import 'package:icarus/features/home/presentation/widgets/user_info_column.dart';
+import 'package:icarus/shared/core/infrastructure/routes/route_name.dart';
 import 'package:go_router/go_router.dart';
 
 class HomeHeaderWidget extends StatelessWidget {

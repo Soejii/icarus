@@ -3,12 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:gaia/features/chat/domain/type/chat_role_type.dart';
-import 'package:gaia/features/chat/presentation/providers/contact_controller.dart';
-import 'package:gaia/features/chat/presentation/widgets/chat_contact_list_item.dart';
-import 'package:gaia/features/chat/presentation/widgets/chat_contact_tab_bar.dart';
-import 'package:gaia/shared/widgets/custom_app_bar_widget.dart';
-import 'package:gaia/shared/core/infrastructure/routes/route_name.dart';
+import 'package:icarus/features/chat/domain/type/chat_role_type.dart';
+import 'package:icarus/features/chat/presentation/providers/contact_controller.dart';
+import 'package:icarus/features/chat/presentation/widgets/chat_contact_list_item.dart';
+import 'package:icarus/features/chat/presentation/widgets/chat_contact_tab_bar.dart';
+import 'package:icarus/shared/widgets/custom_app_bar_widget.dart';
+import 'package:icarus/shared/core/infrastructure/routes/route_name.dart';
 
 class ContactPickerScreen extends HookConsumerWidget {
   const ContactPickerScreen({super.key});

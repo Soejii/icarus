@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gaia/features/profile/presentation/widgets/profile_menu_button.dart';
+import 'package:icarus/features/profile/presentation/widgets/profile_menu_button.dart';
 
 class ProfileMenuWidget extends StatelessWidget {
   const ProfileMenuWidget({super.key});

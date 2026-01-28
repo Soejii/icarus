@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gaia/app/environment/build_environment.dart';
-import 'package:gaia/app/theme/brand_assets.dart';
-import 'package:gaia/app/theme/brand_palette.dart';
-import 'package:gaia/features/login/presentation/providers/login_controller.dart';
-import 'package:gaia/features/login/presentation/widgets/password_form.dart';
-import 'package:gaia/features/login/presentation/widgets/username_form.dart';
-import 'package:gaia/shared/core/types/failure.dart';
+import 'package:icarus/app/environment/build_environment.dart';
+import 'package:icarus/app/theme/brand_assets.dart';
+import 'package:icarus/app/theme/brand_palette.dart';
+import 'package:icarus/features/login/presentation/providers/login_controller.dart';
+import 'package:icarus/features/login/presentation/widgets/password_form.dart';
+import 'package:icarus/features/login/presentation/widgets/username_form.dart';
+import 'package:icarus/shared/core/types/failure.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

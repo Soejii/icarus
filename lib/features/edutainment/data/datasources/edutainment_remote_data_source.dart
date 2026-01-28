@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:gaia/features/edutainment/data/models/digital_magazine_model.dart';
-import 'package:gaia/features/edutainment/data/models/edutainment_model.dart';
+import 'package:icarus/features/edutainment/data/models/digital_magazine_model.dart';
+import 'package:icarus/features/edutainment/data/models/edutainment_model.dart';
 
 class EdutainmentRemoteDataSource {
   final Dio _dio;

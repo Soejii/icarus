@@ -1,5 +1,5 @@
-import 'package:gaia/features/announcement/domain/entites/announcement_entity.dart';
-import 'package:gaia/features/announcement/presentation/providers/announcement_providers.dart';
+import 'package:icarus/features/announcement/domain/entites/announcement_entity.dart';
+import 'package:icarus/features/announcement/presentation/providers/announcement_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'announcement_controller.g.dart';

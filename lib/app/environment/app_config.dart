@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:gaia/app/theme/brand_spec.dart';
+import 'package:icarus/app/theme/brand_spec.dart';
 
 class AppConfig {
   final String appName;

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gaia/features/school/domain/entities/school_entity.dart';
-import 'package:gaia/features/school/presentation/widgets/school_profile_avatar.dart';
-import 'package:gaia/features/school/presentation/widgets/school_info_section.dart';
+import 'package:icarus/features/school/domain/entities/school_entity.dart';
+import 'package:icarus/features/school/presentation/widgets/school_profile_avatar.dart';
+import 'package:icarus/features/school/presentation/widgets/school_info_section.dart';
 
 class SchoolInformationContent extends StatelessWidget {
   final SchoolEntity school;

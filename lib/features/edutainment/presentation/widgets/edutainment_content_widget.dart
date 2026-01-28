@@ -3,11 +3,11 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gaia/features/edutainment/domain/type/edutainment_type.dart';
-import 'package:gaia/features/edutainment/presentation/providers/edutainment_controller.dart';
-import 'package:gaia/features/edutainment/presentation/widgets/edutainment_card.dart';
-import 'package:gaia/shared/screens/buffer_error_view.dart';
-import 'package:gaia/shared/screens/data_not_found_screen.dart';
+import 'package:icarus/features/edutainment/domain/type/edutainment_type.dart';
+import 'package:icarus/features/edutainment/presentation/providers/edutainment_controller.dart';
+import 'package:icarus/features/edutainment/presentation/widgets/edutainment_card.dart';
+import 'package:icarus/shared/screens/buffer_error_view.dart';
+import 'package:icarus/shared/screens/data_not_found_screen.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class EdutainmentContentWidget extends HookConsumerWidget {

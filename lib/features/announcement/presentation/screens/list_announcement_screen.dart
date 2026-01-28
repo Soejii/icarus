@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gaia/features/announcement/presentation/providers/announcement_controller.dart';
-import 'package:gaia/features/announcement/presentation/widgets/announcement_card.dart';
-import 'package:gaia/shared/screens/buffer_error_view.dart';
-import 'package:gaia/shared/screens/data_not_found_screen.dart';
-import 'package:gaia/shared/widgets/custom_app_bar_widget.dart';
+import 'package:icarus/features/announcement/presentation/providers/announcement_controller.dart';
+import 'package:icarus/features/announcement/presentation/widgets/announcement_card.dart';
+import 'package:icarus/shared/screens/buffer_error_view.dart';
+import 'package:icarus/shared/screens/data_not_found_screen.dart';
+import 'package:icarus/shared/widgets/custom_app_bar_widget.dart';
 
 class ListAnnouncementScreen extends ConsumerWidget {
   const ListAnnouncementScreen({super.key});

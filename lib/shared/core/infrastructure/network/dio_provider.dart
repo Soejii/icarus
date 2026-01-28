@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gaia/shared/core/infrastructure/auth/auth_local_data_source.dart';
-import 'package:gaia/shared/core/infrastructure/network/api_client.dart';
-import 'package:gaia/shared/core/infrastructure/network/config_provider.dart';
-import 'package:gaia/shared/core/infrastructure/network/interceptors/auth_interceptors.dart';
+import 'package:icarus/shared/core/infrastructure/auth/auth_local_data_source.dart';
+import 'package:icarus/shared/core/infrastructure/network/api_client.dart';
+import 'package:icarus/shared/core/infrastructure/network/config_provider.dart';
+import 'package:icarus/shared/core/infrastructure/network/interceptors/auth_interceptors.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'dio_provider.g.dart';

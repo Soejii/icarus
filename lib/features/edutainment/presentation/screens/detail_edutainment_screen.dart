@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gaia/features/edutainment/presentation/providers/detail_edutainment_controller.dart';
-import 'package:gaia/features/edutainment/presentation/widgets/detail_edutainment_content.dart';
-import 'package:gaia/features/edutainment/presentation/widgets/detail_edutainment_image.dart';
-import 'package:gaia/shared/screens/buffer_error_view.dart';
-import 'package:gaia/shared/widgets/custom_app_bar_widget.dart';
+import 'package:icarus/features/edutainment/presentation/providers/detail_edutainment_controller.dart';
+import 'package:icarus/features/edutainment/presentation/widgets/detail_edutainment_content.dart';
+import 'package:icarus/features/edutainment/presentation/widgets/detail_edutainment_image.dart';
+import 'package:icarus/shared/screens/buffer_error_view.dart';
+import 'package:icarus/shared/widgets/custom_app_bar_widget.dart';
 
 class DetailEdutainmentScreen extends ConsumerWidget {
   const DetailEdutainmentScreen({super.key, required this.id});

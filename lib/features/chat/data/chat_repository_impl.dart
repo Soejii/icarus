@@ -1,8 +1,8 @@
-import 'package:gaia/features/chat/data/datasource/chat_remote_data_source.dart';
-import 'package:gaia/features/chat/data/mappers/chat_mapper.dart';
-import 'package:gaia/features/chat/domain/chat_repository.dart';
-import 'package:gaia/features/chat/domain/entity/chat_entity.dart';
-import 'package:gaia/shared/core/types/result.dart';
+import 'package:icarus/features/chat/data/datasource/chat_remote_data_source.dart';
+import 'package:icarus/features/chat/data/mappers/chat_mapper.dart';
+import 'package:icarus/features/chat/domain/chat_repository.dart';
+import 'package:icarus/features/chat/domain/entity/chat_entity.dart';
+import 'package:icarus/shared/core/types/result.dart';
 
 class ChatRepositoryImpl implements ChatRepository {
   final ChatRemoteDataSource _remoteDataSource;

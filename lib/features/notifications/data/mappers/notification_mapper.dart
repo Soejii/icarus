@@ -1,6 +1,6 @@
-import 'package:gaia/features/notifications/data/models/notification_model.dart';
-import 'package:gaia/features/notifications/domain/entities/notification_entity.dart';
-import 'package:gaia/features/notifications/domain/type/notification_type.dart';
+import 'package:icarus/features/notifications/data/models/notification_model.dart';
+import 'package:icarus/features/notifications/domain/entities/notification_entity.dart';
+import 'package:icarus/features/notifications/domain/type/notification_type.dart';
 
 extension NotificationMapper on NotificationModel {
   NotificationEntity toEntity() => NotificationEntity(

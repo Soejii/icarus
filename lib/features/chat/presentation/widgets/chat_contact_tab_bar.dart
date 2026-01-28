@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gaia/app/theme/brand_palette.dart';
-import 'package:gaia/features/chat/domain/type/chat_role_type.dart';
+import 'package:icarus/app/theme/brand_palette.dart';
+import 'package:icarus/features/chat/domain/type/chat_role_type.dart';
 
 class ChatContactTabBar extends StatelessWidget {
   final ChatRole selectedRole;

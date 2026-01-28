@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gaia/features/chat/domain/entity/chat_contact_entity.dart';
-import 'package:gaia/features/chat/presentation/providers/chat_providers.dart';
-import 'package:gaia/shared/presentation/paged.dart';
+import 'package:icarus/features/chat/domain/entity/chat_contact_entity.dart';
+import 'package:icarus/features/chat/presentation/providers/chat_providers.dart';
+import 'package:icarus/shared/presentation/paged.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'chat_contact_controller.g.dart';

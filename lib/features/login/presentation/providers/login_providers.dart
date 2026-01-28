@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gaia/features/login/data/datasource/login_remote_data_source.dart';
-import 'package:gaia/features/login/data/login_repository_impl.dart';
-import 'package:gaia/features/login/domain/login_repository.dart';
-import 'package:gaia/features/login/domain/usecase/login_usecase.dart';
-import 'package:gaia/shared/core/infrastructure/network/dio_provider.dart';
+import 'package:icarus/features/login/data/datasource/login_remote_data_source.dart';
+import 'package:icarus/features/login/data/login_repository_impl.dart';
+import 'package:icarus/features/login/domain/login_repository.dart';
+import 'package:icarus/features/login/domain/usecase/login_usecase.dart';
+import 'package:icarus/shared/core/infrastructure/network/dio_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'login_providers.g.dart';

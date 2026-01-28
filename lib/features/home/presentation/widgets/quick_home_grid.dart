@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gaia/app/theme/brand_palette.dart';
-import 'package:gaia/features/home/presentation/widgets/quick_home_button.dart';
-import 'package:gaia/shared/core/constant/assets_helper.dart';
-import 'package:gaia/shared/core/infrastructure/routes/route_name.dart';
+import 'package:icarus/app/theme/brand_palette.dart';
+import 'package:icarus/features/home/presentation/widgets/quick_home_button.dart';
+import 'package:icarus/shared/core/constant/assets_helper.dart';
+import 'package:icarus/shared/core/infrastructure/routes/route_name.dart';
 
 class QuickHomeGrid extends StatelessWidget {
   const QuickHomeGrid({super.key});
@@ -11,26 +11,6 @@ class QuickHomeGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<QuickHomeButton> listHomeButton = [
-      QuickHomeButton(
-        path: RouteName.subjectPicker,
-        label: 'Mata Pelajaran',
-        icon: AssetsHelper.imgHomeButtonMapel,
-      ),
-      QuickHomeButton(
-        path: RouteName.chooseDiscussion,
-        label: 'Diskusi',
-        icon: AssetsHelper.imgHomeButtonDiskusi,
-      ),
-      QuickHomeButton(
-        path: RouteName.attendance,
-        label: 'Kehadiran',
-        icon: AssetsHelper.imgHomeButtonKehadiran,
-      ),
-      QuickHomeButton(
-        path: RouteName.schedule,
-        label: 'Jadwal Pelajaran',
-        icon: AssetsHelper.imgHomeButtonJadwal,
-      ),
       QuickHomeButton(
         path: RouteName.listAnnouncement,
         label: 'Pengumuman',
@@ -42,9 +22,9 @@ class QuickHomeGrid extends StatelessWidget {
         icon: AssetsHelper.imgHomeButtonEdutainment,
       ),
       QuickHomeButton(
-        path: RouteName.balance,
-        label: 'Keuangan',
-        icon: AssetsHelper.imgHomeButtonKeuangan,
+        path: RouteName.chat,
+        label: 'Chat',
+        icon: AssetsHelper.imgHomeButtonDiskusi,
       ),
       QuickHomeButton(
         path: RouteName.lainnya,

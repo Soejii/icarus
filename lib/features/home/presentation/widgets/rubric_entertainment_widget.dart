@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gaia/app/theme/brand_palette.dart';
-import 'package:gaia/features/announcement/presentation/widgets/announcement_error_card.dart';
-import 'package:gaia/features/announcement/presentation/widgets/announcement_skeleton_card.dart';
-import 'package:gaia/features/edutainment/domain/type/edutainment_type.dart';
-import 'package:gaia/features/edutainment/presentation/providers/edutainment_controller.dart';
-import 'package:gaia/features/edutainment/presentation/widgets/edutainment_card.dart';
+import 'package:icarus/app/theme/brand_palette.dart';
+import 'package:icarus/features/announcement/presentation/widgets/announcement_error_card.dart';
+import 'package:icarus/features/announcement/presentation/widgets/announcement_skeleton_card.dart';
+import 'package:icarus/features/edutainment/domain/type/edutainment_type.dart';
+import 'package:icarus/features/edutainment/presentation/providers/edutainment_controller.dart';
+import 'package:icarus/features/edutainment/presentation/widgets/edutainment_card.dart';
 import 'package:go_router/go_router.dart';
 
 class RubricEntertainmentWidget extends ConsumerWidget {

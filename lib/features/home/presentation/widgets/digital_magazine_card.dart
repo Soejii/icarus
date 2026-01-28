@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gaia/app/theme/brand_palette.dart';
-import 'package:gaia/shared/core/constant/assets_helper.dart';
+import 'package:icarus/app/theme/brand_palette.dart';
+import 'package:icarus/shared/core/constant/assets_helper.dart';
 
 class DigitalMagazineCard extends StatelessWidget {
   const DigitalMagazineCard({super.key, required this.imgUrl});

@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:gaia/features/school/data/models/school_model.dart';
+import 'package:icarus/features/school/data/models/school_model.dart';
 
 class SchoolRemoteDataSource {
   final Dio _dio;

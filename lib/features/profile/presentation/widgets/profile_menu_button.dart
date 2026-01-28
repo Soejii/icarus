@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gaia/app/theme/brand_palette.dart';
-import 'package:gaia/shared/core/infrastructure/auth/auth_state_provider.dart';
-import 'package:gaia/shared/core/infrastructure/routes/route_name.dart';
+import 'package:icarus/app/theme/brand_palette.dart';
+import 'package:icarus/shared/core/infrastructure/auth/auth_state_provider.dart';
+import 'package:icarus/shared/core/infrastructure/routes/route_name.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';

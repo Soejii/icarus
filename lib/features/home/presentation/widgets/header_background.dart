@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gaia/app/theme/brand_palette.dart';
+import 'package:icarus/app/theme/brand_palette.dart';
 
 class HeaderBackground extends StatelessWidget {
   const HeaderBackground({super.key});

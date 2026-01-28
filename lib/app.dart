@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gaia/app/theme/brand_providers.dart';
-import 'package:gaia/shared/core/infrastructure/auth/auth_state_provider.dart';
-import 'package:gaia/shared/core/infrastructure/network/config_provider.dart';
-import 'package:gaia/shared/core/infrastructure/notifications/notification_routers.dart';
+import 'package:icarus/app/theme/brand_providers.dart';
+import 'package:icarus/shared/core/infrastructure/auth/auth_state_provider.dart';
+import 'package:icarus/shared/core/infrastructure/network/config_provider.dart';
+import 'package:icarus/shared/core/infrastructure/notifications/notification_routers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:gaia/shared/core/infrastructure/routes/app_router.dart';
+import 'package:icarus/shared/core/infrastructure/routes/app_router.dart';
 
 class MyApp extends ConsumerWidget {
   const MyApp({super.key});

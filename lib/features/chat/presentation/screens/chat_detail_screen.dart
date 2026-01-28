@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:gaia/features/chat/presentation/providers/chat_detail_controller.dart';
-import 'package:gaia/features/chat/presentation/widgets/chat_message_list_widget.dart';
-import 'package:gaia/features/chat/presentation/widgets/chat_message_input_widget.dart';
-import 'package:gaia/features/chat/presentation/widgets/chat_detail_app_bar_widget.dart';
+import 'package:icarus/features/chat/presentation/providers/chat_detail_controller.dart';
+import 'package:icarus/features/chat/presentation/widgets/chat_message_list_widget.dart';
+import 'package:icarus/features/chat/presentation/widgets/chat_message_input_widget.dart';
+import 'package:icarus/features/chat/presentation/widgets/chat_detail_app_bar_widget.dart';
 
 class ChatDetailScreen extends HookConsumerWidget {
   final int userId;

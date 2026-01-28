@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gaia/shared/core/types/failure.dart';
+import 'package:icarus/shared/core/types/failure.dart';
 
 class AnnouncementErrorCard extends StatelessWidget {
   const AnnouncementErrorCard({

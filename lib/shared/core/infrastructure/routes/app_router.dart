@@ -1,43 +1,27 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gaia/app/bottom_navigation_shell.dart';
-import 'package:gaia/features/activity/presentation/screen/activity_screen.dart';
-import 'package:gaia/features/announcement/presentation/screens/detail_announcement_screen.dart';
-import 'package:gaia/features/announcement/presentation/screens/list_announcement_screen.dart';
-import 'package:gaia/features/discussion/presentation/screen/choose_discussion_screen.dart';
-import 'package:gaia/features/discussion/presentation/screen/class_discussion_screen.dart';
-import 'package:gaia/features/attendance/presentation/screens/attedance_screen.dart';
-import 'package:gaia/features/discussion/presentation/screen/create_discussion_screen.dart';
-import 'package:gaia/features/discussion/presentation/screen/detail_discussion_screen.dart';
-import 'package:gaia/features/balances/domain/type/balance_type.dart';
-import 'package:gaia/features/balances/presentation/screens/balance_screen.dart';
-import 'package:gaia/features/balances/presentation/screens/balance_history_screen.dart';
-import 'package:gaia/features/chat/presentation/screens/chat_list_screen.dart';
-import 'package:gaia/features/chat/presentation/screens/chat_contact_picker_screen.dart';
-import 'package:gaia/features/chat/presentation/screens/chat_detail_screen.dart';
-import 'package:gaia/features/discussion/presentation/types/create_discussion_args.dart';
-import 'package:gaia/features/edutainment/presentation/screens/detail_edutainment_screen.dart';
-import 'package:gaia/features/edutainment/presentation/screens/list_edutainment_screen.dart';
-import 'package:gaia/features/home/presentation/home_screen.dart';
-import 'package:gaia/features/lainnya/presentation/screens/lainnya_screen.dart';
-import 'package:gaia/features/login/presentation/screen/login_screen.dart';
-import 'package:gaia/features/notifications/presentation/screen/notification_screen.dart';
-import 'package:gaia/features/profile/presentation/screens/profile_screen.dart';
-import 'package:gaia/features/profile/presentation/screens/account_information_screen.dart';
-import 'package:gaia/features/profile/presentation/screens/change_password_screen.dart';
-import 'package:gaia/features/schedule/presentation/screens/schedule_screen.dart';
-import 'package:gaia/features/school/presentation/screens/school_information_screen.dart';
-import 'package:gaia/features/subject/presentation/screens/detail_sub_module_screen.dart';
-import 'package:gaia/features/subject/presentation/screens/subject_picker_screen.dart';
-import 'package:gaia/features/subject/presentation/screens/detail_subject_screen.dart';
-import 'package:gaia/features/task/presentation/screens/collect_task_screen.dart';
-import 'package:gaia/features/task/presentation/screens/detail_task_screen.dart';
-import 'package:gaia/shared/core/infrastructure/analytics/analytics_providers.dart';
-import 'package:gaia/shared/core/infrastructure/analytics/analytics_tracker.dart';
-import 'package:gaia/shared/core/infrastructure/auth/auth_state_provider.dart';
-import 'package:gaia/shared/core/infrastructure/routes/route_name.dart';
-import 'package:gaia/shared/screens/error_screen.dart';
+import 'package:icarus/app/bottom_navigation_shell.dart';
+import 'package:icarus/features/announcement/presentation/screens/detail_announcement_screen.dart';
+import 'package:icarus/features/announcement/presentation/screens/list_announcement_screen.dart';
+import 'package:icarus/features/chat/presentation/screens/chat_list_screen.dart';
+import 'package:icarus/features/chat/presentation/screens/chat_contact_picker_screen.dart';
+import 'package:icarus/features/chat/presentation/screens/chat_detail_screen.dart';
+import 'package:icarus/features/edutainment/presentation/screens/detail_edutainment_screen.dart';
+import 'package:icarus/features/edutainment/presentation/screens/list_edutainment_screen.dart';
+import 'package:icarus/features/home/presentation/home_screen.dart';
+import 'package:icarus/features/lainnya/presentation/screens/lainnya_screen.dart';
+import 'package:icarus/features/login/presentation/screen/login_screen.dart';
+import 'package:icarus/features/notifications/presentation/screen/notification_screen.dart';
+import 'package:icarus/features/profile/presentation/screens/profile_screen.dart';
+import 'package:icarus/features/profile/presentation/screens/account_information_screen.dart';
+import 'package:icarus/features/profile/presentation/screens/change_password_screen.dart';
+import 'package:icarus/features/school/presentation/screens/school_information_screen.dart';
+import 'package:icarus/shared/core/infrastructure/analytics/analytics_providers.dart';
+import 'package:icarus/shared/core/infrastructure/analytics/analytics_tracker.dart';
+import 'package:icarus/shared/core/infrastructure/auth/auth_state_provider.dart';
+import 'package:icarus/shared/core/infrastructure/routes/route_name.dart';
+import 'package:icarus/shared/screens/error_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -112,155 +96,18 @@ GoRouter appRouter(Ref ref) {
                     },
                   ),
                   GoRoute(
-                    path: 'schedule',
-                    name: RouteName.schedule,
+                    path: 'lainnya',
+                    name: RouteName.lainnya,
                     parentNavigatorKey: rootNavigatorKey,
-                    builder: (_, __) => const ScheduleScreen(),
+                    builder: (_, __) => const LainnyaScreen(),
                   ),
                   GoRoute(
-                    path: 'subject-picker',
-                    name: RouteName.subjectPicker,
+                    path: 'notification',
+                    name: RouteName.notification,
                     parentNavigatorKey: rootNavigatorKey,
-                    builder: (_, __) => const SubjectPickerScreen(),
-                    routes: [
-                      GoRoute(
-                        path: 'detail-subject/:id',
-                        name: RouteName.detailSubject,
-                        parentNavigatorKey: rootNavigatorKey,
-                        builder: (_, state) {
-                          final id = state.pathParameters['id']!;
-                          final initialTab =
-                              state.uri.queryParameters['initial_tab'];
-                          return DetailSubjectScreen(
-                            idSubject: int.parse(id),
-                            initialTab: initialTab == null
-                                ? null
-                                : int.tryParse(initialTab),
-                          );
-                        },
-                      ),
-                      GoRoute(
-                        path: 'detail-sub-module/:id',
-                        name: RouteName.detailSubModule,
-                        parentNavigatorKey: rootNavigatorKey,
-                        builder: (_, state) {
-                          final id = state.pathParameters['id']!;
-                          return DetailSubModuleScreen(
-                            idSubModule: int.parse(id),
-                          );
-                        },
-                      ),
-                      GoRoute(
-                        path: 'lainnya',
-                        name: RouteName.lainnya,
-                        parentNavigatorKey: rootNavigatorKey,
-                        builder: (_, __) => const LainnyaScreen(),
-                      ),
-                      GoRoute(
-                        path: 'notification',
-                        name: RouteName.notification,
-                        parentNavigatorKey: rootNavigatorKey,
-                        builder: (_, __) => const NotificationScreen(),
-                      ),
-                    ],
-                  ),
-                  GoRoute(
-                    path: 'choose-discussion',
-                    name: RouteName.chooseDiscussion,
-                    parentNavigatorKey: rootNavigatorKey,
-                    builder: (_, __) => const ChooseDiscussionScreen(),
-                    routes: [
-                      GoRoute(
-                        path: 'class-discussion',
-                        name: RouteName.classDiscussion,
-                        parentNavigatorKey: rootNavigatorKey,
-                        builder: (_, state) {
-                          return const ClassDiscussionScreen();
-                        },
-                      ),
-                    ],
-                  ),
-                  GoRoute(
-                    path: 'detail-discussion/:id',
-                    name: RouteName.detailDiscussion,
-                    parentNavigatorKey: rootNavigatorKey,
-                    builder: (_, state) {
-                      final id = state.pathParameters['id']!;
-                      return DetailDiscussionScreen(
-                        idDiscussion: int.parse(id),
-                      );
-                    },
-                  ),
-                  GoRoute(
-                    path: 'create-discussion',
-                    name: RouteName.createDiscussion,
-                    parentNavigatorKey: rootNavigatorKey,
-                    builder: (_, state) {
-                      final args = state.extra as CreateDiscussionArgs;
-                      return CreateDiscussionScreen(
-                        type: args,
-                      );
-                    },
-                  ),
-                  GoRoute(
-                    path: 'attendance',
-                    name: RouteName.attendance,
-                    parentNavigatorKey: rootNavigatorKey,
-                    builder: (_, __) => const AttendanceScreen(),
-                  ),
-                  GoRoute(
-                    path: 'balance',
-                    name: RouteName.balance,
-                    parentNavigatorKey: rootNavigatorKey,
-                    builder: (_, __) => const BalanceScreen(),
-                    routes: [
-                      GoRoute(
-                        path: 'balance-history',
-                        name: RouteName.balanceHistory,
-                        parentNavigatorKey: rootNavigatorKey,
-                        builder: (_, state) {
-                          final type =
-                              state.uri.queryParameters['type'] == 'savings'
-                                  ? BalanceType.savings
-                                  : BalanceType.emoney;
-                          return BalanceHistoryScreen(type: type);
-                        },
-                      ),
-                    ],
-                  ),
-                  GoRoute(
-                    parentNavigatorKey: rootNavigatorKey,
-                    path: 'detail-task/:id',
-                    name: RouteName.detailTask,
-                    builder: (context, state) {
-                      final id = state.pathParameters['id']!;
-                      return DetailTaskScreen(idTask: int.parse(id));
-                    },
-                    routes: [
-                      GoRoute(
-                        path: 'collect-task',
-                        name: RouteName.collectTask,
-                        parentNavigatorKey: rootNavigatorKey,
-                        builder: (context, state) {
-                          final id = state.pathParameters['id']!;
-                          return CollectTaskScreen(idTask: int.parse(id));
-                        },
-                      ),
-                    ],
+                    builder: (_, __) => const NotificationScreen(),
                   ),
                 ],
-              ),
-            ],
-          ),
-
-          // ACTIVITY BRANCH
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: '/activity',
-                name: RouteName.activity,
-                pageBuilder: (_, __) =>
-                    const MaterialPage(child: ActivityScreen()),
               ),
             ],
           ),

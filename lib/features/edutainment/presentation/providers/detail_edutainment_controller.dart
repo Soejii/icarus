@@ -1,5 +1,5 @@
-import 'package:gaia/features/edutainment/domain/entities/edutainment_entity.dart';
-import 'package:gaia/features/edutainment/presentation/providers/edutainment_providers.dart';
+import 'package:icarus/features/edutainment/domain/entities/edutainment_entity.dart';
+import 'package:icarus/features/edutainment/presentation/providers/edutainment_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'detail_edutainment_controller.g.dart';

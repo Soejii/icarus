@@ -1,8 +1,8 @@
-import 'package:gaia/features/notifications/data/datasource/notification_remote_data_source.dart';
-import 'package:gaia/features/notifications/data/mappers/notification_mapper.dart';
-import 'package:gaia/features/notifications/domain/entities/notification_entity.dart';
-import 'package:gaia/features/notifications/domain/notification_repository.dart';
-import 'package:gaia/shared/core/types/result.dart';
+import 'package:icarus/features/notifications/data/datasource/notification_remote_data_source.dart';
+import 'package:icarus/features/notifications/data/mappers/notification_mapper.dart';
+import 'package:icarus/features/notifications/domain/entities/notification_entity.dart';
+import 'package:icarus/features/notifications/domain/notification_repository.dart';
+import 'package:icarus/shared/core/types/result.dart';
 
 class NotificationRepositoryImpl implements NotificationRepository {
   final NotificationRemoteDataSource _remoteDataSource;

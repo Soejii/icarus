@@ -1,5 +1,5 @@
-import 'package:gaia/features/chat/domain/entity/chat_entity.dart';
-import 'package:gaia/shared/core/types/result.dart';
+import 'package:icarus/features/chat/domain/entity/chat_entity.dart';
+import 'package:icarus/shared/core/types/result.dart';
 
 abstract class ChatRepository {
   Future<Result<List<ChatEntity>>> getListChats(int page);

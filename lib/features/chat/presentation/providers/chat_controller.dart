@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:riverpod/riverpod.dart';
-import 'package:gaia/features/chat/domain/entity/chat_entity.dart';
-import 'package:gaia/features/chat/presentation/providers/chat_providers.dart';
-import 'package:gaia/shared/presentation/paged.dart';
+import 'package:icarus/features/chat/domain/entity/chat_entity.dart';
+import 'package:icarus/features/chat/presentation/providers/chat_providers.dart';
+import 'package:icarus/shared/presentation/paged.dart';
 
 part 'chat_controller.g.dart';
 

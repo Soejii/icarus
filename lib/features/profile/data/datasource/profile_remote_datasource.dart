@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:gaia/features/profile/data/models/profile_model.dart';
+import 'package:icarus/features/profile/data/models/profile_model.dart';
 
 class ProfileRemoteDatasource {
   final Dio _dio;

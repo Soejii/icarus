@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gaia/app/theme/brand_palette.dart';
-import 'package:gaia/features/profile/presentation/providers/profile_controller.dart';
-import 'package:gaia/features/profile/presentation/widgets/profile_menu_widget.dart';
-import 'package:gaia/features/profile/presentation/widgets/user_avatar_profile_widget.dart';
-import 'package:gaia/shared/screens/buffer_error_view.dart';
-import 'package:gaia/shared/widgets/custom_app_bar_widget.dart';
+import 'package:icarus/app/theme/brand_palette.dart';
+import 'package:icarus/features/profile/presentation/providers/profile_controller.dart';
+import 'package:icarus/features/profile/presentation/widgets/profile_menu_widget.dart';
+import 'package:icarus/features/profile/presentation/widgets/user_avatar_profile_widget.dart';
+import 'package:icarus/shared/screens/buffer_error_view.dart';
+import 'package:icarus/shared/widgets/custom_app_bar_widget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ProfileScreen extends HookConsumerWidget {

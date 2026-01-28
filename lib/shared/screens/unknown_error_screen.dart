@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gaia/app/theme/brand_palette.dart';
-import 'package:gaia/shared/core/constant/assets_helper.dart';
-import 'package:gaia/shared/core/types/failure.dart';
+import 'package:icarus/app/theme/brand_palette.dart';
+import 'package:icarus/shared/core/constant/assets_helper.dart';
+import 'package:icarus/shared/core/types/failure.dart';
 import 'package:go_router/go_router.dart';
 
 class UnknownErrorScreen extends StatelessWidget {

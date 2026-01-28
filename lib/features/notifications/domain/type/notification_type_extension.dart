@@ -1,5 +1,5 @@
-import 'package:gaia/features/notifications/domain/type/notification_type.dart';
-import 'package:gaia/shared/core/constant/assets_helper.dart';
+import 'package:icarus/features/notifications/domain/type/notification_type.dart';
+import 'package:icarus/shared/core/constant/assets_helper.dart';
 
 extension NotificationTypeExtension on NotificationType {
   String get getIcon {

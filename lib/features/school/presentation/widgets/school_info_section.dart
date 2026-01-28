@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gaia/features/school/presentation/widgets/school_section_label.dart';
-import 'package:gaia/features/school/presentation/widgets/school_info_box.dart';
+import 'package:icarus/features/school/presentation/widgets/school_section_label.dart';
+import 'package:icarus/features/school/presentation/widgets/school_info_box.dart';
 
 class SchoolInfoSection extends StatelessWidget {
   final String label;

@@ -1,5 +1,5 @@
-import 'package:gaia/features/school/domain/entities/school_entity.dart';
-import 'package:gaia/features/school/presentation/providers/school_providers.dart';
+import 'package:icarus/features/school/domain/entities/school_entity.dart';
+import 'package:icarus/features/school/presentation/providers/school_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'school_controller.g.dart';

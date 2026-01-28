@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:gaia/shared/core/types/exception.dart';
-import 'package:gaia/shared/core/types/failure.dart';
+import 'package:icarus/shared/core/types/exception.dart';
+import 'package:icarus/shared/core/types/failure.dart';
 class Unit {
   const Unit();
 }

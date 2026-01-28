@@ -1,5 +1,5 @@
-import 'package:gaia/features/profile/domain/profile_repository.dart';
-import 'package:gaia/shared/core/types/result.dart';
+import 'package:icarus/features/profile/domain/profile_repository.dart';
+import 'package:icarus/shared/core/types/result.dart';
 
 class ChangePasswordUsecase {
   final ProfileRepository _repository;

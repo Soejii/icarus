@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gaia/features/profile/presentation/providers/profile_controller.dart';
-import 'package:gaia/features/school/presentation/providers/school_controller.dart';
-import 'package:gaia/shared/core/types/failure.dart';
+import 'package:icarus/features/profile/presentation/providers/profile_controller.dart';
+import 'package:icarus/features/school/presentation/providers/school_controller.dart';
+import 'package:icarus/shared/core/types/failure.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class UserInfoColumn extends ConsumerWidget {
@@ -46,7 +46,7 @@ class UserInfoColumn extends ConsumerWidget {
           ),
           Text(
             schoolAsync.when(
-              data: (data) => data.name,
+              data: (data) => data.name ,
               error: (error, stackTrace) =>
                   error is NetworkFailure ? 'Offline' : 'Gagal Mengambil Data',
               loading: () => '...',

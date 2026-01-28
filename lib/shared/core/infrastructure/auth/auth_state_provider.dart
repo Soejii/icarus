@@ -1,6 +1,6 @@
-import 'package:gaia/shared/core/infrastructure/analytics/analytics_providers.dart';
-import 'package:gaia/shared/core/infrastructure/auth/auth_remote_data_source.dart';
-import 'package:gaia/shared/core/infrastructure/auth/auth_session_provider.dart';
+import 'package:icarus/shared/core/infrastructure/analytics/analytics_providers.dart';
+import 'package:icarus/shared/core/infrastructure/auth/auth_remote_data_source.dart';
+import 'package:icarus/shared/core/infrastructure/auth/auth_session_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'auth_state_provider.g.dart';
 

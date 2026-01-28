@@ -1,8 +1,8 @@
 
 
 
-import 'package:gaia/features/school/domain/entities/school_entity.dart';
-import 'package:gaia/features/school/data/models/school_model.dart';
+import 'package:icarus/features/school/domain/entities/school_entity.dart';
+import 'package:icarus/features/school/data/models/school_model.dart';
 
 extension SchoolEntityMapper on SchoolModel {
   SchoolEntity toEntity() => SchoolEntity(

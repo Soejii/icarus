@@ -1,6 +1,6 @@
-import 'package:gaia/features/login/domain/entities/login_entity.dart';
-import 'package:gaia/features/login/domain/login_repository.dart';
-import 'package:gaia/shared/core/types/result.dart';
+import 'package:icarus/features/login/domain/entities/login_entity.dart';
+import 'package:icarus/features/login/domain/login_repository.dart';
+import 'package:icarus/shared/core/types/result.dart';
 
 class LoginUsecase {
   final LoginRepository _repository;

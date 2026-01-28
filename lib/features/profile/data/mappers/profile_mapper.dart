@@ -1,5 +1,5 @@
-import 'package:gaia/features/profile/data/models/profile_model.dart';
-import 'package:gaia/features/profile/domain/entities/profile_entity.dart';
+import 'package:icarus/features/profile/data/models/profile_model.dart';
+import 'package:icarus/features/profile/domain/entities/profile_entity.dart';
 
 extension ProfileModelMapper on ProfileModel {
   ProfileEntity toEntity() => ProfileEntity(

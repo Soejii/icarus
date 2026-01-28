@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:gaia/features/login/data/models/user_model.dart';
-import 'package:gaia/features/school/data/models/school_model.dart';
+import 'package:icarus/features/login/data/models/school_model.dart';
+import 'package:icarus/features/login/data/models/user_model.dart';
 
 part 'login_model.freezed.dart';
 part 'login_model.g.dart';

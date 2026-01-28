@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gaia/features/announcement/presentation/widgets/announcement_widget.dart';
-import 'package:gaia/features/home/presentation/widgets/digital_magazine_header.dart';
-import 'package:gaia/shared/presentation/divider_card.dart';
-import 'package:gaia/features/home/presentation/widgets/home_header_widget.dart';
-import 'package:gaia/features/home/presentation/widgets/newest_exam_widget.dart';
-import 'package:gaia/features/home/presentation/widgets/newest_quiz_widget.dart';
-import 'package:gaia/features/home/presentation/widgets/rubric_entertainment_widget.dart';
+import 'package:icarus/features/announcement/presentation/widgets/announcement_widget.dart';
+import 'package:icarus/features/home/presentation/widgets/digital_magazine_header.dart';
+import 'package:icarus/shared/presentation/divider_card.dart';
+import 'package:icarus/features/home/presentation/widgets/home_header_widget.dart';
+import 'package:icarus/features/home/presentation/widgets/rubric_entertainment_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -29,12 +27,6 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: 16.h),
             const DividerCard(),
             SizedBox(height: 16.h),
-            const NewestExamWidget(),
-            SizedBox(height: 16.h),
-            const DividerCard(),
-            SizedBox(height: 16.h),
-            const NewestQuizWidget(),
-            SizedBox(height: 32.h),
           ],
         ),
       ),

@@ -1,5 +1,5 @@
-import 'package:gaia/features/profile/domain/entities/profile_entity.dart';
-import 'package:gaia/features/profile/presentation/providers/profile_providers.dart';
+import 'package:icarus/features/profile/domain/entities/profile_entity.dart';
+import 'package:icarus/features/profile/presentation/providers/profile_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'profile_controller.g.dart';

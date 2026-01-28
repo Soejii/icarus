@@ -1,4 +1,4 @@
-import 'package:gaia/features/profile/presentation/providers/profile_providers.dart';
+import 'package:icarus/features/profile/presentation/providers/profile_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'change_password_controller.g.dart';

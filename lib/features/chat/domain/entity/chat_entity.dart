@@ -1,5 +1,5 @@
-import 'package:gaia/features/chat/domain/entity/chat_contact_entity.dart';
-import 'package:gaia/features/chat/domain/entity/chat_message_entity.dart';
+import 'package:icarus/features/chat/domain/entity/chat_contact_entity.dart';
+import 'package:icarus/features/chat/domain/entity/chat_message_entity.dart';
 
 class ChatEntity {
   final ChatContactEntity contact;

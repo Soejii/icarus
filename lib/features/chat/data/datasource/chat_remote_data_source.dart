@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:gaia/features/chat/data/models/chat_model.dart';
+import 'package:icarus/features/chat/data/models/chat_model.dart';
 
 class ChatRemoteDataSource {
   final Dio _dio;

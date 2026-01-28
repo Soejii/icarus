@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gaia/features/profile/presentation/providers/profile_controller.dart';
-import 'package:gaia/shared/core/constant/assets_helper.dart';
-import 'package:gaia/shared/core/types/failure.dart';
+import 'package:icarus/features/profile/presentation/providers/profile_controller.dart';
+import 'package:icarus/shared/core/constant/assets_helper.dart';
+import 'package:icarus/shared/core/types/failure.dart';
 
 class UserAvatarWidget extends ConsumerWidget {
   const UserAvatarWidget({super.key});

@@ -1,8 +1,8 @@
-import 'package:gaia/features/announcement/data/datasource/announcement_remote_data_source.dart';
-import 'package:gaia/features/announcement/data/mappers/announcement_mapper.dart';
-import 'package:gaia/features/announcement/domain/announcement_repository.dart';
-import 'package:gaia/features/announcement/domain/entites/announcement_entity.dart';
-import 'package:gaia/shared/core/types/result.dart';
+import 'package:icarus/features/announcement/data/datasource/announcement_remote_data_source.dart';
+import 'package:icarus/features/announcement/data/mappers/announcement_mapper.dart';
+import 'package:icarus/features/announcement/domain/announcement_repository.dart';
+import 'package:icarus/features/announcement/domain/entites/announcement_entity.dart';
+import 'package:icarus/shared/core/types/result.dart';
 
 class AnnouncementRepositoryImpl implements AnnouncementRepository {
   final AnnouncementRemoteDataSource _dataSource;

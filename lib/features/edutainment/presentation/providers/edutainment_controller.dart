@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gaia/features/edutainment/domain/entities/edutainment_entity.dart';
-import 'package:gaia/features/edutainment/domain/type/edutainment_type.dart';
-import 'package:gaia/features/edutainment/presentation/providers/edutainment_providers.dart';
-import 'package:gaia/shared/presentation/paged.dart';
+import 'package:icarus/features/edutainment/domain/entities/edutainment_entity.dart';
+import 'package:icarus/features/edutainment/domain/type/edutainment_type.dart';
+import 'package:icarus/features/edutainment/presentation/providers/edutainment_providers.dart';
+import 'package:icarus/shared/presentation/paged.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'edutainment_controller.g.dart';

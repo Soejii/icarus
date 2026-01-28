@@ -1,4 +1,4 @@
-import 'package:gaia/features/chat/domain/type/chat_message_type.dart';
+import 'package:icarus/features/chat/domain/type/chat_message_type.dart';
 
 class ChatMessageEntity {
   final ChatMessageType type;

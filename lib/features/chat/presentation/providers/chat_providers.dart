@@ -1,13 +1,13 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gaia/features/chat/data/chat_repository_impl.dart';
-import 'package:gaia/features/chat/data/datasource/chat_remote_data_source.dart';
-import 'package:gaia/features/chat/domain/chat_repository.dart';
-import 'package:gaia/features/chat/domain/usecase/get_list_chat_usecase.dart';
-import 'package:gaia/features/chat/domain/usecase/get_messages_chat_usecase.dart';
-import 'package:gaia/features/chat/domain/usecase/get_contacts_usecase.dart';
-import 'package:gaia/features/chat/domain/usecase/send_message_usecase.dart';
-import 'package:gaia/shared/core/infrastructure/network/dio_provider.dart';
+import 'package:icarus/features/chat/data/chat_repository_impl.dart';
+import 'package:icarus/features/chat/data/datasource/chat_remote_data_source.dart';
+import 'package:icarus/features/chat/domain/chat_repository.dart';
+import 'package:icarus/features/chat/domain/usecase/get_list_chat_usecase.dart';
+import 'package:icarus/features/chat/domain/usecase/get_messages_chat_usecase.dart';
+import 'package:icarus/features/chat/domain/usecase/get_contacts_usecase.dart';
+import 'package:icarus/features/chat/domain/usecase/send_message_usecase.dart';
+import 'package:icarus/shared/core/infrastructure/network/dio_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'chat_providers.g.dart';

@@ -1,10 +1,10 @@
 // lib/theme/brand_assets.dart
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gaia/app/theme/brand_spec.dart';
-import 'package:gaia/shared/core/infrastructure/network/config_provider.dart';
+import 'package:icarus/app/theme/brand_spec.dart';
+import 'package:icarus/shared/core/infrastructure/network/config_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:gaia/app/environment/build_environment.dart';
+import 'package:icarus/app/environment/build_environment.dart';
 
 part 'brand_assets.g.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gaia/shared/core/infrastructure/auth/auth_local_data_source.dart';
+import 'package:icarus/shared/core/infrastructure/auth/auth_local_data_source.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_session_provider.g.dart';

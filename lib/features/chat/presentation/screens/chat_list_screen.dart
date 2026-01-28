@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gaia/app/theme/brand_palette.dart';
+import 'package:icarus/app/theme/brand_palette.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:gaia/features/chat/presentation/providers/chat_controller.dart';
-import 'package:gaia/features/chat/presentation/widgets/chat_list_item.dart';
-import 'package:gaia/shared/widgets/custom_app_bar_widget.dart';
-import 'package:gaia/shared/core/constant/assets_helper.dart';
+import 'package:icarus/features/chat/presentation/providers/chat_controller.dart';
+import 'package:icarus/features/chat/presentation/widgets/chat_list_item.dart';
+import 'package:icarus/shared/widgets/custom_app_bar_widget.dart';
+import 'package:icarus/shared/core/constant/assets_helper.dart';
 import 'package:go_router/go_router.dart';
-import 'package:gaia/shared/core/infrastructure/routes/route_name.dart';
+import 'package:icarus/shared/core/infrastructure/routes/route_name.dart';
 
 class ChatScreen extends HookConsumerWidget {
   const ChatScreen({super.key});

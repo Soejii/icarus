@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:gaia/shared/core/infrastructure/notifications/notification_routers.dart';
+import 'package:icarus/shared/core/infrastructure/notifications/notification_routers.dart';
 
 class NotificationService {
   NotificationService._();

@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
-import 'package:gaia/shared/core/types/failure.dart';
-import 'package:gaia/shared/screens/data_not_found_screen.dart';
-import 'package:gaia/shared/screens/no_internet_screen.dart';
-import 'package:gaia/shared/screens/unknown_error_screen.dart';
+import 'package:icarus/shared/core/types/failure.dart';
+import 'package:icarus/shared/screens/data_not_found_screen.dart';
+import 'package:icarus/shared/screens/no_internet_screen.dart';
+import 'package:icarus/shared/screens/unknown_error_screen.dart';
 
 class BufferErrorView extends StatelessWidget {
   final Object error;

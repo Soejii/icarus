@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gaia/features/edutainment/domain/type/edutainment_type.dart';
-import 'package:gaia/features/edutainment/presentation/providers/edutainment_providers.dart';
-import 'package:gaia/features/edutainment/presentation/widgets/edutainment_content_widget.dart';
-import 'package:gaia/features/edutainment/presentation/widgets/edutainment_tab_bar_widget.dart';
-import 'package:gaia/shared/widgets/custom_app_bar_widget.dart';
+import 'package:icarus/features/edutainment/domain/type/edutainment_type.dart';
+import 'package:icarus/features/edutainment/presentation/providers/edutainment_providers.dart';
+import 'package:icarus/features/edutainment/presentation/widgets/edutainment_content_widget.dart';
+import 'package:icarus/features/edutainment/presentation/widgets/edutainment_tab_bar_widget.dart';
+import 'package:icarus/shared/widgets/custom_app_bar_widget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ListEdutainmentScreen extends HookConsumerWidget {

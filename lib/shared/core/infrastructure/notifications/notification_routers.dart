@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gaia/shared/core/infrastructure/routes/app_router.dart';
-import 'package:gaia/shared/core/infrastructure/routes/route_name.dart';
+import 'package:icarus/shared/core/infrastructure/routes/app_router.dart';
+import 'package:icarus/shared/core/infrastructure/routes/route_name.dart';
 import 'package:go_router/go_router.dart';
 
 class NotificationRouters {
@@ -48,24 +48,6 @@ class NotificationRouters {
         return FcmType.edutainment;
       case 'chat':
         return FcmType.chat;
-      case 'module':
-        return FcmType.module;
-      case 'sub_module':
-        return FcmType.subModule;
-      case 'discussion':
-        return FcmType.discussion;
-      case 'class_discussion':
-        return FcmType.classDiscussion;
-      case 'learning_media':
-        return FcmType.learningMedia;
-      case 'exam':
-        return FcmType.exam;
-      case 'quiz':
-        return FcmType.quiz;
-      case 'task':
-        return FcmType.task;
-      case 'topup':
-        return FcmType.topup;
       default:
         return FcmType.unknown;
     }
@@ -79,24 +61,6 @@ class NotificationRouters {
         return 'announcement';
       case FcmType.chat:
         return 'chat';
-      case FcmType.module:
-        return 'module';
-      case FcmType.subModule:
-        return 'sub_module';
-      case FcmType.discussion:
-        return 'discussion';
-      case FcmType.classDiscussion:
-        return 'class_discussion';
-      case FcmType.learningMedia:
-        return 'learning_media';
-      case FcmType.exam:
-        return 'exam';
-      case FcmType.quiz:
-        return 'quiz';
-      case FcmType.task:
-        return 'task';
-      case FcmType.topup:
-        return 'topup';
       case FcmType.unknown:
         return 'unknown';
     }
@@ -117,86 +81,22 @@ class NotificationRouters {
       case FcmType.announcement:
         context.goNamed(
           RouteName.detailAnnouncement,
-          pathParameters: {'id': model.id.toString()}, // id = announcement id
+          pathParameters: {'id': model.id.toString()},
         );
         break;
 
       case FcmType.edutainment:
         context.goNamed(
           RouteName.detailEdutainment,
-          pathParameters: {'id': model.id.toString()}, // id = edutainment id
+          pathParameters: {'id': model.id.toString()},
         );
         break;
 
       case FcmType.chat:
         context.goNamed(
           RouteName.chatDetail,
-          pathParameters: {'userId': model.id.toString()}, // id = userId
+          pathParameters: {'userId': model.id.toString()},
         );
-        break;
-
-      case FcmType.module:
-        context.goNamed(
-          RouteName.detailSubject,
-          pathParameters: {'id': model.id.toString()},
-          queryParameters: {'initial_tab': '0'},
-        );
-        break;
-
-      case FcmType.subModule:
-        context.goNamed(
-          RouteName.detailSubModule,
-          pathParameters: {'id': model.id.toString()},
-          queryParameters: {'initial_tab': '0'},
-        );
-        break;
-
-      case FcmType.discussion:
-        context.goNamed(
-          RouteName.detailSubject,
-          pathParameters: {'id': model.id.toString()},
-          queryParameters: {'initial_tab': '1'},
-        );
-        break;
-
-      case FcmType.classDiscussion:
-        context.goNamed(RouteName.classDiscussion);
-        break;
-
-      case FcmType.learningMedia:
-        context.goNamed(
-          RouteName.detailSubject,
-          pathParameters: {'id': model.id.toString()},
-          queryParameters: {'initial_tab': '2'},
-        );
-        break;
-
-      case FcmType.exam:
-        context.goNamed(
-          RouteName.detailSubject,
-          pathParameters: {'id': model.id.toString()},
-          queryParameters: {'initial_tab': '3'},
-        );
-        break;
-
-      case FcmType.quiz:
-        context.goNamed(
-          RouteName.detailSubject,
-          pathParameters: {'id': model.id.toString()},
-          queryParameters: {'initial_tab': '4'},
-        );
-        break;
-
-      case FcmType.task:
-        context.goNamed(
-          RouteName.detailSubject,
-          pathParameters: {'id': model.id.toString()},
-          queryParameters: {'initial_tab': '5'},
-        );
-        break;
-
-      case FcmType.topup:
-        context.goNamed(RouteName.balance);
         break;
 
       case FcmType.unknown:
@@ -211,15 +111,6 @@ enum FcmType {
   announcement,
   edutainment,
   chat,
-  module,
-  subModule,
-  discussion,
-  classDiscussion,
-  learningMedia,
-  exam,
-  quiz,
-  task,
-  topup,
   unknown,
 }
 

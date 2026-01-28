@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:gaia/shared/core/infrastructure/auth/auth_local_data_source.dart';
+import 'package:icarus/shared/core/infrastructure/auth/auth_local_data_source.dart';
 
 class AuthInterceptor extends Interceptor {
   AuthInterceptor(this._storage);

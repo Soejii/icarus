@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:gaia/features/login/data/models/login_model.dart';
+import 'package:icarus/features/login/data/models/login_model.dart';
 
 class LoginRemoteDataSource {
   final Dio _dio;

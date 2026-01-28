@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gaia/features/school/presentation/providers/school_controller.dart';
-import 'package:gaia/shared/core/constant/assets_helper.dart';
+import 'package:icarus/features/school/presentation/providers/school_controller.dart';
+import 'package:icarus/shared/core/constant/assets_helper.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SchoolAvatarWidget extends ConsumerWidget {
