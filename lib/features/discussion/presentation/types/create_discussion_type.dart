@@ -1,0 +1,4 @@
+enum CreateDiscussionType {
+  subject,
+  kelas,
+}

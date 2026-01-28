@@ -1,0 +1,21 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'notification_model.freezed.dart';
+part 'notification_model.g.dart';
+
+@freezed
+class NotificationModel with _$NotificationModel {
+  @JsonSerializable(fieldRename: FieldRename.snake)
+  const factory NotificationModel({
+    required int id,
+    required int dataId,
+    String? title,
+    String? description,
+    int? isRead,
+    String? type,
+    String? createdAt,
+  }) = _NotificationModel;
+
+  factory NotificationModel.fromJson(Map<String, dynamic> json) =>
+      _$NotificationModelFromJson(json);
+}

@@ -1,0 +1,92 @@
+plugins {
+    id "com.android.application"
+    id "com.google.gms.google-services"
+    id "org.jetbrains.kotlin.android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+android {
+    namespace = "com.sidigs.walimurid"
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled true
+    }
+    kotlinOptions { jvmTarget = JavaVersion.VERSION_1_8.toString() }
+
+    defaultConfig {
+        applicationId = "com.sidigs.walimurid"
+        minSdk = flutter.minSdkVersion
+        targetSdk = flutter.targetSdkVersion
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
+    }
+
+    // Load signing props safely
+    def keystoreProperties = new Properties()
+    def keystorePropertiesFile = rootProject.file('key.properties')
+    if (keystorePropertiesFile.exists()) {
+        keystorePropertiesFile.withInputStream { stream ->
+            keystoreProperties.load(stream)
+        }
+    }
+
+    signingConfigs {
+        release {
+            if (keystorePropertiesFile.exists()) {
+                storeFile file(keystoreProperties['storeFile'] ?: 'upload-keystore.jks')
+                storePassword keystoreProperties['storePassword']
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            // minifyEnabled true
+            // proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            // default debug keystore
+        }
+    }
+
+    flavorDimensions "clientEnv"
+
+    productFlavors {
+        create("defaultDev") {
+            dimension "clientEnv"
+            applicationId "com.sidigs.walimurid.dev"
+            resValue "string", "app_name", "Walimurid Dev"
+            manifestPlaceholders = [appAuthRedirectScheme: "icarusapp"]
+            versionNameSuffix "-dev"
+        }
+
+        create("defaultProd") {
+            dimension "clientEnv"
+            applicationId "com.sidigs.walimurid"
+            resValue "string", "app_name", "Sidigs Walimurid"
+            manifestPlaceholders = [appAuthRedirectScheme: "icarusapp"]
+        }
+
+        create("mancaksaProd") {
+            dimension "clientEnv"
+            applicationId "com.sidigs.mancaksa.walimurid.app"
+            resValue "string", "app_name", "Pijar Mancaksa - Wali Murid"
+            manifestPlaceholders = [appAuthRedirectScheme: "icarusapp"]
+        }
+    }
+}
+
+flutter {
+    source = "../.."
+}
+
+dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.4'
+}

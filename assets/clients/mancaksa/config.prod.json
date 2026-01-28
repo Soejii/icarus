@@ -1,0 +1,21 @@
+{
+  "appName": "Pijar Mancaksa",
+  "baseUrl": "https://prod.sidigs.com/api/student",
+  "deeplinkScheme": "gaiaapp",
+  "colors": {
+    "primary": "#009ADE"
+  },
+  "features": {
+    "chat": true,
+    "wallet": true
+  },
+  "brandSpec": {
+    "logoAsset": "assets/clients/mancaksa/icon_mancaksa.png",
+    "logoNameAsset": null,
+    "logoWidth": 220,
+    "logoHeight": 200,
+    "logoNameWidth": null,
+    "logoNameHeight": null,
+    "betweenNameAndForm": 10
+  }
+}

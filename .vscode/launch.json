@@ -1,0 +1,72 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Default • Dev",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": [
+        "--flavor",
+        "defaultDev",
+        "--dart-define=CLIENT=default",
+        "--dart-define=ENV=dev",
+        "--dart-define=FLAVOR=defaultDev"
+      ]
+    },
+    {
+      "name": "Default • Prod (debug build)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": [
+        "--flavor",
+        "defaultProd",
+        "--dart-define=CLIENT=default",
+        "--dart-define=ENV=prod",
+        "--dart-define=FLAVOR=defaultProd"
+      ]
+    },
+    {
+      "name": "Mancaksa • Dev",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": [
+        "--flavor",
+        "mancaksaDev",
+        "--dart-define=CLIENT=mancaksa",
+        "--dart-define=ENV=dev",
+        "--dart-define=FLAVOR=mancaksaDev"
+      ]
+    },
+    {
+      "name": "Mancaksa • Prod (debug build)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": [
+        "--flavor",
+        "mancaksaProd",
+        "--dart-define=CLIENT=mancaksa",
+        "--dart-define=ENV=prod",
+        "--dart-define=FLAVOR=mancaksaProd"
+      ]
+    },
+        { "name": "Default • Prod (release)",
+      "request": "launch", "type": "dart", "program": "lib/main.dart",
+      "flutterMode": "release",
+      "args": ["--flavor","defaultProd","--dart-define=CLIENT=default","--dart-define=ENV=prod"]
+    },
+    { "name": "Mancaksa • Prod (release)",
+      "request": "launch", "type": "dart", "program": "lib/main.dart",
+      "flutterMode": "release",
+      "args": ["--flavor","mancaksaProd","--dart-define=CLIENT=mancaksa","--dart-define=ENV=prod"]
+    },
+    { "name": "Default • Prod (profile)",
+      "request": "launch", "type": "dart", "program": "lib/main.dart",
+      "flutterMode": "profile",
+      "args": ["--flavor","defaultProd","--dart-define=CLIENT=default","--dart-define=ENV=prod"]
+    }
+  ]
+}
