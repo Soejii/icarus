@@ -1,0 +1,371 @@
+{
+  "project_info": {
+    "project_number": "1084604467454",
+    "firebase_url": "https://sidigs-84231.firebaseio.com",
+    "project_id": "sidigs-84231",
+    "storage_bucket": "sidigs-84231.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084604467454:android:e1b65f1a8af91bfa903daf",
+        "android_client_info": {
+          "package_name": "com.sidigs.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1084604467454-vj6prq70gbtrjaak16mg17uvh7atvebn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApI_lE74J00S420E565vliliyuxk92VnU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1084604467454-vj6prq70gbtrjaak16mg17uvh7atvebn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1084604467454-phunptj8u02jrb8b0hpj0ta8d4qd233v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sidigs.walimurid"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084604467454:android:d06f3ecc6bbc9f29903daf",
+        "android_client_info": {
+          "package_name": "com.sidigs.app.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1084604467454-vj6prq70gbtrjaak16mg17uvh7atvebn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApI_lE74J00S420E565vliliyuxk92VnU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1084604467454-vj6prq70gbtrjaak16mg17uvh7atvebn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1084604467454-phunptj8u02jrb8b0hpj0ta8d4qd233v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sidigs.walimurid"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084604467454:android:e80dc8c7c2054f7d903daf",
+        "android_client_info": {
+          "package_name": "com.sidigs.arvegatu.walimurid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1084604467454-vj6prq70gbtrjaak16mg17uvh7atvebn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApI_lE74J00S420E565vliliyuxk92VnU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1084604467454-vj6prq70gbtrjaak16mg17uvh7atvebn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1084604467454-phunptj8u02jrb8b0hpj0ta8d4qd233v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sidigs.walimurid"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084604467454:android:c6d0a5cb8a922a50903daf",
+        "android_client_info": {
+          "package_name": "com.sidigs.assa_parent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1084604467454-vj6prq70gbtrjaak16mg17uvh7atvebn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApI_lE74J00S420E565vliliyuxk92VnU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1084604467454-vj6prq70gbtrjaak16mg17uvh7atvebn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1084604467454-phunptj8u02jrb8b0hpj0ta8d4qd233v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sidigs.walimurid"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084604467454:android:b082bef4adaef7b8903daf",
+        "android_client_info": {
+          "package_name": "com.sidigs.cendekia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1084604467454-vj6prq70gbtrjaak16mg17uvh7atvebn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApI_lE74J00S420E565vliliyuxk92VnU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1084604467454-vj6prq70gbtrjaak16mg17uvh7atvebn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1084604467454-phunptj8u02jrb8b0hpj0ta8d4qd233v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sidigs.walimurid"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084604467454:android:a4e2940446f5debc903daf",
+        "android_client_info": {
+          "package_name": "com.sidigs.madani.walimurid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1084604467454-vj6prq70gbtrjaak16mg17uvh7atvebn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApI_lE74J00S420E565vliliyuxk92VnU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1084604467454-vj6prq70gbtrjaak16mg17uvh7atvebn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1084604467454-phunptj8u02jrb8b0hpj0ta8d4qd233v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sidigs.walimurid"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084604467454:android:d483254ce1d5e09f903daf",
+        "android_client_info": {
+          "package_name": "com.sidigs.mancaksa.murid.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1084604467454-vj6prq70gbtrjaak16mg17uvh7atvebn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApI_lE74J00S420E565vliliyuxk92VnU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1084604467454-vj6prq70gbtrjaak16mg17uvh7atvebn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1084604467454-phunptj8u02jrb8b0hpj0ta8d4qd233v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sidigs.walimurid"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084604467454:android:3f21dcc7da7bf1b6903daf",
+        "android_client_info": {
+          "package_name": "com.sidigs.mancaksa.murid.app.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1084604467454-vj6prq70gbtrjaak16mg17uvh7atvebn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApI_lE74J00S420E565vliliyuxk92VnU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1084604467454-vj6prq70gbtrjaak16mg17uvh7atvebn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1084604467454-phunptj8u02jrb8b0hpj0ta8d4qd233v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sidigs.walimurid"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084604467454:android:139b30370333f9ae903daf",
+        "android_client_info": {
+          "package_name": "com.sidigs.saktiara.walimurid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1084604467454-vj6prq70gbtrjaak16mg17uvh7atvebn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApI_lE74J00S420E565vliliyuxk92VnU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1084604467454-vj6prq70gbtrjaak16mg17uvh7atvebn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1084604467454-phunptj8u02jrb8b0hpj0ta8d4qd233v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sidigs.walimurid"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084604467454:android:ca69af13dea2e864903daf",
+        "android_client_info": {
+          "package_name": "com.sidigs.walimurid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1084604467454-vj6prq70gbtrjaak16mg17uvh7atvebn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApI_lE74J00S420E565vliliyuxk92VnU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1084604467454-vj6prq70gbtrjaak16mg17uvh7atvebn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1084604467454-phunptj8u02jrb8b0hpj0ta8d4qd233v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sidigs.walimurid"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -28,19 +28,6 @@
       ]
     },
     {
-      "name": "Mancaksa • Dev",
-      "request": "launch",
-      "type": "dart",
-      "program": "lib/main.dart",
-      "args": [
-        "--flavor",
-        "mancaksaDev",
-        "--dart-define=CLIENT=mancaksa",
-        "--dart-define=ENV=dev",
-        "--dart-define=FLAVOR=mancaksaDev"
-      ]
-    },
-    {
       "name": "Mancaksa • Prod (debug build)",
       "request": "launch",
       "type": "dart",
@@ -63,10 +50,5 @@
       "flutterMode": "release",
       "args": ["--flavor","mancaksaProd","--dart-define=CLIENT=mancaksa","--dart-define=ENV=prod"]
     },
-    { "name": "Default • Prod (profile)",
-      "request": "launch", "type": "dart", "program": "lib/main.dart",
-      "flutterMode": "profile",
-      "args": ["--flavor","defaultProd","--dart-define=CLIENT=default","--dart-define=ENV=prod"]
-    }
   ]
 }
