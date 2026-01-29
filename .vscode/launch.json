@@ -40,6 +40,19 @@
         "--dart-define=FLAVOR=mancaksaProd"
       ]
     },
+        {
+      "name": "ASSA • Prod (debug build)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": [
+        "--flavor",
+        "assaProd",
+        "--dart-define=CLIENT=assa",
+        "--dart-define=ENV=prod",
+        "--dart-define=FLAVOR=assaProd"
+      ]
+    },
         { "name": "Default • Prod (release)",
       "request": "launch", "type": "dart", "program": "lib/main.dart",
       "flutterMode": "release",
@@ -49,6 +62,11 @@
       "request": "launch", "type": "dart", "program": "lib/main.dart",
       "flutterMode": "release",
       "args": ["--flavor","mancaksaProd","--dart-define=CLIENT=mancaksa","--dart-define=ENV=prod"]
+    },
+        { "name": "ASSA • Prod (release)",
+      "request": "launch", "type": "dart", "program": "lib/main.dart",
+      "flutterMode": "release",
+      "args": ["--flavor","assaProd","--dart-define=CLIENT=assa","--dart-define=ENV=prod"]
     },
   ]
 }
