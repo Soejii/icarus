@@ -1,0 +1,22 @@
+{
+  "appName": "Gaia",
+  "baseUrl": "https://prod.sidigs.com/api/student",
+  "deeplinkScheme": "gaiaapp",
+  "colors": {
+    "primary": "#009ADE"
+  },
+  "features": {
+    "chat": true,
+    "wallet": true
+  },
+  "brandSpec": {
+    "logoAsset": "assets/clients/default/icon_mancaksa.png",
+    "logoNameAsset": "assets/clients/default/img_logo_name.png",
+    "logoWidth": 80,
+    "logoHeight": 97,
+    "logoNameWidth": 120,
+    "logoNameHeight": 45,
+    "topSpacing": 10,
+    "betweenNameAndForm": 106
+  }
+}
