@@ -88,8 +88,8 @@ class BrandPalette extends ThemeExtension<BrandPalette> {
       green: _hex(colors['green'] as String?, d.green),
       mainGradient: LinearGradient(
           colors: [left, right],
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight),
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter),
       shadow: [
         BoxShadow(
             color: Colors.black.withOpacity(shadowOpacity),

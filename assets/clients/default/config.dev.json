@@ -1,21 +1,30 @@
 {
-  "appName": "Gaia (Dev)",
-  "baseUrl": "https://demo.sidigs.com/api/student",
-  "deeplinkScheme": "gaiaapp",
+  "appName": "Icarus Dev",
+  "baseUrl": "https://demo.sidigs.com/api/parent",
+  "deeplinkScheme": "icarusapp",
   "colors": {
-    "primary": "#009ADE"
+    "primary": "#009ADE",
+    "secondary": "#0075B0",
+    "inactive": "#858BA6",
+    "textMain": "#041735",
+    "textSecondary": "#526789",
+    "success": "#5AAF55",
+    "green": "#5AAF55",
+    "gradientLeft": "#9DBE16",
+    "gradientRight": "#539401",
+    "shadowOpacity": 0.25
   },
   "features": {
     "chat": true
   },
   "brandSpec": {
-    "logoAsset": "assets/clients/default/icon_mancaksa.png",
+    "logoAsset": "assets/clients/default/img_logo.png",
     "logoNameAsset": "assets/clients/default/img_logo_name.png",
-    "logoWidth": 80,
-    "logoHeight": 97,
-    "logoNameWidth": 120,
-    "logoNameHeight": 45,
+    "logoWidth": 158,
+    "logoHeight": 144,
+    "logoNameWidth": 162,
+    "logoNameHeight": 29,
     "topSpacing": 10,
-    "betweenNameAndForm": 106
+    "betweenNameAndForm": 65
   }
 }

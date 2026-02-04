@@ -8,7 +8,7 @@ part 'brand_providers.g.dart';
 @riverpod
 BrandPalette brandPalette(Ref ref) {
   final cfg = ref.watch(appConfigProvider);
-  // big todo for color
-  // return cfg.colors.isEmpty ? BrandPalette.defaults() : BrandPalette.fromConfig(cfg.colors);
-  return BrandPalette.defaults();
+  return cfg.colors.isEmpty
+      ? BrandPalette.defaults()
+      : BrandPalette.fromConfig(cfg.colors);
 }

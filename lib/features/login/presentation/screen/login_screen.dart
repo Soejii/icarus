@@ -79,12 +79,13 @@ class LoginScreen extends HookConsumerWidget {
               ),
             ),
             if (brandAssets.brandSpec.logoNameAsset != null)
-              SizedBox(
-                height: brandAssets.brandSpec.logoNameHeight!.h,
-                width: brandAssets.brandSpec.logoNameWidth!.w,
-                child: Center(
+              Center(
+                child: SizedBox(
+                  height: brandAssets.brandSpec.logoNameHeight!.h,
+                  width: brandAssets.brandSpec.logoNameWidth!.w,
                   child: Image.asset(
                     brandAssets.logoName(),
+                    fit: BoxFit.contain,
                   ),
                 ),
               ),
@@ -111,7 +112,7 @@ class LoginScreen extends HookConsumerWidget {
                   height: 56.h,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    color: context.brand.primary,
+                    gradient: context.brand.mainGradient,
                     boxShadow: const [
                       BoxShadow(
                         color: Color.fromRGBO(0, 0, 0, 0.15),

@@ -9,12 +9,14 @@ class AppConfig {
   final Map<String, bool> features;
   final String deeplinkScheme;
   final BrandSpec brandSpec;
+  final Map<String, dynamic> colors;
   AppConfig({
     required this.appName,
     required this.baseUrl,
     required this.features,
     required this.deeplinkScheme,
     required this.brandSpec,
+    required this.colors,
   });
 
   factory AppConfig.fromJson(Map<String, dynamic> j) => AppConfig(
@@ -23,6 +25,7 @@ class AppConfig {
         features: Map<String, bool>.from(j['features'] ?? const {}),
         deeplinkScheme: j['deeplinkScheme'] as String? ?? 'gaiaapp',
         brandSpec: BrandSpec.fromJson(j['brandSpec'] as Map<String, dynamic>),
+        colors: Map<String, dynamic>.from(j['colors'] ?? const {}),
       );
 }
 
