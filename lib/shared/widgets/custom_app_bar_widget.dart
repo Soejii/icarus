@@ -39,7 +39,12 @@ class CustomAppBarWidget extends StatelessWidget
             color: Colors.white,
           ),
         ),
-        backgroundColor: context.brand.primary,
+        backgroundColor: Colors.transparent,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: context.brand.mainGradient,
+          ),
+        ),
         centerTitle: false,
         leading: leadingIcon
             ? IconButton(

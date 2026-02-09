@@ -35,7 +35,7 @@ class EdutainmentRemoteDataSource {
   
   Future<List<DigitalMagazineModel>> getListDigitalMagazine() async {
     final res = await _dio.get(
-      '/homepage/get-academic-calendar',
+      '/get-academic-calendar',
       // altough this shit is called academic calendar, IT IS a digital magazine. there's some hiccups with the upper up about it, and we just decide to fuck it
     );
     final data =

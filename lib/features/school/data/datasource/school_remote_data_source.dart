@@ -6,7 +6,7 @@ class SchoolRemoteDataSource {
   SchoolRemoteDataSource(this._dio);
 
   Future<SchoolModel> getSchool() async {
-    final res = await _dio.get('/school-profile');
+    final res = await _dio.get('/my-school');
     return SchoolModel.fromJson(res.data['data']);
   }
 }

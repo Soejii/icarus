@@ -25,10 +25,10 @@ class HomeHeaderWidget extends StatelessWidget {
           top: 25 + topPadding,
           left: 25.w,
           child: Text(
-            'Selamat Datang',
+            'Selamat Datang Walimurid',
             style: TextStyle(
               fontFamily: 'OpenSans',
-              fontSize: 22.sp,
+              fontSize: 16.sp,
               fontWeight: FontWeight.w600,
               color: Colors.white,
             ),

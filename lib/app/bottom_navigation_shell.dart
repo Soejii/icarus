@@ -6,6 +6,7 @@ import 'package:icarus/app/theme/brand_palette.dart';
 import 'package:icarus/shared/core/constant/assets_helper.dart';
 import 'package:icarus/shared/core/infrastructure/analytics/analytics_providers.dart';
 import 'package:go_router/go_router.dart';
+import 'package:icarus/shared/widgets/gradient_text.dart';
 
 class BottomNavigationShell extends ConsumerWidget {
   const BottomNavigationShell({super.key, required this.shell});
@@ -18,7 +19,7 @@ class BottomNavigationShell extends ConsumerWidget {
       bottomNavigationBar: Container(
         height: 80.h,
         width: double.infinity,
-        color: context.brand.primary,
+        decoration: BoxDecoration(gradient: context.brand.mainGradient),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
           child: Row(
@@ -99,31 +100,54 @@ class BottomNavigationShell extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-              height: 24.h,
-              width: 24.h,
-              child: SvgPicture.asset(
-                icon,
-                colorFilter: ColorFilter.mode(
-                  index == shell.currentIndex
-                      ? context.brand.primary
-                      : Colors.white,
-                  BlendMode.srcIn,
-                ),
-              ),
-            ),
+            isSelected
+                ? ShaderMask(
+                    shaderCallback: (bounds) =>
+                        context.brand.mainGradient.createShader(bounds),
+                    blendMode: BlendMode.srcIn,
+                    child: SizedBox(
+                      height: 24.h,
+                      width: 24.h,
+                      child: SvgPicture.asset(
+                        icon,
+                        colorFilter: const ColorFilter.mode(
+                          Colors.white,
+                          BlendMode.srcIn,
+                        ),
+                      ),
+                    ),
+                  )
+                : SizedBox(
+                    height: 24.h,
+                    width: 24.h,
+                    child: SvgPicture.asset(
+                      icon,
+                      colorFilter: const ColorFilter.mode(
+                        Colors.white,
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                  ),
             SizedBox(height: 4.h),
-            Text(
-              label,
-              style: TextStyle(
-                fontFamily: 'OpenSans',
-                fontSize: 10.sp,
-                fontWeight: FontWeight.w600,
-                color: index == shell.currentIndex
-                    ? context.brand.primary
-                    : Colors.white,
-              ),
-            ),
+            isSelected
+                ? GradientText(
+                    label,
+                    gradient: context.brand.mainGradient,
+                    style: TextStyle(
+                      fontFamily: 'OpenSans',
+                      fontSize: 10.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  )
+                : Text(
+                    label,
+                    style: TextStyle(
+                      fontFamily: 'OpenSans',
+                      fontSize: 10.sp,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                  ),
           ],
         ),
       ),

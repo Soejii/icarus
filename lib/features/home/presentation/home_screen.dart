@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
           physics: const AlwaysScrollableScrollPhysics(),
           children: [
             const HomeHeaderWidget(),
-            SizedBox(height: 50.h),
+            SizedBox(height: 16.h),
             const DigitalMagazineHeader(),
             SizedBox(height: 16.h),
             const AnnouncementWidget(),
