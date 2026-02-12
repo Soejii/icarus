@@ -15,6 +15,11 @@ class AssetsHelper {
   static String imgHomeButtonKeuangan = img("img_home_keuangan.png");
   static String imgHomeButtonCbt = img("img_home_keuangan.png");
 
+  static String imgExamPerformanceCard = img("img_exam_card_icon.png");
+  static String imgQuizPerformanceCard = img("img_quiz_card_icon.png");
+  static String imgCbtPerformanceCard = img("img_cbt_card_icon.png");
+  static String imgNotePerformanceCard = img("img_note_card_icon.png");
+
   static String imgTidakAdaPelajaran = img("img_tidak_ada_pelajaran.png");
 
   static String imgDataNotFound = img('img_data_not_found.png');

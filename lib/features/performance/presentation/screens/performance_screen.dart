@@ -5,7 +5,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
 import 'package:icarus/features/performance/domain/types/performance_type.dart';
 import 'package:icarus/features/performance/presentation/providers/performance_providers.dart';
+import 'package:icarus/features/performance/presentation/widgets/performance_card.dart';
+import 'package:icarus/features/performance/presentation/widgets/performance_note_card.dart';
 import 'package:icarus/features/performance/presentation/widgets/performance_tab_bar_widget.dart';
+import 'package:icarus/shared/core/constant/assets_helper.dart';
 import 'package:icarus/shared/widgets/custom_app_bar_widget.dart';
 
 class PerformanceScreen extends HookConsumerWidget {
@@ -51,7 +54,9 @@ class PerformanceScreen extends HookConsumerWidget {
       body: ListView(
         children: [
           PerformanceTabBarWidget(tabController: tabController),
- 
+          SizedBox(height: 20.h),
+          PerformanceCard(),
+          PerformanceNoteCard(),
         ],
       ),
     );
