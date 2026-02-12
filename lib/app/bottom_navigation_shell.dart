@@ -35,8 +35,8 @@ class BottomNavigationShell extends ConsumerWidget {
               ),
               navigationButton(
                 1,
-                AssetsHelper.icActivity,
-                'Aktifitas',
+                AssetsHelper.icPerformance,
+                'Performance',
                 context,
                 ref,
               ),
@@ -70,7 +70,7 @@ class BottomNavigationShell extends ConsumerWidget {
   ) {
     const _tabAnalyticsNames = <int, String>{
       0: 'home',
-      1: 'activity',
+      1: 'performance',
       2: 'chat',
       3: 'profile',
     };

@@ -13,6 +13,7 @@ import 'package:icarus/features/home/presentation/home_screen.dart';
 import 'package:icarus/features/lainnya/presentation/screens/lainnya_screen.dart';
 import 'package:icarus/features/login/presentation/screen/login_screen.dart';
 import 'package:icarus/features/notifications/presentation/screen/notification_screen.dart';
+import 'package:icarus/features/performance/presentation/screens/performance_screen.dart';
 import 'package:icarus/features/profile/presentation/screens/profile_screen.dart';
 import 'package:icarus/features/profile/presentation/screens/account_information_screen.dart';
 import 'package:icarus/features/profile/presentation/screens/change_password_screen.dart';
@@ -108,6 +109,19 @@ GoRouter appRouter(Ref ref) {
                     builder: (_, __) => const NotificationScreen(),
                   ),
                 ],
+              ),
+            ],
+          ),
+
+          // PERFORMANCE BRANCH
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/performance',
+                name: RouteName.performance,
+                pageBuilder: (_, __) =>
+                    const MaterialPage(child: PerformanceScreen()),
+                // routes: [],
               ),
             ],
           ),

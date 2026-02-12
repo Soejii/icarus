@@ -17,6 +17,8 @@ class RouteName {
   static const profile = 'profile';
   static const accountInformation = 'account-information';
 
+  static const performance = 'performance';
+
   static const chat = 'chat';
   static const contactPicker = 'contact-picker';
   static const chatDetail = 'chat-detail';
