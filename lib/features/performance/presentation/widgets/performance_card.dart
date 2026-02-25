@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
-import 'package:icarus/shared/core/constant/assets_helper.dart';
+import 'package:icarus/features/performance/domain/types/performance_type.dart';
 
 class PerformanceCard extends StatelessWidget {
-  const PerformanceCard({super.key});
+  const PerformanceCard({super.key, required this.type});
+  final PerformanceType type;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class PerformanceCard extends StatelessWidget {
             SizedBox(
               width: 32.w,
               height: 32.h,
-              child: Image.asset(AssetsHelper.imgExamPerformanceCard),
+              child: Image.asset(type.asset),
             ),
             SizedBox(width: 20.w),
             Expanded(
