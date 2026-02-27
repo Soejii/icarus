@@ -3,7 +3,10 @@
     "allow": [
       "Bash(find:*)",
       "Bash(powershell -Command:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ]
   }
 }
