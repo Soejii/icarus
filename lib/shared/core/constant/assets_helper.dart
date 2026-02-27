@@ -30,10 +30,17 @@ class AssetsHelper {
 
   static String imgChatNotFound = img('img_chat_not_found.png');
 
-  static String icHome = icon('ic_beranda_home.svg');
-  static String icPerformance = icon('ic_performance_home.svg');
-  static String icChat = icon('ic_chat_home.svg');
-  static String icProfile = icon('ic_profile_home.svg');
+  static String icHomeActive = icon('ic_beranda_home_active.svg');
+  static String icPerformanceActive = icon('ic_performance_home_active.svg');
+  static String icChatActive = icon('ic_chat_home_active.svg');
+  static String icProfileActive = icon('ic_profile_home_active.svg');
+
+  static String icHomeInactive = icon('ic_beranda_home_inactive.svg');
+  static String icPerformanceInactive =
+      icon('ic_performance_home_inactive.svg');
+  static String icChatInactive = icon('ic_chat_home_inactive.svg');
+  static String icProfileInactive = icon('ic_profile_home_inactive.svg');
+
   static String icSaving = icon('ic_saving.svg');
   static String icEmoney = icon('ic_emoney.svg');
   static String icTopup = icon('ic_topup.svg');
