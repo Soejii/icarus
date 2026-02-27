@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:icarus/features/performance/domain/types/performance_type.dart';
 import 'package:icarus/features/performance/presentation/providers/performance_providers.dart';
 import 'package:icarus/features/performance/presentation/screens/performance_content_widget.dart';
-import 'package:icarus/features/performance/presentation/widgets/performance_card.dart';
-import 'package:icarus/features/performance/presentation/widgets/performance_note_card.dart';
+import 'package:icarus/features/performance/presentation/screens/performance_note_content_widget.dart';
 import 'package:icarus/features/performance/presentation/widgets/performance_tab_bar_widget.dart';
 import 'package:icarus/shared/widgets/custom_app_bar_widget.dart';
 
@@ -60,7 +58,7 @@ class PerformanceScreen extends HookConsumerWidget {
                 PerformanceContentWidget(type: performanceTypes[0]),
                 PerformanceContentWidget(type: performanceTypes[1]),
                 PerformanceContentWidget(type: performanceTypes[2]),
-                PerformanceContentWidget(type: performanceTypes[2]),
+                PerformanceNoteContentWidget(),
               ],
             ),
           ),
