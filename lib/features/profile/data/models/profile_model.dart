@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:icarus/features/profile/data/models/user_model.dart';
 
 part 'profile_model.g.dart';
 part 'profile_model.freezed.dart';
@@ -26,6 +27,9 @@ class ProfileModel with _$ProfileModel {
     @JsonKey(name: "code_pos") String? codePos,
     @JsonKey(name: "school_origin") String? schoolOrigin,
     @JsonKey(name: "class_name") String? className,
+    @JsonKey(name: "nik") String? nik,
+    @JsonKey(name: "phone") String? phone,
+    @JsonKey(name: "user") UserModel? user,
   }) = _ProfileModel;
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) =>

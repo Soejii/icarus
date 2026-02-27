@@ -1,3 +1,5 @@
+import 'package:icarus/features/profile/domain/entities/user_entity.dart';
+
 class ProfileEntity {
   final int userId;
   final String name;
@@ -19,6 +21,9 @@ class ProfileEntity {
   final String kecamatan;
   final String codePos;
   final String schoolOrigin;
+  final String nik;
+  final String phone;
+  final UserEntity? user;
 
   ProfileEntity({
     required this.userId,
@@ -41,5 +46,8 @@ class ProfileEntity {
     required this.kecamatan,
     required this.codePos,
     required this.schoolOrigin,
+    required this.nik,
+    required this.phone,
+    this.user,
   });
 }

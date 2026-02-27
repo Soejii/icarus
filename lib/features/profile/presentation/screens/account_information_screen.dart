@@ -29,39 +29,31 @@ class AccountInformationScreen extends ConsumerWidget {
             ),
             AccountInfoItem(
               label: 'Username',
-              value: profile.username,
+              value: profile.user?.username ?? profile.username,
             ),
             AccountInfoItem(
               label: 'Email',
-              value: profile.email,
+              value: profile.user?.email ?? profile.email,
             ),
             AccountInfoItem(
-              label: 'NIS',
-              value: profile.nis,
+              label: 'NIK',
+              value: profile.nik,
             ),
             AccountInfoItem(
-              label: 'NISN',
-              value: profile.nisn,
-            ),
-            AccountInfoItem(
-              label: 'Tempat dan Tanggal Lahir',
+              label: 'Tempat, Tanggal Lahir',
               value: '${profile.birthplace}, ${profile.birthdate}',
-            ),
-            AccountInfoItem(
-              label: 'Jenis Kelamin',
-              value: profile.gender,
             ),
             AccountInfoItem(
               label: 'Agama',
               value: profile.religion,
             ),
             AccountInfoItem(
-              label: 'Alamat Sesuai KTP',
-              value: profile.address,
+              label: 'Telepon',
+              value: profile.phone,
             ),
             AccountInfoItem(
-              label: 'Asal Sekolah',
-              value: profile.schoolOrigin,
+              label: 'Alamat Sesuai KTP',
+              value: profile.address,
             ),
           ];
 
