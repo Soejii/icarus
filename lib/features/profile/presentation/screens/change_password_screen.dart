@@ -33,14 +33,13 @@ class ChangePasswordScreen extends HookConsumerWidget {
           if (message != null) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(message),
+                content: Text('Kata Sandi Berhasil Diubah, $message'),
                 backgroundColor: context.brand.green,
               ),
             );
             currentPasswordController.clear();
             newPasswordController.clear();
             confirmPasswordController.clear();
-            Navigator.pop(context);
           }
         },
       );
@@ -134,32 +133,40 @@ class ChangePasswordScreen extends HookConsumerWidget {
               ],
             ),
             SizedBox(height: 32.h),
-            ElevatedButton(
-              onPressed: changePasswordState.isLoading ? null : handleSubmit,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: context.brand.primary,
-                foregroundColor: Colors.white,
-                minimumSize: Size(double.infinity, 48.h),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
+            DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: context.brand.mainGradient,
+                borderRadius: BorderRadius.circular(8.r),
               ),
-              child: changePasswordState.isLoading
-                  ? SizedBox(
-                      height: 20.h,
-                      width: 20.w,
-                      child: const CircularProgressIndicator(
-                        strokeWidth: 2,
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              child: ElevatedButton(
+                onPressed: changePasswordState.isLoading ? null : handleSubmit,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  shadowColor: Colors.transparent,
+                  foregroundColor: Colors.white,
+                  minimumSize: Size(double.infinity, 48.h),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.r),
+                  ),
+                ),
+                child: changePasswordState.isLoading
+                    ? SizedBox(
+                        height: 20.h,
+                        width: 20.w,
+                        child: const CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.white),
+                        ),
+                      )
+                    : Text(
+                        'Ubah Kata Sandi',
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    )
-                  : Text(
-                      'Ubah Kata Sandi',
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+              ),
             ),
           ],
         ),
