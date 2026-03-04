@@ -49,6 +49,7 @@ class UserInfoColumn extends ConsumerWidget {
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w600,
                     ),
+                    maxLines: 1,
                   ),
                 ),
                 SizedBox(width: 4.w),
@@ -68,6 +69,7 @@ class UserInfoColumn extends ConsumerWidget {
                   error is NetworkFailure ? 'Offline' : 'Gagal Mengambil Data',
               loading: () => '...',
             ),
+            maxLines: 1,
             style: TextStyle(
               fontFamily: 'OpenSans',
               color: Colors.white,
@@ -82,6 +84,7 @@ class UserInfoColumn extends ConsumerWidget {
               loading: () => '...',
               error: (_, __) => '',
             ),
+            maxLines: 1,
             style: TextStyle(
               fontFamily: 'OpenSans',
               color: Colors.white,
