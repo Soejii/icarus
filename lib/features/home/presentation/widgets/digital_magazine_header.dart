@@ -40,6 +40,7 @@ class DigitalMagazineHeader extends ConsumerWidget {
                       DigitalMagazineCard(imgUrl: data[index].photo ?? ''),
                 ),
               ),
+              SizedBox(height: 16.h),
             ],
           );
         }

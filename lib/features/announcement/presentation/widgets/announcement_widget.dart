@@ -6,6 +6,7 @@ import 'package:icarus/features/announcement/presentation/providers/announcement
 import 'package:icarus/features/announcement/presentation/widgets/announcement_card.dart';
 import 'package:icarus/features/announcement/presentation/widgets/announcement_error_card.dart';
 import 'package:icarus/features/announcement/presentation/widgets/announcement_skeleton_card.dart';
+import 'package:icarus/shared/widgets/gradient_text.dart';
 import 'package:go_router/go_router.dart';
 
 class AnnouncementWidget extends ConsumerWidget {
@@ -38,13 +39,13 @@ class AnnouncementWidget extends ConsumerWidget {
                         onPressed: () {
                           context.pushNamed('list-announcement');
                         },
-                        child: Text(
+                        child: GradientText(
                           'Lihat Semua',
+                          gradient: context.brand.mainGradient,
                           style: TextStyle(
                             fontFamily: 'OpenSans',
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w400,
-                            color: context.brand.primary,
                           ),
                         ),
                       ),
@@ -60,6 +61,7 @@ class AnnouncementWidget extends ConsumerWidget {
                     ),
                     loading: () => const AnnouncementSkeletonCard(),
                   ),
+                  SizedBox(height: 16.h),
                 ],
               ),
             )

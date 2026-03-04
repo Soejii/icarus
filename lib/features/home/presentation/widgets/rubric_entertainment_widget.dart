@@ -7,6 +7,7 @@ import 'package:icarus/features/announcement/presentation/widgets/announcement_s
 import 'package:icarus/features/edutainment/domain/type/edutainment_type.dart';
 import 'package:icarus/features/edutainment/presentation/providers/edutainment_controller.dart';
 import 'package:icarus/features/edutainment/presentation/widgets/edutainment_card.dart';
+import 'package:icarus/shared/widgets/gradient_text.dart';
 import 'package:go_router/go_router.dart';
 
 class RubricEntertainmentWidget extends ConsumerWidget {
@@ -16,53 +17,54 @@ class RubricEntertainmentWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final edutainmentAsync =
         ref.watch(edutainmentControllerProvider(EdutainmentType.all));
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Rubrik Entertainment',
-                style: TextStyle(
-                  fontFamily: 'OpenSans',
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w600,
-                  color: context.brand.textMain,
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  context.pushNamed('list-edutainment');
-                },
-                child: Text(
-                  'Lihat Semua',
-                  style: TextStyle(
-                    fontFamily: 'OpenSans',
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w400,
-                    color: context.brand.primary,
+    return edutainmentAsync.when(
+      data: (data) => data.items.isNotEmpty
+          ? Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Rubrik Entertainment',
+                        style: TextStyle(
+                          fontFamily: 'OpenSans',
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                          color: context.brand.textMain,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          context.pushNamed('list-edutainment');
+                        },
+                        child: GradientText(
+                          'Lihat Semua',
+                          gradient: context.brand.mainGradient,
+                          style: TextStyle(
+                            fontFamily: 'OpenSans',
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
+                  SizedBox(height: 10.h),
+                  EdutainmentCard(entity: data.items[0]),
+                  SizedBox(height: 16.h),
+                ],
               ),
-            ],
-          ),
-          SizedBox(height: 10.h),
-          edutainmentAsync.when(
-            data: (data) => data.items.isNotEmpty
-                ? EdutainmentCard(entity: data.items[0])
-                : const SizedBox.shrink(),
-            error: (e, _) => AnnouncementErrorCard(
-              error: e,
-              onRetry: () => ref.invalidate(edutainmentControllerProvider),
-            ),
-            loading: () => const AnnouncementSkeletonCard(),
-          ),
-        ],
+            )
+          : const SizedBox.shrink(),
+      error: (e, _) => AnnouncementErrorCard(
+        error: e,
+        onRetry: () => ref.invalidate(edutainmentControllerProvider),
       ),
+      loading: () => const AnnouncementSkeletonCard(),
     );
   }
 }

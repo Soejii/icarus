@@ -12,9 +12,9 @@ class QuickHomeGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     List<QuickHomeButton> listHomeButton = [
       QuickHomeButton(
-        path: RouteName.listAnnouncement,
-        label: 'Pengumuman',
-        icon: AssetsHelper.imgHomeButtonPengumuman,
+        path: RouteName.lainnya,
+        label: 'Kehadiran',
+        icon: AssetsHelper.imgHomeButtonKehadiran,
       ),
       QuickHomeButton(
         path: RouteName.listEdutainment,
@@ -22,21 +22,44 @@ class QuickHomeGrid extends StatelessWidget {
         icon: AssetsHelper.imgHomeButtonEdutainment,
       ),
       QuickHomeButton(
-        path: RouteName.chat,
-        label: 'Chat',
+        path: RouteName.lainnya,
+        label: 'Surat Izin',
         icon: AssetsHelper.imgHomeButtonDiskusi,
       ),
       QuickHomeButton(
         path: RouteName.lainnya,
-        label: 'Lainnya',
-        icon: AssetsHelper.imgHomeButtonEdutainment,
+        label: 'Jadwal Pelajaran',
+        icon: AssetsHelper.imgHomeButtonJadwal,
+      ),
+      QuickHomeButton(
+        path: RouteName.lainnya,
+        label: 'Keuangan',
+        icon: AssetsHelper.imgHomeButtonKeuangan,
+      ),
+      QuickHomeButton(
+        path: RouteName.lainnya,
+        label: 'Tagihan',
+        icon: AssetsHelper.imgHomeButtonKeuangan,
+      ),
+      QuickHomeButton(
+        path: RouteName.lainnya,
+        label: 'Rapor Murid',
+        icon: AssetsHelper.imgHomeButtonMapel,
+      ),
+      QuickHomeButton(
+        path: RouteName.lainnya,
+        label: 'Semua Menu',
+        icon: AssetsHelper.imgHomeButtonPengumuman,
       ),
     ];
     final topPadding = MediaQuery.of(context).padding.top;
-    return Positioned(
-      left: 20.w,
-      right: 20.w,
-      top: 145.h + topPadding,
+    return Padding(
+      padding: EdgeInsets.only(
+        top: 145.h + topPadding,
+        left: 20.w,
+        right: 20.w,
+        bottom: 16.h,
+      ),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
         decoration: BoxDecoration(
@@ -57,7 +80,6 @@ class QuickHomeGrid extends StatelessWidget {
               )
               .toList(),
         ),
-      ),
-    );
+      ));
   }
 }

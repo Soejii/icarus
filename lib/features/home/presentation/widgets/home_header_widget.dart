@@ -17,9 +17,11 @@ class HomeHeaderWidget extends StatelessWidget {
     return Stack(
       clipBehavior: Clip.none,
       children: [
-        SizedBox(
-          height: 260.h + topPadding,
-          child: const HeaderBackground(),
+       const Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          child:  HeaderBackground(),
         ),
         Positioned(
           top: 25 + topPadding,

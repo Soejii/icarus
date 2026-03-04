@@ -24,8 +24,8 @@ class QuickHomeButton extends StatelessWidget {
             context.pushNamed(path);
           },
           child: Container(
-            width: 50,
-            height: 50,
+            width: 56,
+            height: 56,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               gradient: const LinearGradient(
