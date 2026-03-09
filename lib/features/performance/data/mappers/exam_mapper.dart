@@ -10,6 +10,7 @@ extension ExamMapper on ExamModel {
         status: getStatus(),
         score: score,
         kkm: kkm,
+        teacherName: teacherName
       );
 
   ExamStatus getStatus() {

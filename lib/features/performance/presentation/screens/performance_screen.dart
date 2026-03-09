@@ -59,6 +59,7 @@ class PerformanceScreen extends HookConsumerWidget {
                 PerformanceContentWidget(type: performanceTypes[1]),
                 PerformanceContentWidget(type: performanceTypes[2]),
                 PerformanceNoteContentWidget(),
+                PerformanceNoteContentWidget(),
               ],
             ),
           ),

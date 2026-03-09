@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
-import 'package:icarus/features/performance/domain/types/performance_type.dart';
+import 'package:icarus/shared/core/domain/entities/exam_entity.dart';
+import 'package:icarus/shared/core/domain/types/exam_type.dart';
 
 class PerformanceCard extends StatelessWidget {
-  const PerformanceCard({super.key, required this.type});
-  final PerformanceType type;
+  const PerformanceCard({super.key, required this.entity, required this.type});
+  final ExamEntity entity;
+  final ExamType type;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class PerformanceCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Matematika',
+                    entity.subjectName ?? '-',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: TextStyle(
@@ -52,7 +54,7 @@ class PerformanceCard extends StatelessWidget {
                   ),
                   SizedBox(height: 4.h),
                   Text(
-                    'Bilangan Desimal dan Bilangan Bulat',
+                    entity.title ?? '-',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: TextStyle(
@@ -64,7 +66,7 @@ class PerformanceCard extends StatelessWidget {
                   ),
                   SizedBox(height: 4.h),
                   Text(
-                    'Budi Susanto',
+                    entity.teacherName ?? '-',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: TextStyle(
@@ -79,7 +81,7 @@ class PerformanceCard extends StatelessWidget {
             ),
             SizedBox(width: 18.w),
             Text(
-              '90',
+              (entity.score ?? 0).toString(),
               style: TextStyle(
                 fontFamily: 'OpenSans',
                 fontSize: 36.sp,

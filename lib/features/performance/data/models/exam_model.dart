@@ -12,6 +12,7 @@ class ExamModel with _$ExamModel {
     String? startAt,
     String? examType,
     String? subjectName,
+    String? teacherName,
     String? status,
     int? score,
     int? kkm,

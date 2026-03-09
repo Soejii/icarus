@@ -20,7 +20,7 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
       guard(
         () async {
           final models = await _dataSource.getListExam(
-            examType.toString(),
+            examType.name,
             page,
             idStudent,
           );

@@ -6,6 +6,7 @@ class ExamEntity {
   final ExamStatus status;
   final int? score;
   final int? kkm;
+  final String? teacherName;
 
   ExamEntity({
     required this.id,
@@ -15,6 +16,7 @@ class ExamEntity {
     required this.status,
     required this.score,
     required this.kkm,
+    required this.teacherName,
   });
 }
 
