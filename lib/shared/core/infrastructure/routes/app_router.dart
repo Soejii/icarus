@@ -17,6 +17,18 @@ import 'package:icarus/features/performance/presentation/screens/performance_scr
 import 'package:icarus/features/profile/presentation/screens/profile_screen.dart';
 import 'package:icarus/features/profile/presentation/screens/account_information_screen.dart';
 import 'package:icarus/features/profile/presentation/screens/change_password_screen.dart';
+import 'package:icarus/features/finance/presentation/screens/bill_payment_detail_screen.dart';
+import 'package:icarus/features/finance/presentation/screens/canteen_payment_screen.dart';
+import 'package:icarus/features/finance/presentation/screens/emoney_screen.dart';
+import 'package:icarus/features/finance/presentation/screens/finance_screen.dart';
+import 'package:icarus/features/finance/presentation/screens/nominal_entry_screen.dart';
+import 'package:icarus/features/finance/presentation/screens/payment_gateway_screen.dart';
+import 'package:icarus/features/finance/presentation/screens/pending_confirmation_screen.dart';
+import 'package:icarus/features/finance/presentation/screens/savings_screen.dart';
+import 'package:icarus/features/finance/presentation/screens/school_bills_screen.dart';
+import 'package:icarus/features/finance/presentation/screens/select_payment_screen.dart';
+import 'package:icarus/features/finance/presentation/screens/transaction_success_screen.dart';
+import 'package:icarus/features/finance/presentation/screens/view_all_history_screen.dart';
 import 'package:icarus/features/school/presentation/screens/school_information_screen.dart';
 import 'package:icarus/shared/core/infrastructure/analytics/analytics_providers.dart';
 import 'package:icarus/shared/core/infrastructure/analytics/analytics_tracker.dart';
@@ -107,6 +119,79 @@ GoRouter appRouter(Ref ref) {
                     name: RouteName.notification,
                     parentNavigatorKey: rootNavigatorKey,
                     builder: (_, __) => const NotificationScreen(),
+                  ),
+                  // Finance routes
+                  GoRoute(
+                    path: 'finance',
+                    name: RouteName.finance,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, __) => const FinanceScreen(),
+                  ),
+                  GoRoute(
+                    path: 'school-bills',
+                    name: RouteName.schoolBills,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, __) => const SchoolBillsScreen(),
+                  ),
+                  GoRoute(
+                    path: 'savings',
+                    name: RouteName.savings,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, __) => const SavingsScreen(),
+                  ),
+                  GoRoute(
+                    path: 'emoney',
+                    name: RouteName.emoney,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, __) => const EmoneyScreen(),
+                  ),
+                  GoRoute(
+                    path: 'view-all-history',
+                    name: RouteName.viewAllHistory,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, __) => const ViewAllHistoryScreen(),
+                  ),
+                  GoRoute(
+                    path: 'nominal-entry',
+                    name: RouteName.nominalEntry,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, __) => const NominalEntryScreen(),
+                  ),
+                  GoRoute(
+                    path: 'bill-payment-detail',
+                    name: RouteName.billPaymentDetail,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, __) => const BillPaymentDetailScreen(),
+                  ),
+                  GoRoute(
+                    path: 'select-payment',
+                    name: RouteName.selectPayment,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, __) => const SelectPaymentScreen(),
+                  ),
+                  GoRoute(
+                    path: 'payment-gateway',
+                    name: RouteName.paymentGateway,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, __) => const PaymentGatewayScreen(),
+                  ),
+                  GoRoute(
+                    path: 'pending-confirmation',
+                    name: RouteName.pendingConfirmation,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, __) => const PendingConfirmationScreen(),
+                  ),
+                  GoRoute(
+                    path: 'transaction-success',
+                    name: RouteName.transactionSuccess,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, __) => const TransactionSuccessScreen(),
+                  ),
+                  GoRoute(
+                    path: 'canteen-payment',
+                    name: RouteName.canteenPayment,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, __) => const CanteenPaymentScreen(),
                   ),
                 ],
               ),
