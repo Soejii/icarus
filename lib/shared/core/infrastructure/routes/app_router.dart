@@ -29,6 +29,13 @@ import 'package:icarus/features/finance/presentation/screens/school_bills_screen
 import 'package:icarus/features/finance/presentation/screens/select_payment_screen.dart';
 import 'package:icarus/features/finance/presentation/screens/transaction_success_screen.dart';
 import 'package:icarus/features/finance/presentation/screens/view_all_history_screen.dart';
+import 'package:icarus/features/finance/presentation/screens/detail_tagihan_screen.dart';
+import 'package:icarus/features/finance/presentation/screens/detail_pembayaran_screen.dart';
+import 'package:icarus/features/finance/presentation/screens/pilih_metode_keuangan_screen.dart';
+import 'package:icarus/features/finance/presentation/screens/multi_select_payment_screen.dart';
+import 'package:icarus/features/finance/presentation/screens/bank_transfer_payment_screen.dart';
+import 'package:icarus/features/finance/presentation/screens/va_payment_screen.dart';
+import 'package:icarus/features/finance/domain/types/va_bank_type.dart';
 import 'package:icarus/features/school/presentation/screens/school_information_screen.dart';
 import 'package:icarus/shared/core/infrastructure/analytics/analytics_providers.dart';
 import 'package:icarus/shared/core/infrastructure/analytics/analytics_tracker.dart';
@@ -192,6 +199,46 @@ GoRouter appRouter(Ref ref) {
                     name: RouteName.canteenPayment,
                     parentNavigatorKey: rootNavigatorKey,
                     builder: (_, __) => const CanteenPaymentScreen(),
+                  ),
+                  GoRoute(
+                    path: 'detail-tagihan',
+                    name: RouteName.detailTagihan,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, __) => const DetailTagihanScreen(),
+                  ),
+                  GoRoute(
+                    path: 'detail-pembayaran',
+                    name: RouteName.detailPembayaran,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, __) => const DetailPembayaranScreen(),
+                  ),
+                  GoRoute(
+                    path: 'pilih-metode-keuangan',
+                    name: RouteName.pilihMetodeKeuangan,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, __) => const PilihMetodeKeuanganScreen(),
+                  ),
+                  GoRoute(
+                    path: 'multi-select-payment',
+                    name: RouteName.multiSelectPayment,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, __) => const MultiSelectPaymentScreen(),
+                  ),
+                  GoRoute(
+                    path: 'bank-transfer-payment',
+                    name: RouteName.bankTransferPayment,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, __) => const BankTransferPaymentScreen(),
+                  ),
+                  GoRoute(
+                    path: 'va-payment',
+                    name: RouteName.vaPayment,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, state) {
+                      final bankType =
+                          state.extra as VaBankType? ?? VaBankType.bmi;
+                      return VaPaymentScreen(bankType: bankType);
+                    },
                   ),
                 ],
               ),

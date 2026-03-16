@@ -38,4 +38,10 @@ class RouteName {
   static const pendingConfirmation = 'pending-confirmation';
   static const transactionSuccess = 'transaction-success';
   static const canteenPayment = 'canteen-payment';
+  static const detailTagihan = 'detail-tagihan';
+  static const detailPembayaran = 'detail-pembayaran';
+  static const pilihMetodeKeuangan = 'pilih-metode-keuangan';
+  static const multiSelectPayment = 'multi-select-payment';
+  static const bankTransferPayment = 'bank-transfer-payment';
+  static const vaPayment = 'va-payment';
 }
