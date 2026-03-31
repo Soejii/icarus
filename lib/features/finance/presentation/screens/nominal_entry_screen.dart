@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
 import 'package:icarus/features/finance/presentation/widgets/bill_type_display_widget.dart';
 import 'package:icarus/features/finance/presentation/widgets/nominal_input_widget.dart';
+import 'package:icarus/features/finance/presentation/widgets/payment_notes_input_widget.dart';
 import 'package:icarus/features/finance/presentation/widgets/student_info_card.dart';
 import 'package:icarus/shared/core/infrastructure/routes/route_name.dart';
 import 'package:icarus/shared/widgets/custom_app_bar_widget.dart';
@@ -16,6 +17,7 @@ class NominalEntryScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final nominalController = useTextEditingController();
+    final notesController = useTextEditingController();
 
     return Scaffold(
       appBar: const CustomAppBarWidget(
@@ -34,6 +36,8 @@ class NominalEntryScreen extends HookConsumerWidget {
             ),
             SizedBox(height: 16.h),
             NominalInputWidget(controller: nominalController),
+            SizedBox(height: 16.h),
+            PaymentNotesInputWidget(controller: notesController),
             SizedBox(height: 24.h),
           ],
         ),
@@ -53,8 +57,7 @@ class NominalEntryScreen extends HookConsumerWidget {
                 borderRadius: BorderRadius.circular(8.r),
               ),
               child: ElevatedButton(
-                onPressed: () =>
-                    context.pushNamed(RouteName.billPaymentDetail),
+                onPressed: () => context.pushNamed(RouteName.billPaymentDetail),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.transparent,
                   shadowColor: Colors.transparent,
