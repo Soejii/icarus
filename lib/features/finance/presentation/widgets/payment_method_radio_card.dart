@@ -9,10 +9,12 @@ class PaymentMethodRadioCard extends StatelessWidget {
     required this.label,
     required this.isSelected,
     required this.onTap,
+    this.subtitle,
   });
 
   final IconData icon;
   final String label;
+  final String? subtitle;
   final bool isSelected;
   final VoidCallback onTap;
 
@@ -42,14 +44,31 @@ class PaymentMethodRadioCard extends StatelessWidget {
             ),
             SizedBox(width: 12.w),
             Expanded(
-              child: Text(
-                label,
-                style: TextStyle(
-                  fontFamily: 'OpenSans',
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w600,
-                  color: context.brand.textMain,
-                ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    label,
+                    style: TextStyle(
+                      fontFamily: 'OpenSans',
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
+                      color: context.brand.textMain,
+                    ),
+                  ),
+                  if (subtitle != null) ...[
+                    SizedBox(height: 2.h),
+                    Text(
+                      subtitle!,
+                      style: TextStyle(
+                        fontFamily: 'OpenSans',
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w400,
+                        color: context.brand.textSecondary,
+                      ),
+                    ),
+                  ],
+                ],
               ),
             ),
             Radio<bool>(

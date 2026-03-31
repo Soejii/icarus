@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
-import 'package:icarus/features/finance/presentation/widgets/payment_confirm_buttons_widget.dart';
 import 'package:icarus/features/finance/presentation/widgets/payment_summary_widget.dart';
 import 'package:icarus/features/finance/presentation/widgets/student_info_card.dart';
-import 'package:icarus/shared/core/infrastructure/routes/route_name.dart';
 import 'package:icarus/shared/widgets/custom_app_bar_widget.dart';
 import 'package:go_router/go_router.dart';
 
@@ -16,7 +14,7 @@ class PaymentGatewayScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: const CustomAppBarWidget(
-        title: 'Konfirmasi Pembayaran',
+        title: 'Bayar Tagihan',
         leadingIcon: true,
       ),
       body: SingleChildScrollView(
@@ -31,29 +29,28 @@ class PaymentGatewayScreen extends ConsumerWidget {
               width: double.infinity,
               padding: EdgeInsets.all(16.w),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: const Color(0xFFFFFBEB),
                 borderRadius: BorderRadius.circular(12.r),
-                boxShadow: context.brand.shadow,
+                border: Border.all(color: const Color(0xFFFDE68A)),
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Metode Pembayaran',
-                    style: TextStyle(
-                      fontFamily: 'OpenSans',
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w400,
-                      color: context.brand.textSecondary,
-                    ),
+                  const Icon(
+                    Icons.info_outline,
+                    color: Color(0xFFD97706),
+                    size: 18,
                   ),
-                  Text(
-                    'Transfer Bank',
-                    style: TextStyle(
-                      fontFamily: 'OpenSans',
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
-                      color: context.brand.textMain,
+                  SizedBox(width: 10.w),
+                  Expanded(
+                    child: Text(
+                      'Anda akan diarahkan ke halaman pembayaran eksternal. Pastikan koneksi internet stabil sebelum melanjutkan.',
+                      style: TextStyle(
+                        fontFamily: 'OpenSans',
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w400,
+                        color: const Color(0xFF92400E),
+                      ),
                     ),
                   ),
                 ],
@@ -70,10 +67,61 @@ class PaymentGatewayScreen extends ConsumerWidget {
           boxShadow: context.brand.invertedShadow,
         ),
         child: SafeArea(
-          child: PaymentConfirmButtonsWidget(
-            onCancel: () => context.pop(),
-            onConfirm: () =>
-                context.pushNamed(RouteName.pendingConfirmation),
+          child: Row(
+            children: [
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: () => context.pop(),
+                  style: OutlinedButton.styleFrom(
+                    side: BorderSide(color: context.brand.primary),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    padding: EdgeInsets.symmetric(vertical: 14.h),
+                  ),
+                  child: Text(
+                    'Batalkan',
+                    style: TextStyle(
+                      fontFamily: 'OpenSans',
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
+                      color: context.brand.primary,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: 12.w),
+              Expanded(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: context.brand.mainGradient,
+                    borderRadius: BorderRadius.circular(8.r),
+                  ),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // TODO: launch in-app webview with payment URL
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.transparent,
+                      shadowColor: Colors.transparent,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.r),
+                      ),
+                      padding: EdgeInsets.symmetric(vertical: 14.h),
+                    ),
+                    child: Text(
+                      'Lanjutkan ke Pembayaran',
+                      style: TextStyle(
+                        fontFamily: 'OpenSans',
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

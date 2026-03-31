@@ -5,6 +5,7 @@ import 'package:icarus/app/theme/brand_palette.dart';
 import 'package:icarus/features/finance/domain/types/va_bank_type.dart';
 import 'package:icarus/features/finance/presentation/widgets/payment_instruction_card.dart';
 import 'package:icarus/features/finance/presentation/widgets/va_info_card.dart';
+import 'package:icarus/shared/core/infrastructure/routes/route_name.dart';
 import 'package:go_router/go_router.dart';
 
 class VaPaymentScreen extends HookConsumerWidget {
@@ -169,26 +170,52 @@ class VaPaymentScreen extends HookConsumerWidget {
           SizedBox(height: 150.h),
         ],
       ),
-      bottomNavigationBar: GestureDetector(
-        onTap: () => context.pop(),
-        child: Container(
-          height: 56.h,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            gradient: context.brand.mainGradient,
-          ),
-          child: Center(
-            child: Text(
-              'Kembali',
-              style: TextStyle(
-                fontFamily: 'OpenSans',
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          GestureDetector(
+            onTap: () => context.pushNamed(RouteName.pendingConfirmation),
+            child: Container(
+              height: 56.h,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                gradient: context.brand.mainGradient,
+              ),
+              child: Center(
+                child: Text(
+                  'Saya Sudah Bayar',
+                  style: TextStyle(
+                    fontFamily: 'OpenSans',
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ),
           ),
-        ),
+          SafeArea(
+            child: GestureDetector(
+              onTap: () => context.pop(),
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 12.h),
+                child: Center(
+                  child: Text(
+                    'Kembali',
+                    style: TextStyle(
+                      fontFamily: 'OpenSans',
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w600,
+                      color: context.brand.textSecondary,
+                      decoration: TextDecoration.underline,
+                      decorationColor: context.brand.textSecondary,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
