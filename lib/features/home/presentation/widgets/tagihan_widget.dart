@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
 import 'package:icarus/features/home/presentation/widgets/tagihan_card.dart';
+import 'package:icarus/shared/core/infrastructure/routes/route_name.dart';
 import 'package:icarus/shared/widgets/gradient_text.dart';
 
 class TagihanWidget extends StatelessWidget {
@@ -28,7 +30,7 @@ class TagihanWidget extends StatelessWidget {
                 ),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () => context.pushNamed(RouteName.schoolBills),
                 child: GradientText(
                   'Lihat Semua',
                   gradient: context.brand.mainGradient,

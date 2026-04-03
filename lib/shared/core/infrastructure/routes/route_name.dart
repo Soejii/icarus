@@ -24,4 +24,24 @@ class RouteName {
   static const chatDetail = 'chat-detail';
 
   static const schoolInformation = 'school-information';
+
+  // Finance
+  static const finance = 'finance';
+  static const schoolBills = 'school-bills';
+  static const savings = 'savings';
+  static const emoney = 'emoney';
+  static const viewAllHistory = 'view-all-history';
+  static const nominalEntry = 'nominal-entry';
+  static const billPaymentDetail = 'bill-payment-detail';
+  static const selectPayment = 'select-payment';
+  static const paymentGateway = 'payment-gateway';
+  static const pendingConfirmation = 'pending-confirmation';
+  static const transactionSuccess = 'transaction-success';
+  static const canteenPayment = 'canteen-payment';
+  static const detailTagihan = 'detail-tagihan';
+  static const detailPembayaran = 'detail-pembayaran';
+  static const pilihMetodeKeuangan = 'pilih-metode-keuangan';
+  static const multiSelectPayment = 'multi-select-payment';
+  static const bankTransferPayment = 'bank-transfer-payment';
+  static const vaPayment = 'va-payment';
 }
