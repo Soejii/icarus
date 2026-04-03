@@ -37,6 +37,7 @@ import 'package:icarus/features/finance/presentation/screens/bank_transfer_payme
 import 'package:icarus/features/finance/presentation/screens/va_payment_screen.dart';
 import 'package:icarus/features/finance/domain/types/va_bank_type.dart';
 import 'package:icarus/features/school/presentation/screens/school_information_screen.dart';
+import 'package:icarus/features/tahfidz_tahsin/presentation/screens/tahfidz_tahsin_screen.dart';
 import 'package:icarus/shared/core/infrastructure/analytics/analytics_providers.dart';
 import 'package:icarus/shared/core/infrastructure/analytics/analytics_tracker.dart';
 import 'package:icarus/shared/core/infrastructure/auth/auth_state_provider.dart';
@@ -239,6 +240,13 @@ GoRouter appRouter(Ref ref) {
                           state.extra as VaBankType? ?? VaBankType.bmi;
                       return VaPaymentScreen(bankType: bankType);
                     },
+                  ),
+                  // Tahfidz Tahsin
+                  GoRoute(
+                    path: 'tahfidz-tahsin',
+                    name: RouteName.tahfidzTahsin,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, __) => const TahfidzTahsinScreen(),
                   ),
                 ],
               ),

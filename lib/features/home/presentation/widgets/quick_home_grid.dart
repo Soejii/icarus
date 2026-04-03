@@ -37,9 +37,9 @@ class QuickHomeGrid extends StatelessWidget {
         icon: AssetsHelper.imgHomeButtonKeuangan,
       ),
       QuickHomeButton(
-        path: RouteName.lainnya,
-        label: 'Tagihan',
-        icon: AssetsHelper.imgHomeButtonKeuangan,
+        path: RouteName.tahfidzTahsin,
+        label: 'Tahfidz',
+        icon: AssetsHelper.imgHomeButtonMapel,
       ),
       QuickHomeButton(
         path: RouteName.lainnya,
