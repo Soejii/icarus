@@ -1,96 +1,149 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-## Project Overview
-
-**Icarus** is a Flutter mobile app ("Walimurid" — parent-facing school app) that is white-labelable for multiple clients. It uses Riverpod + GoRouter + Dio and follows a clean architecture layered pattern identical to the "gaia" project.
+**Icarus** is a Flutter mobile app ("Walimurid", parent-facing school app), white-labelable for multiple clients. Uses Riverpod + GoRouter + Dio, clean architecture identical to the "gaia" project.
 
 ## Common Commands
 
 ```bash
-# Run default dev flavor
 flutter run --dart-define=CLIENT=default --dart-define=ENV=dev
-
-# Run a specific client/env
 flutter run --dart-define=CLIENT=mancaksa --dart-define=ENV=prod
-
-# Code generation (Riverpod, Freezed, json_serializable)
 dart run build_runner build --delete-conflicting-outputs
-
-# Watch mode for code generation
-dart run build_runner watch --delete-conflicting-outputs
-
-# Run tests
 flutter test
-
-# Run a single test file
-flutter test test/path/to/test_file.dart
-
-# Generate launcher icons for a specific flavor
-dart run flutter_launcher_icons -f flutter_launcher_icons-defaultDev.yaml
-
-# Lint
 flutter analyze
 ```
 
 ## Architecture
 
-### Multi-Client / Multi-Env System
+### Multi-Client System
 
-The app is white-labeled via two Dart compile-time defines:
-- `CLIENT` — e.g. `default`, `mancaksa`, `assa`
-- `ENV` — e.g. `dev`, `prod`
+White-labeled via `CLIENT` (`default`, `mancaksa`, `assa`) and `ENV` (`dev`, `prod`) dart-defines. `AppConfigLoader` loads `assets/clients/<CLIENT>/config.<ENV>.json` with fallback chain. JSON provides `appName`, `baseUrl`, `colors`, `brandSpec`, and feature flags (`appConfigProvider.features['chat'] ?? false`).
 
-`BuildEnv` (in `lib/app/environment/build_environment.dart`) reads these via `String.fromEnvironment`. At startup, `AppConfigLoader` loads `assets/clients/<CLIENT>/config.<ENV>.json`, falling back through `dev` → `default/dev`. The JSON provides `appName`, `baseUrl`, `colors`, `brandSpec`, and feature flags.
+### Layer Structure
 
-Client asset directories: `assets/clients/<client>/` (images, icons, config JSON files, launcher icon).
-
-### Layer Structure (per feature)
-
-Each feature under `lib/features/<feature>/` follows:
-```
-data/
-  datasource/       # Remote (Dio) data sources
-  models/           # Freezed + json_serializable DTOs
-  mappers/          # Model → Entity conversion
-  <feature>_repository_impl.dart
-domain/
-  entities/         # Pure Dart data classes
-  repositories/     # Abstract interfaces
-  usecase/          # Single-purpose use cases
-presentation/
-  providers/        # Riverpod controllers/notifiers (@riverpod codegen)
-  screens/          # Screen widgets
-  widgets/          # Screen-specific widgets
-```
+Each feature under `lib/features/<feature>/` follows: `data/` (datasource, models, mappers, repository_impl), `domain/` (entities, repositories, usecase), `presentation/` (providers, screens, widgets). See Naming Conventions table below for file/class patterns.
 
 ### Shared Infrastructure (`lib/shared/`)
 
-- **`core/infrastructure/network/`** — `ApiClient` (Dio builder), `dio_provider.dart` (Riverpod provider with `AuthInterceptor`), `ApiGuard` (response validation helpers)
-- **`core/infrastructure/auth/`** — `AuthStateProvider` (token refresh on startup, login/logout), `AuthLocalDataSource`, `AuthInterceptor`
-- **`core/infrastructure/routes/app_router.dart`** — GoRouter with redirect guard based on `authStateProvider`; 4 bottom-nav branches: home, performance, chat, profile; login is outside the shell
-- **`core/infrastructure/notifications/`** — Firebase Cloud Messaging setup, local notifications
-- **`core/infrastructure/analytics/`** — Firebase Analytics via `AnalyticsTracker` abstraction
-- **`core/types/`** — `Result<T>` sealed class (`Ok`/`Err`), `Failure` hierarchy, `guard()` async wrapper
+- `core/infrastructure/network/` -- `ApiClient`, `dio_provider.dart`, `ApiGuard`
+- `core/infrastructure/auth/` -- `AuthStateProvider`, `AuthLocalDataSource`, `AuthInterceptor`
+- `core/infrastructure/routes/app_router.dart` -- GoRouter with auth redirect guard, 4 bottom-nav branches
+- `core/types/` -- `Result<T>` sealed class (`Ok`/`Err`), `Failure` hierarchy, `guard()` async wrapper
 
-### Theming / Branding
+### Code Generation
 
-- **`BrandPalette`** — `ThemeExtension<BrandPalette>` registered in `MaterialApp`. Access in widgets via `context.brand.primary` etc.
-- **`BrandAssets`** — Resolves asset paths per client: `assets/clients/<client>/images/<name>`. Provided as `brandAssetsProvider`.
-- **`BrandSpec`** — Controls logo asset paths and login screen layout dimensions, loaded from config JSON.
-- Colors come from `config.<env>.json` under the `"colors"` key and are parsed by `BrandPalette.fromConfig()`.
+Files ending in `.g.dart` and `.freezed.dart` are generated, never edit manually. Run `build_runner` after changing `@riverpod`, `@freezed`, or `@JsonSerializable` annotated classes.
 
-### State Management Patterns
+## Coding Conventions
 
-- All providers use **Riverpod code generation** (`@riverpod` / `riverpod_annotation`). Always run `build_runner` after modifying annotated providers.
-- Screens use `HookConsumerWidget` (flutter_hooks + hooks_riverpod).
-- Controllers are `@riverpod class` notifiers; screens use `ref.listen()` for side-effects (snackbars, navigation).
+### Widget Structure (CRITICAL)
 
-### Code Generation Files
+**NEVER use `_buildXxx()` methods that return `Widget` or `List<Widget>` inside any widget class.** Every visual section must be its own widget class.
 
-Files ending in `.g.dart` (Riverpod, json_serializable) and `.freezed.dart` are generated — never edit manually. After changing any `@riverpod`, `@freezed`, or `@JsonSerializable` annotated class, run `build_runner`.
+Extraction strategy:
+1. **Separate file in `widgets/`** -- reused or complex
+2. **Private class in same file** (`class _Foo extends StatelessWidget`) -- single-use, small
+3. **Inline in `build()`** -- only truly trivial (a `Text`, a `SizedBox`)
+4. **NEVER `_buildXxx()` methods** -- banned
 
-### Feature Flags
+```dart
+// CORRECT -- screen is purely compositional
+class FinanceScreen extends ConsumerWidget {
+  const FinanceScreen({super.key});
 
-Features can be toggled per client/env via the `"features"` map in config JSON (e.g., `"chat": true`). Read via `appConfigProvider.features['chat'] ?? false`.
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Scaffold(
+      appBar: const CustomAppBarWidget(title: 'Keuangan', leadingIcon: true),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+        child: Column(
+          children: [
+            const FinanceBalanceRowWidget(),
+            SizedBox(height: 16.h),
+            const FinanceUnpaidSummaryWidget(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// CORRECT -- private class in same file for single-use widget
+class _MonthHeader extends StatelessWidget {
+  const _MonthHeader({required this.label});
+  final String label;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 4.h),
+      child: Text(label, style: TextStyle(...)),
+    );
+  }
+}
+
+// WRONG -- never do this
+class SomeScreen extends StatelessWidget {
+  Widget _buildHeader() { ... }       // BANNED
+  List<Widget> _buildItems() { ... }  // BANNED
+}
+```
+
+### Widget Base Classes
+
+- `StatelessWidget` -- no state or providers
+- `ConsumerWidget` -- only needs `ref.watch()` providers
+- `HookConsumerWidget` -- needs flutter_hooks (`useEffect`, `useTabController`, etc.)
+
+### State Management (Riverpod)
+
+- `ref.watch()` in `build()`, `ref.read()` in callbacks, `ref.listen()` for side effects
+- `AsyncValue` handling: `.when(data:, loading:, error:)`
+- Provider chain (`{feature}_providers.dart`): DataSource -> Repository -> UseCase as `@riverpod` functions
+- Controllers: `@riverpod class` extending `_$` base with `build()`, `loadMore()`, `refresh()`
+- Result folding: `result.fold((failure) => throw failure, (entity) => entity)`
+
+### Styling
+
+**Text**: Always inline `TextStyle(fontFamily: 'OpenSans', fontSize: X.sp, fontWeight: FontWeight.wXXX, color: context.brand.xxx)`. Never `Theme.of(context).textTheme`.
+
+**Sizing**: flutter_screenutil (design 375x812). `.w` widths, `.h` heights, `.sp` fonts, `.r` radii. No raw `MediaQuery`.
+
+**Spacing**: `SizedBox(height: X.h)` / `SizedBox(width: X.w)` between widgets. `EdgeInsets.symmetric(horizontal: X.w, vertical: X.h)` for padding. No Gap package.
+
+**Colors**: `context.brand.*` (`primary`, `textMain`, `textSecondary`, etc.). Fallback: `AppColors.*`. Inline `Color.fromRGBO()` only for one-off opacity.
+
+### Imports
+
+Always package imports (`import 'package:icarus/...'`), never relative.
+
+### Naming Conventions
+
+| Type | File | Class |
+|------|------|-------|
+| Screen | `{name}_screen.dart` | `{Name}Screen` |
+| Widget | `{name}_widget.dart` | `{Name}Widget` |
+| Card | `{entity}_card.dart` | `{Entity}Card` |
+| Providers | `{feature}_providers.dart` | (top-level `@riverpod` functions) |
+| Controller | `{feature}_controller.dart` | `{Feature}Controller` |
+| Repository | `{feature}_repository.dart` / `_impl.dart` | `{Feature}Repository` / `Impl` |
+| Data source | `{feature}_remote_data_source.dart` | `{Feature}RemoteDataSource` |
+| Model (DTO) | `{entity}_model.dart` | `{Entity}Model` (`@freezed`) |
+| Entity | `{entity}_entity.dart` | `{Entity}Entity` (plain Dart class) |
+| Mapper | `{entity}_mapper.dart` | `extension {Entity}Mapper on {Entity}Model` |
+| Use case | `{action}_{entity}_usecase.dart` | `{Action}{Entity}Usecase` |
+
+### Data Layer Patterns
+
+- **Models**: `@freezed` + `@JsonSerializable(fieldRename: FieldRename.snake)` with `fromJson`
+- **Entities**: Plain Dart classes, final fields, named constructor params (not Freezed)
+- **Mappers**: Extension on Model with `toEntity()` method
+- **Repositories**: `guard()` wrapper, return `Result<T>`
+- **Data sources**: Dio via constructor, parse JSON, return Models
+- **Use cases**: Single public method, repository via constructor
+
+### General Style
+
+- `const` constructors on all widgets when possible
+- Trailing commas everywhere
+- camelCase variables, `_` prefix for private fields/classes
+- Package imports only, never relative
