@@ -15,6 +15,7 @@ class SchoolSectionLabel extends StatelessWidget {
     return Text(
       label,
       style: TextStyle(
+        fontFamily: 'OpenSans',
         color: context.brand.textSecondary,
         fontSize: 12.sp,
         fontWeight: FontWeight.w400,

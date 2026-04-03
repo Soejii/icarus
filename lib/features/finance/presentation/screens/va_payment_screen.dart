@@ -145,7 +145,8 @@ class VaPaymentScreen extends HookConsumerWidget {
           SizedBox(height: 16.h),
 
           // ── Detail Pembayaran card ──────────────────────────────────
-          _SectionCard(
+          sectionCard(
+            context,
             padding: EdgeInsets.all(16.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -160,11 +161,11 @@ class VaPaymentScreen extends HookConsumerWidget {
                   ),
                 ),
                 SizedBox(height: 14.h),
-                _DetailRow(label: 'Kode Bank', value: bankType.bankCode),
+                detailRow(context, label: 'Kode Bank', value: bankType.bankCode),
                 SizedBox(height: 10.h),
-                _DetailRow(label: 'Biaya Admin', value: bankType.adminFee),
+                detailRow(context, label: 'Biaya Admin', value: bankType.adminFee),
                 SizedBox(height: 10.h),
-                _DetailRow(label: 'Total Tagihan', value: 'Rp 502.500'),
+                detailRow(context, label: 'Total Tagihan', value: 'Rp 502.500'),
               ],
             ),
           ),
@@ -258,16 +259,11 @@ class VaPaymentScreen extends HookConsumerWidget {
   }
 }
 
-// ── Private widgets ─────────────────────────────────────────────────────────
-
-class _SectionCard extends StatelessWidget {
-  const _SectionCard({required this.child, required this.padding});
-
-  final Widget child;
-  final EdgeInsetsGeometry padding;
-
-  @override
-  Widget build(BuildContext context) {
+  sectionCard(
+    BuildContext context, {
+    required EdgeInsetsGeometry padding,
+    required Widget child,
+  }) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Container(
@@ -282,16 +278,12 @@ class _SectionCard extends StatelessWidget {
       ),
     );
   }
-}
 
-class _DetailRow extends StatelessWidget {
-  const _DetailRow({required this.label, required this.value});
-
-  final String label;
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
+  detailRow(
+    BuildContext context, {
+    required String label,
+    required String value,
+  }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,

@@ -30,6 +30,7 @@ class AccountInfoField extends StatelessWidget {
           Text(
             item.label,
             style: TextStyle(
+              fontFamily: 'OpenSans',
               color: context.brand.textSecondary,
               fontSize: 12.sp,
               fontWeight: FontWeight.w400,
@@ -47,6 +48,7 @@ class AccountInfoField extends StatelessWidget {
             child: Text(
               item.value,
               style: TextStyle(
+                fontFamily: 'OpenSans',
                 color: context.brand.textMain,
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w600,

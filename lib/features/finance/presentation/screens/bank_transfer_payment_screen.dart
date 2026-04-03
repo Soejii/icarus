@@ -83,7 +83,8 @@ class BankTransferPaymentScreen extends HookConsumerWidget {
           SizedBox(height: 16.h),
 
           // ── Rekening Tujuan card ────────────────────────────────────
-          _SectionCard(
+          sectionCard(
+            context,
             padding: EdgeInsets.all(16.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,7 +129,7 @@ class BankTransferPaymentScreen extends HookConsumerWidget {
                 SizedBox(height: 14.h),
                 Divider(height: 1, color: const Color(0xFFE0E0E0)),
                 SizedBox(height: 14.h),
-                _CopyableRow(
+                copyableRow(context,
                   label: 'No. Rekening',
                   value: '1234567890',
                 ),
@@ -139,7 +140,8 @@ class BankTransferPaymentScreen extends HookConsumerWidget {
           SizedBox(height: 12.h),
 
           // ── Detail Pembayaran card ──────────────────────────────────
-          _SectionCard(
+          sectionCard(
+            context,
             padding: EdgeInsets.all(16.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,17 +156,17 @@ class BankTransferPaymentScreen extends HookConsumerWidget {
                   ),
                 ),
                 SizedBox(height: 14.h),
-                _DetailRow(
+                detailRow(context,
                   label: 'Batas Pembayaran',
                   value: '15 Maret 2026',
                 ),
                 SizedBox(height: 10.h),
-                _DetailRow(
+                detailRow(context,
                   label: 'ID Transaksi',
                   value: '#1024',
                 ),
                 SizedBox(height: 10.h),
-                _DetailRow(
+                detailRow(context,
                   label: 'Catatan Transfer',
                   value: 'SPP Maret 2026 - Ahmad Fauzi',
                 ),
@@ -175,7 +177,8 @@ class BankTransferPaymentScreen extends HookConsumerWidget {
           SizedBox(height: 12.h),
 
           // ── Bukti Pembayaran card ───────────────────────────────────
-          _SectionCard(
+          sectionCard(
+            context,
             padding: EdgeInsets.all(16.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -313,18 +316,11 @@ class BankTransferPaymentScreen extends HookConsumerWidget {
       ),
     );
   }
-}
-
-// ── Private widgets ─────────────────────────────────────────────────────────
-
-class _SectionCard extends StatelessWidget {
-  const _SectionCard({required this.child, required this.padding});
-
-  final Widget child;
-  final EdgeInsetsGeometry padding;
-
-  @override
-  Widget build(BuildContext context) {
+  sectionCard(
+    BuildContext context, {
+    required EdgeInsetsGeometry padding,
+    required Widget child,
+  }) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Container(
@@ -339,16 +335,12 @@ class _SectionCard extends StatelessWidget {
       ),
     );
   }
-}
 
-class _CopyableRow extends StatelessWidget {
-  const _CopyableRow({required this.label, required this.value});
-
-  final String label;
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
+  copyableRow(
+    BuildContext context, {
+    required String label,
+    required String value,
+  }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -408,16 +400,12 @@ class _CopyableRow extends StatelessWidget {
       ],
     );
   }
-}
 
-class _DetailRow extends StatelessWidget {
-  const _DetailRow({required this.label, required this.value});
-
-  final String label;
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
+  detailRow(
+    BuildContext context, {
+    required String label,
+    required String value,
+  }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
