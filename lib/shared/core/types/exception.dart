@@ -1,6 +1,6 @@
 // shared/core/mappers/dio_failure_mapper.dart
 import 'package:dio/dio.dart';
-import '../types/failure.dart';
+import 'package:icarus/shared/core/types/failure.dart';
 
 extension DioFailureMapper on DioException {
   Failure toFailure({StackTrace? stackTrace}) {

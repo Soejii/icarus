@@ -62,7 +62,7 @@ class BankInfoWidget extends StatelessWidget {
             ),
           ),
           SizedBox(height: 7.h),
-          _buildCopyableField(context, accountNumber),
+          copyableField(context, accountNumber),
           SizedBox(height: 14.h),
           Text(
             'Total Nominal Transfer',
@@ -74,13 +74,13 @@ class BankInfoWidget extends StatelessWidget {
             ),
           ),
           SizedBox(height: 7.h),
-          _buildCopyableField(context, amount),
+          copyableField(context, amount),
         ],
       ),
     );
   }
 
-  Widget _buildCopyableField(BuildContext context, String value) {
+  copyableField(BuildContext context, String value) {
     return Container(
       width: double.infinity,
       height: 56.h,

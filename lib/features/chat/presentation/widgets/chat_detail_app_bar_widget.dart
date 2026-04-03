@@ -35,15 +35,13 @@ class ChatDetailAppBarWidget extends StatelessWidget
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => context.pop(),
         ),
-        title: _buildUserInfo(context),
+        title: userInfo(context),
         titleSpacing: 0,
       ),
     );
   }
 
-  Widget _buildUserInfo(
-    BuildContext context,
-  ) {
+  userInfo(BuildContext context) {
     return Row(
       children: [
         CircleAvatar(

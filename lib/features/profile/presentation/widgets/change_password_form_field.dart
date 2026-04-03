@@ -26,6 +26,7 @@ class ChangePasswordFormField extends StatelessWidget {
         Text(
           label,
           style: TextStyle(
+            fontFamily: 'OpenSans',
             color: context.brand.textSecondary,
             fontSize: 12.sp,
             fontWeight: FontWeight.w400,
@@ -44,6 +45,7 @@ class ChangePasswordFormField extends StatelessWidget {
             obscuringCharacter: '*',
             validator: validator,
             style: TextStyle(
+              fontFamily: 'OpenSans',
               color: context.brand.textMain,
               fontSize: 14.sp,
               fontWeight: FontWeight.w600,
@@ -60,6 +62,7 @@ class ChangePasswordFormField extends StatelessWidget {
               ),
               hintText: hintText,
               hintStyle: TextStyle(
+                fontFamily: 'OpenSans',
                 color: context.brand.inactive,
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w400,

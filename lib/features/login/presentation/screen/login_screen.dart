@@ -63,6 +63,7 @@ class LoginScreen extends HookConsumerWidget {
                   'Development Environment',
                   textAlign: TextAlign.center,
                   style: TextStyle(
+                    fontFamily: 'OpenSans',
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),

@@ -44,4 +44,7 @@ class RouteName {
   static const multiSelectPayment = 'multi-select-payment';
   static const bankTransferPayment = 'bank-transfer-payment';
   static const vaPayment = 'va-payment';
+
+  // Tahfidz Tahsin
+  static const tahfidzTahsin = 'tahfidz-tahsin';
 }

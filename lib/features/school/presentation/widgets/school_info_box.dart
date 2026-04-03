@@ -26,6 +26,7 @@ class SchoolInfoBox extends StatelessWidget {
           Text(
             value,
             style: TextStyle(
+              fontFamily: 'OpenSans',
               color: context.brand.textMain,
               fontSize: 14.sp,
               fontWeight: FontWeight.w600,

@@ -125,6 +125,7 @@ class ChangePasswordScreen extends HookConsumerWidget {
                 Text(
                   'Tampilkan kata sandi',
                   style: TextStyle(
+                    fontFamily: 'OpenSans',
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w400,
                     color: context.brand.textSecondary,
@@ -162,6 +163,7 @@ class ChangePasswordScreen extends HookConsumerWidget {
                     : Text(
                         'Ubah Kata Sandi',
                         style: TextStyle(
+                          fontFamily: 'OpenSans',
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w600,
                         ),

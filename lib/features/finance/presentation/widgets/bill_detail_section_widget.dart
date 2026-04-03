@@ -28,19 +28,19 @@ class BillDetailSectionWidget extends StatelessWidget {
             ),
           ),
           SizedBox(height: 12.h),
-          _buildRow(context, 'Nama Tagihan', 'SPP Maret 2026'),
+          detailRow(context, 'Nama Tagihan', 'SPP Maret 2026'),
           SizedBox(height: 8.h),
-          _buildRow(context, 'Kategori', 'SPP'),
+          detailRow(context, 'Kategori', 'SPP'),
           SizedBox(height: 8.h),
-          _buildRow(context, 'Jumlah', 'Rp 500.000'),
+          detailRow(context, 'Jumlah', 'Rp 500.000'),
           SizedBox(height: 8.h),
-          _buildRow(context, 'Jatuh Tempo', '15 Maret 2026'),
+          detailRow(context, 'Jatuh Tempo', '15 Maret 2026'),
         ],
       ),
     );
   }
 
-  Widget _buildRow(BuildContext context, String label, String value) {
+  detailRow(BuildContext context, String label, String value) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

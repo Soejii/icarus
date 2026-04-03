@@ -61,24 +61,24 @@ class InvoiceWidget extends StatelessWidget {
           SizedBox(height: 16.h),
           const Divider(height: 1),
           SizedBox(height: 12.h),
-          _buildField(context, 'Nama Murid', namaMurid),
-          _buildField(context, 'NIS', nis),
-          _buildField(
+          field(context, 'Nama Murid', namaMurid),
+          field(context, 'NIS', nis),
+          field(
             context,
             'Jumlah Pembayaran',
             jumlahPembayaran,
             valueColor: status.nominalColor,
           ),
-          _buildField(context, 'Nama Tagihan', namaTagihan),
-          _buildField(context, 'Tanggal Bayar', tanggalBayar),
-          _buildField(context, 'Metode Pembayaran', metodePembayaran),
-          _buildField(context, 'Catatan', catatan),
+          field(context, 'Nama Tagihan', namaTagihan),
+          field(context, 'Tanggal Bayar', tanggalBayar),
+          field(context, 'Metode Pembayaran', metodePembayaran),
+          field(context, 'Catatan', catatan),
         ],
       ),
     );
   }
 
-  Widget _buildField(
+  field(
     BuildContext context,
     String label,
     String value, {
