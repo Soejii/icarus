@@ -38,7 +38,7 @@ class TahsinDetailSheet extends StatelessWidget {
             ],
           ),
           SizedBox(height: 16.h),
-          _Divider(),
+          divider(context),
           SizedBox(height: 16.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -62,7 +62,7 @@ class TahsinDetailSheet extends StatelessWidget {
             ],
           ),
           SizedBox(height: 16.h),
-          _Divider(),
+          divider(context),
           SizedBox(height: 16.h),
           Text(
             'Guru: ${record.teacher}',
@@ -73,13 +73,14 @@ class TahsinDetailSheet extends StatelessWidget {
             ),
           ),
           SizedBox(height: 16.h),
-          _Divider(),
+          divider(context),
           SizedBox(height: 16.h),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                child: _DetailColumn(
+                child: detailColumn(
+                  context,
                   label: 'HAFALAN SURAT',
                   surah: record.hafalanSurah,
                   ayat: record.hafalanAyat,
@@ -89,7 +90,8 @@ class TahsinDetailSheet extends StatelessWidget {
               ),
               SizedBox(width: 16.w),
               Expanded(
-                child: _DetailColumn(
+                child: detailColumn(
+                  context,
                   label: 'UMMI / WAFA JILID/SURAT',
                   surah: record.ummiSurah,
                   ayat: record.ummiAyat,
@@ -100,7 +102,7 @@ class TahsinDetailSheet extends StatelessWidget {
             ],
           ),
           SizedBox(height: 16.h),
-          _Divider(),
+          divider(context),
           SizedBox(height: 16.h),
           Text(
             'CATATAN',
@@ -135,36 +137,23 @@ class TahsinDetailSheet extends StatelessWidget {
       ),
     );
   }
-}
 
-class _Divider extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  divider(BuildContext context) {
     return Divider(
       color: context.brand.inactive.withOpacity(0.3),
       height: 1,
       thickness: 1,
     );
   }
-}
 
-class _DetailColumn extends StatelessWidget {
-  const _DetailColumn({
-    required this.label,
-    required this.surah,
-    required this.ayat,
-    required this.score,
-    required this.labelColor,
-  });
-
-  final String label;
-  final String surah;
-  final String ayat;
-  final String score;
-  final Color labelColor;
-
-  @override
-  Widget build(BuildContext context) {
+  detailColumn(
+    BuildContext context, {
+    required String label,
+    required String surah,
+    required String ayat,
+    required String score,
+    required Color labelColor,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -196,18 +185,12 @@ class _DetailColumn extends StatelessWidget {
           ),
         ),
         SizedBox(height: 8.h),
-        _ScorePill(score: score),
+        scorePill(context, score),
       ],
     );
   }
-}
 
-class _ScorePill extends StatelessWidget {
-  const _ScorePill({required this.score});
-  final String score;
-
-  @override
-  Widget build(BuildContext context) {
+  scorePill(BuildContext context, String score) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 6.h),
       decoration: BoxDecoration(

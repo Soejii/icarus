@@ -37,55 +37,41 @@ Files ending in `.g.dart` and `.freezed.dart` are generated, never edit manually
 
 ### Widget Structure (CRITICAL)
 
-**NEVER use `_buildXxx()` methods that return `Widget` or `List<Widget>` inside any widget class.** Every visual section must be its own widget class.
+**NEVER use `_buildXxx()` underscore-prefixed methods or `class _Foo extends StatelessWidget` private widget classes.** These patterns are banned.
 
 Extraction strategy:
-1. **Separate file in `widgets/`** -- reused or complex
-2. **Private class in same file** (`class _Foo extends StatelessWidget`) -- single-use, small
+1. **Separate file in `widgets/`** -- reused or complex widgets get their own file and class
+2. **camelCase method on the parent class** -- for sub-widgets only used within one widget, return a Widget directly (no class, no underscore). See `majalahPopUp()` in `digital_magazine_card.dart` as reference.
 3. **Inline in `build()`** -- only truly trivial (a `Text`, a `SizedBox`)
-4. **NEVER `_buildXxx()` methods** -- banned
 
 ```dart
-// CORRECT -- screen is purely compositional
-class FinanceScreen extends ConsumerWidget {
-  const FinanceScreen({super.key});
+// CORRECT -- build() first, sub-widget methods below
+class SomeScreen extends ConsumerWidget {
+  const SomeScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: const CustomAppBarWidget(title: 'Keuangan', leadingIcon: true),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
-        child: Column(
-          children: [
-            const FinanceBalanceRowWidget(),
-            SizedBox(height: 16.h),
-            const FinanceUnpaidSummaryWidget(),
-          ],
-        ),
-      ),
+      body: Column(children: [
+        const ExtractedWidget(),       // from widgets/ folder
+        sectionHeader(context, 'Title'), // camelCase method below
+      ]),
     );
   }
-}
 
-// CORRECT -- private class in same file for single-use widget
-class _MonthHeader extends StatelessWidget {
-  const _MonthHeader({required this.label});
-  final String label;
-  @override
-  Widget build(BuildContext context) {
+  sectionHeader(BuildContext context, String title) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 4.h),
-      child: Text(label, style: TextStyle(...)),
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      child: Text(title, style: TextStyle(...)),
     );
   }
 }
 
 // WRONG -- never do this
 class SomeScreen extends StatelessWidget {
-  Widget _buildHeader() { ... }       // BANNED
-  List<Widget> _buildItems() { ... }  // BANNED
+  Widget _buildHeader() { ... }               // BANNED
 }
+class _MonthHeader extends StatelessWidget { } // BANNED
 ```
 
 ### Widget Base Classes

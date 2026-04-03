@@ -102,36 +102,9 @@ const _tahsinRecords = [
 class TahfidzTahsinScreen extends ConsumerWidget {
   const TahfidzTahsinScreen({super.key});
 
-  List<Widget> _buildTahfidzItems() {
-    final widgets = <Widget>[];
-    String? currentMonth;
-    for (final record in _tahfidzRecords) {
-      if (record.monthLabel != currentMonth) {
-        currentMonth = record.monthLabel;
-        widgets.add(_MonthHeader(label: currentMonth));
-      }
-      widgets.add(TahfidzRecordCard(record: record));
-    }
-    return widgets;
-  }
-
-  List<Widget> _buildTahsinItems() {
-    final widgets = <Widget>[];
-    String? currentMonth;
-    for (final record in _tahsinRecords) {
-      if (record.monthLabel != currentMonth) {
-        currentMonth = record.monthLabel;
-        widgets.add(_MonthHeader(label: currentMonth));
-      }
-      widgets.add(TahsinRecordCard(record: record));
-    }
-    return widgets;
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final tabIndex = ref.watch(tahfidzTahsinTabIndexProvider);
-    final items = tabIndex == 0 ? _buildTahfidzItems() : _buildTahsinItems();
 
     return Scaffold(
       appBar: const CustomAppBarWidget(
@@ -142,24 +115,14 @@ class TahfidzTahsinScreen extends ConsumerWidget {
         children: [
           const TahfidzTahsinTabToggle(),
           Expanded(
-            child: ListView(
-              shrinkWrap: true,
-              padding: EdgeInsets.only(top: 8.h, bottom: 24.h),
-              children: items,
-            ),
+            child: tabIndex == 0 ? tahfidzList(context) : tahsinList(context),
           ),
         ],
       ),
     );
   }
-}
 
-class _MonthHeader extends StatelessWidget {
-  const _MonthHeader({required this.label});
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
+  monthHeader(BuildContext context, String label) {
     return Padding(
       padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 4.h),
       child: Text(
@@ -171,6 +134,34 @@ class _MonthHeader extends StatelessWidget {
           color: context.brand.textSecondary,
         ),
       ),
+    );
+  }
+
+  tahfidzList(BuildContext context) {
+    String? currentMonth;
+    return ListView(
+      padding: EdgeInsets.only(top: 8.h, bottom: 24.h),
+      children: [
+        for (final record in _tahfidzRecords) ...[
+          if (record.monthLabel != currentMonth)
+            monthHeader(context, currentMonth = record.monthLabel),
+          TahfidzRecordCard(record: record),
+        ],
+      ],
+    );
+  }
+
+  tahsinList(BuildContext context) {
+    String? currentMonth;
+    return ListView(
+      padding: EdgeInsets.only(top: 8.h, bottom: 24.h),
+      children: [
+        for (final record in _tahsinRecords) ...[
+          if (record.monthLabel != currentMonth)
+            monthHeader(context, currentMonth = record.monthLabel),
+          TahsinRecordCard(record: record),
+        ],
+      ],
     );
   }
 }

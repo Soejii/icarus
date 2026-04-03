@@ -89,9 +89,9 @@ class TahsinRecordCard extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        _ScoreBadge(score: record.hafalanScore),
+                        scoreBadge(context, record.hafalanScore),
                         SizedBox(height: 4.h),
-                        _ScoreBadge(score: record.ummiScore),
+                        scoreBadge(context, record.ummiScore),
                       ],
                     ),
                   ],
@@ -104,14 +104,7 @@ class TahsinRecordCard extends StatelessWidget {
       ),
     );
   }
-}
-
-class _ScoreBadge extends StatelessWidget {
-  const _ScoreBadge({required this.score});
-  final String score;
-
-  @override
-  Widget build(BuildContext context) {
+  scoreBadge(BuildContext context, String score) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
       decoration: BoxDecoration(

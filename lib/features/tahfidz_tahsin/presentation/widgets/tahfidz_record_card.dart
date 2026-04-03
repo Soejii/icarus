@@ -89,9 +89,9 @@ class TahfidzRecordCard extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        _ScoreBadge(score: record.ziyadahScore),
+                        scoreBadge(context, record.ziyadahScore),
                         SizedBox(height: 4.h),
-                        _ScoreBadge(score: record.murajaahScore),
+                        scoreBadge(context, record.murajaahScore),
                       ],
                     ),
                   ],
@@ -104,14 +104,7 @@ class TahfidzRecordCard extends StatelessWidget {
       ),
     );
   }
-}
-
-class _ScoreBadge extends StatelessWidget {
-  const _ScoreBadge({required this.score});
-  final String score;
-
-  @override
-  Widget build(BuildContext context) {
+  scoreBadge(BuildContext context, String score) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
       decoration: BoxDecoration(

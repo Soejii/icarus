@@ -20,14 +20,16 @@ class TahfidzTahsinTabToggle extends ConsumerWidget {
       ),
       child: Row(
         children: [
-          _TabPill(
+          tabPill(
+            context,
             label: 'Data Tahfidz',
             isSelected: selectedIndex == 0,
             onTap: () =>
                 ref.read(tahfidzTahsinTabIndexProvider.notifier).set(0),
           ),
           SizedBox(width: 12.w),
-          _TabPill(
+          tabPill(
+            context,
             label: 'Data Tahsin',
             isSelected: selectedIndex == 1,
             onTap: () =>
@@ -37,21 +39,13 @@ class TahfidzTahsinTabToggle extends ConsumerWidget {
       ),
     );
   }
-}
 
-class _TabPill extends StatelessWidget {
-  const _TabPill({
-    required this.label,
-    required this.isSelected,
-    required this.onTap,
-  });
-
-  final String label;
-  final bool isSelected;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
+  tabPill(
+    BuildContext context, {
+    required String label,
+    required bool isSelected,
+    required VoidCallback onTap,
+  }) {
     return Expanded(
       child: GestureDetector(
         onTap: onTap,
