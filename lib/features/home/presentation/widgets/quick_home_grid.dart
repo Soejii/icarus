@@ -27,7 +27,7 @@ class QuickHomeGrid extends StatelessWidget {
         icon: AssetsHelper.imgHomeButtonDiskusi,
       ),
       QuickHomeButton(
-        path: RouteName.lainnya,
+        path: RouteName.schedule,
         label: 'Jadwal Pelajaran',
         icon: AssetsHelper.imgHomeButtonJadwal,
       ),
@@ -54,32 +54,32 @@ class QuickHomeGrid extends StatelessWidget {
     ];
     final topPadding = MediaQuery.of(context).padding.top;
     return Padding(
-      padding: EdgeInsets.only(
-        top: 145.h + topPadding,
-        left: 20.w,
-        right: 20.w,
-        bottom: 16.h,
-      ),
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: context.brand.shadow,
+        padding: EdgeInsets.only(
+          top: 145.h + topPadding,
+          left: 20.w,
+          right: 20.w,
+          bottom: 16.h,
         ),
-        child: GridView.count(
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          crossAxisCount: 4,
-          mainAxisSpacing: 4,
-          childAspectRatio: 0.88,
-          children: listHomeButton
-              .map(
-                (e) =>
-                    QuickHomeButton(path: e.path, label: e.label, icon: e.icon),
-              )
-              .toList(),
-        ),
-      ));
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(15),
+            boxShadow: context.brand.shadow,
+          ),
+          child: GridView.count(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            crossAxisCount: 4,
+            mainAxisSpacing: 4,
+            childAspectRatio: 0.88,
+            children: listHomeButton
+                .map(
+                  (e) => QuickHomeButton(
+                      path: e.path, label: e.label, icon: e.icon),
+                )
+                .toList(),
+          ),
+        ));
   }
 }

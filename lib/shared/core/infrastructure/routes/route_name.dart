@@ -47,4 +47,7 @@ class RouteName {
 
   // Tahfidz Tahsin
   static const tahfidzTahsin = 'tahfidz-tahsin';
+
+  // Schedule
+  static const schedule = 'schedule';
 }

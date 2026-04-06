@@ -36,6 +36,7 @@ import 'package:icarus/features/finance/presentation/screens/multi_select_paymen
 import 'package:icarus/features/finance/presentation/screens/bank_transfer_payment_screen.dart';
 import 'package:icarus/features/finance/presentation/screens/va_payment_screen.dart';
 import 'package:icarus/features/finance/domain/types/va_bank_type.dart';
+import 'package:icarus/features/schedule/presentation/screens/schedule_screen.dart';
 import 'package:icarus/features/school/presentation/screens/school_information_screen.dart';
 import 'package:icarus/features/tahfidz_tahsin/presentation/screens/tahfidz_tahsin_screen.dart';
 import 'package:icarus/shared/core/infrastructure/analytics/analytics_providers.dart';
@@ -247,6 +248,13 @@ GoRouter appRouter(Ref ref) {
                     name: RouteName.tahfidzTahsin,
                     parentNavigatorKey: rootNavigatorKey,
                     builder: (_, __) => const TahfidzTahsinScreen(),
+                  ),
+                  // Schedule
+                  GoRoute(
+                    path: 'schedule',
+                    name: RouteName.schedule,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, __) => const ScheduleScreen(),
                   ),
                 ],
               ),
