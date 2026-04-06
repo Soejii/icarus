@@ -33,7 +33,10 @@ class UserAvatarWidget extends ConsumerWidget {
           padding: EdgeInsets.all(2.r),
           child: ClipOval(
             child: child == null
-                ? _loadingContent()
+                ? Padding(
+                    padding: EdgeInsets.all(8.w),
+                    child: const CircularProgressIndicator(strokeWidth: 2),
+                  )
                 : child.photo != null
                     ? Image.network(
                         child.photo!,
@@ -48,16 +51,8 @@ class UserAvatarWidget extends ConsumerWidget {
     );
   }
 
-  _loadingContent() {
-    return const Padding(
-      padding: EdgeInsets.all(8),
-      child: CircularProgressIndicator(strokeWidth: 2),
-    );
-  }
-
   initialsAvatar(BuildContext context, ChildEntity child) {
-    final initials =
-        child.name.isNotEmpty ? child.name[0].toUpperCase() : '?';
+    final initials = child.name.isNotEmpty ? child.name[0].toUpperCase() : '?';
     return Container(
       color: context.brand.primary.withOpacity(0.15),
       alignment: Alignment.center,
