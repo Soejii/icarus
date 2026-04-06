@@ -35,6 +35,10 @@ Files ending in `.g.dart` and `.freezed.dart` are generated, never edit manually
 
 ## Coding Conventions
 
+### File Naming
+
+ALWAYS use english naming when naming a file unless there's a very very specific thing that couldnt or hard to understand in english
+
 ### Widget Structure (CRITICAL)
 
 **NEVER use `_buildXxx()` underscore-prefixed methods or `class _Foo extends StatelessWidget` private widget classes.** These patterns are banned.
