@@ -50,4 +50,7 @@ class RouteName {
 
   // Schedule
   static const schedule = 'schedule';
+
+  // Child
+  static const pilihAnakDidik = 'pilih-anak-didik';
 }

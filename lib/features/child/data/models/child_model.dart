@@ -12,6 +12,7 @@ class ChildModel with _$ChildModel {
     required String nis,
     String? nickname,
     String? photo,
+    @JsonKey(name: 'class') String? className,
   }) = _ChildModel;
 
   factory ChildModel.fromJson(Map<String, dynamic> json) =>

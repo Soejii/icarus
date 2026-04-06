@@ -8,5 +8,6 @@ extension ChildMapper on ChildModel {
         nis: nis,
         nickname: nickname,
         photo: photo,
+        className: className,
       );
 }
