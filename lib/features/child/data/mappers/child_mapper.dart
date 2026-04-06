@@ -6,7 +6,6 @@ extension ChildMapper on ChildModel {
         id: id,
         name: name,
         nis: nis,
-        nickname: nickname,
         photo: photo,
         className: classes?.name,
       );

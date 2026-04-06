@@ -24,8 +24,7 @@ class ScheduleChildSelector extends ConsumerWidget {
           final child = children[i];
           final isSelected = selected?.id == child.id;
           return GestureDetector(
-            onTap: () =>
-                ref.read(selectedChildProvider.notifier).select(child),
+            onTap: () => ref.read(selectedChildProvider.notifier).select(child),
             child: childChip(context, child, isSelected),
           );
         },
@@ -63,15 +62,14 @@ class ScheduleChildSelector extends ConsumerWidget {
         SizedBox(
           width: 52.w,
           child: Text(
-            child.displayName,
+            child.name,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: 'OpenSans',
               fontSize: 10.sp,
-              fontWeight:
-                  isSelected ? FontWeight.w700 : FontWeight.w400,
+              fontWeight: isSelected ? FontWeight.w700 : FontWeight.w400,
               color: isSelected
                   ? context.brand.primary
                   : context.brand.textSecondary,
@@ -83,9 +81,7 @@ class ScheduleChildSelector extends ConsumerWidget {
   }
 
   initialsAvatar(BuildContext context, ChildEntity child, bool isSelected) {
-    final initials = child.displayName.isNotEmpty
-        ? child.displayName[0].toUpperCase()
-        : '?';
+    final initials = child.name.isNotEmpty ? child.name[0].toUpperCase() : '?';
     return Container(
       color: isSelected
           ? Colors.white.withOpacity(0.3)

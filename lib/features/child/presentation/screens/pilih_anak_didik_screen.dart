@@ -70,7 +70,9 @@ class PilihAnakDidikScreen extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    child.displayName,
+                    child.name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontFamily: 'OpenSans',
                       fontSize: 16.sp,
@@ -112,9 +114,7 @@ class PilihAnakDidikScreen extends ConsumerWidget {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(
-          color: isSelected
-              ? context.brand.primary
-              : const Color(0xFFE0E0E0),
+          color: isSelected ? context.brand.primary : const Color(0xFFE0E0E0),
           width: isSelected ? 2 : 1,
         ),
       ),
@@ -132,9 +132,7 @@ class PilihAnakDidikScreen extends ConsumerWidget {
   }
 
   initialsAvatar(BuildContext context, ChildEntity child, bool isSelected) {
-    final initials = child.displayName.isNotEmpty
-        ? child.displayName[0].toUpperCase()
-        : '?';
+    final initials = child.name.isNotEmpty ? child.name[0].toUpperCase() : '?';
     return Container(
       color: isSelected
           ? context.brand.primary.withOpacity(0.12)

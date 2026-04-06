@@ -23,7 +23,7 @@ class UserInfoColumn extends ConsumerWidget {
 
     final childName = childrenAsync.isLoading
         ? '...'
-        : child?.displayName ?? '...';
+        : child?.name ?? '...';
 
     final childSubtitle = child == null
         ? null
