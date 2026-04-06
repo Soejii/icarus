@@ -20,10 +20,12 @@ class ScheduleCard extends StatelessWidget {
         boxShadow: context.brand.shadow,
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           accentBar(context),
+          SizedBox(width: 24.w),
           timeSection(context),
+          SizedBox(width: 24.w),
           Expanded(child: infoSection(context)),
           SizedBox(width: 16.w),
         ],
@@ -77,13 +79,13 @@ class ScheduleCard extends StatelessWidget {
 
   infoSection(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 16.h),
+      padding: EdgeInsets.symmetric(vertical: 14.h),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           infoRow(context, label: 'Subject :', value: entity.subjectName),
-          SizedBox(height: 8.h),
+          SizedBox(height: 4.h),
           infoRow(
             context,
             label: 'Guru Pengajar :',
@@ -99,31 +101,36 @@ class ScheduleCard extends StatelessWidget {
     required String label,
     required String value,
   }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontFamily: 'OpenSans',
-            fontSize: 11.sp,
-            fontWeight: FontWeight.w400,
-            color: context.brand.textSecondary,
+    return Flexible(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Text(
+            label,
+            style: TextStyle(
+              fontFamily: 'OpenSans',
+              fontSize: 11.sp,
+              fontWeight: FontWeight.w400,
+              color: context.brand.textSecondary,
+            ),
           ),
-        ),
-        SizedBox(height: 2.h),
-        Text(
-          value,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(
-            fontFamily: 'OpenSans',
-            fontSize: 13.sp,
-            fontWeight: FontWeight.w700,
-            color: context.brand.textMain,
+          SizedBox(height: 2.h),
+          Flexible(
+            child: Text(
+              value,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontFamily: 'OpenSans',
+                fontSize: 13.sp,
+                fontWeight: FontWeight.w700,
+                color: context.brand.textMain,
+              ),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -131,6 +138,6 @@ class ScheduleCard extends StatelessWidget {
   String _formatTime(String raw) {
     final parts = raw.split(':');
     if (parts.length < 2) return raw;
-    return '${parts[0]}.${parts[1]} WIB';
+    return '${parts[0]}.${parts[1]}';
   }
 }
