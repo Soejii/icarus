@@ -8,19 +8,24 @@ import 'package:icarus/features/schedule/presentation/widgets/schedule_empty_sta
 import 'package:icarus/shared/screens/buffer_error_view.dart';
 
 class ScheduleContent extends ConsumerWidget {
-  const ScheduleContent({super.key, required this.day});
+  const ScheduleContent({
+    super.key,
+    required this.day,
+    required this.studentId,
+  });
 
   final DayOfWeek day;
+  final int studentId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final scheduleAsync = ref.watch(scheduleControllerProvider(day));
+    final scheduleAsync = ref.watch(scheduleControllerProvider(day, studentId));
     return scheduleAsync.when(
       data: (items) {
         if (items.isEmpty) return const ScheduleEmptyState();
         return RefreshIndicator(
           onRefresh: () async =>
-              ref.refresh(scheduleControllerProvider(day).future),
+              ref.refresh(scheduleControllerProvider(day, studentId).future),
           child: ListView.builder(
             padding: EdgeInsets.only(top: 8.h, bottom: 16.h),
             itemCount: items.length,
@@ -31,7 +36,8 @@ class ScheduleContent extends ConsumerWidget {
       error: (error, stack) => BufferErrorView(
         error: error,
         stackTrace: stack,
-        onRetry: () => ref.invalidate(scheduleControllerProvider(day)),
+        onRetry: () =>
+            ref.invalidate(scheduleControllerProvider(day, studentId)),
       ),
       loading: () => const Center(child: CircularProgressIndicator()),
     );

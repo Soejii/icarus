@@ -7,9 +7,9 @@ part 'schedule_controller.g.dart';
 @Riverpod(keepAlive: true)
 class ScheduleController extends _$ScheduleController {
   @override
-  Future<List<ScheduleEntity>> build(DayOfWeek day) async {
+  Future<List<ScheduleEntity>> build(DayOfWeek day, int studentId) async {
     final usecase = ref.read(getScheduleByDayUsecaseProvider);
-    final result = await usecase.call(day);
+    final result = await usecase.call(day, studentId);
     return result.fold(
       (failure) => throw failure,
       (entities) => entities,
