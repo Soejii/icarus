@@ -1,4 +1,4 @@
-import 'package:icarus/features/child/data/datasource/child_remote_datasource.dart';
+import 'package:icarus/features/child/data/datasource/child_remote_data_source.dart';
 import 'package:icarus/features/child/data/mappers/child_mapper.dart';
 import 'package:icarus/features/child/domain/child_repository.dart';
 import 'package:icarus/features/child/domain/entities/child_entity.dart';

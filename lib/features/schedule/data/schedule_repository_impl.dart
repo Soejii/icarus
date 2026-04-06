@@ -1,4 +1,4 @@
-import 'package:icarus/features/schedule/data/datasource/schedule_remote_datasource.dart';
+import 'package:icarus/features/schedule/data/datasource/schedule_remote_data_source.dart';
 import 'package:icarus/features/schedule/data/mappers/schedule_mapper.dart';
 import 'package:icarus/features/schedule/domain/entities/schedule_entity.dart';
 import 'package:icarus/features/schedule/domain/schedule_repository.dart';
