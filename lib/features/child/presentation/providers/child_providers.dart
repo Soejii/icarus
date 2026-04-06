@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icarus/features/child/data/child_repository_impl.dart';
-import 'package:icarus/features/child/data/datasource/child_remote_datasource.dart';
+import 'package:icarus/features/child/data/datasource/child_remote_data_source.dart';
 import 'package:icarus/features/child/domain/child_repository.dart';
 import 'package:icarus/features/child/domain/entities/child_entity.dart';
 import 'package:icarus/features/child/domain/usecase/get_children_usecase.dart';

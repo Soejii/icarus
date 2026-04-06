@@ -39,6 +39,10 @@ Files ending in `.g.dart` and `.freezed.dart` are generated, never edit manually
 
 ALWAYS use english naming when naming a file unless there's a very very specific thing that couldnt or hard to understand in english
 
+### Color Usage
+
+**Never use hard coded color, always use colors.xxx or take it from context.brand. If there's a color you needed for a UI and there's no matching color founded, give back the decision to the user**
+
 ### Widget Structure (CRITICAL)
 
 **NEVER use `_buildXxx()` underscore-prefixed methods or `class _Foo extends StatelessWidget` private widget classes.** These patterns are banned.

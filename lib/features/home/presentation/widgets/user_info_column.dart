@@ -44,8 +44,8 @@ class UserInfoColumn extends ConsumerWidget {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.h),
               decoration: BoxDecoration(
-                color: const Color(0xFFF9F9F9),
-                borderRadius: BorderRadius.circular(10),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10.r),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -66,7 +66,7 @@ class UserInfoColumn extends ConsumerWidget {
                   Icon(
                     Icons.keyboard_arrow_down,
                     size: 14.sp,
-                    color: const Color(0xFF539401),
+                    color: context.brand.primary,
                   ),
                 ],
               ),

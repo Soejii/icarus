@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:icarus/features/schedule/data/datasource/schedule_remote_datasource.dart';
+import 'package:icarus/features/schedule/data/datasource/schedule_remote_data_source.dart';
 import 'package:icarus/features/schedule/data/schedule_repository_impl.dart';
 import 'package:icarus/features/schedule/domain/schedule_repository.dart';
 import 'package:icarus/features/schedule/domain/usecase/get_schedule_by_day_usecase.dart';

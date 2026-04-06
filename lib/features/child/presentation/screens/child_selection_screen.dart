@@ -8,8 +8,8 @@ import 'package:icarus/features/child/presentation/providers/child_providers.dar
 import 'package:icarus/shared/screens/buffer_error_view.dart';
 import 'package:icarus/shared/widgets/custom_app_bar_widget.dart';
 
-class PilihAnakDidikScreen extends ConsumerWidget {
-  const PilihAnakDidikScreen({super.key});
+class ChildSelectionScreen extends ConsumerWidget {
+  const ChildSelectionScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -27,7 +27,7 @@ class PilihAnakDidikScreen extends ConsumerWidget {
           separatorBuilder: (_, __) => Divider(
             height: 1,
             thickness: 1,
-            color: const Color(0xFFF0F0F0),
+            color: context.brand.inactive.withOpacity(0.25),
             indent: 20.w,
             endIndent: 20.w,
           ),
@@ -77,7 +77,7 @@ class PilihAnakDidikScreen extends ConsumerWidget {
                       fontFamily: 'OpenSans',
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w600,
-                      color: const Color(0xFF052049),
+                      color: context.brand.textMain,
                     ),
                   ),
                   SizedBox(height: 2.h),
@@ -89,7 +89,7 @@ class PilihAnakDidikScreen extends ConsumerWidget {
                       fontFamily: 'OpenSans',
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
-                      color: const Color(0xFF526789),
+                      color: context.brand.textSecondary,
                     ),
                   ),
                 ],
@@ -109,13 +109,15 @@ class PilihAnakDidikScreen extends ConsumerWidget {
 
   childAvatar(BuildContext context, ChildEntity child, bool isSelected) {
     return Container(
-      width: 56,
-      height: 56,
+      width: 56.w,
+      height: 56.w,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(
-          color: isSelected ? context.brand.primary : const Color(0xFFE0E0E0),
-          width: isSelected ? 2 : 1,
+          color: isSelected
+              ? context.brand.primary
+              : context.brand.inactive.withOpacity(0.5),
+          width: isSelected ? 2.w : 1.w,
         ),
       ),
       child: ClipOval(
@@ -136,7 +138,7 @@ class PilihAnakDidikScreen extends ConsumerWidget {
     return Container(
       color: isSelected
           ? context.brand.primary.withOpacity(0.12)
-          : const Color(0xFFF5F5F5),
+          : context.brand.inactive.withOpacity(0.15),
       alignment: Alignment.center,
       child: Text(
         initials,
@@ -144,7 +146,9 @@ class PilihAnakDidikScreen extends ConsumerWidget {
           fontFamily: 'OpenSans',
           fontSize: 20.sp,
           fontWeight: FontWeight.w700,
-          color: isSelected ? context.brand.primary : const Color(0xFF526789),
+          color: isSelected
+              ? context.brand.primary
+              : context.brand.textSecondary,
         ),
       ),
     );
