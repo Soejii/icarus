@@ -36,6 +36,8 @@ import 'package:icarus/features/finance/presentation/screens/multi_select_paymen
 import 'package:icarus/features/finance/presentation/screens/bank_transfer_payment_screen.dart';
 import 'package:icarus/features/finance/presentation/screens/va_payment_screen.dart';
 import 'package:icarus/features/finance/domain/types/va_bank_type.dart';
+import 'package:icarus/features/absence_letter/presentation/screens/absence_letter_screen.dart';
+import 'package:icarus/features/absence_letter/presentation/screens/edit_absence_letter_screen.dart';
 import 'package:icarus/features/child/presentation/screens/child_selection_screen.dart';
 import 'package:icarus/features/schedule/presentation/screens/schedule_screen.dart';
 import 'package:icarus/features/school/presentation/screens/school_information_screen.dart';
@@ -263,6 +265,19 @@ GoRouter appRouter(Ref ref) {
                     name: RouteName.pilihAnakDidik,
                     parentNavigatorKey: rootNavigatorKey,
                     builder: (_, __) => const ChildSelectionScreen(),
+                  ),
+                  // Absence Letter
+                  GoRoute(
+                    path: 'absence-letter',
+                    name: RouteName.absenceLetter,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, __) => const AbsenceLetterScreen(),
+                  ),
+                  GoRoute(
+                    path: 'edit-absence-letter',
+                    name: RouteName.editAbsenceLetter,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, __) => const EditAbsenceLetterScreen(),
                   ),
                 ],
               ),

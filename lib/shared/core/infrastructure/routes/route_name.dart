@@ -53,4 +53,8 @@ class RouteName {
 
   // Child
   static const pilihAnakDidik = 'pilih-anak-didik';
+
+  // Absence Letter
+  static const absenceLetter = 'absence-letter';
+  static const editAbsenceLetter = 'edit-absence-letter';
 }

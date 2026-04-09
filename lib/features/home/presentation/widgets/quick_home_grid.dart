@@ -22,7 +22,7 @@ class QuickHomeGrid extends StatelessWidget {
         icon: AssetsHelper.imgHomeButtonEdutainment,
       ),
       QuickHomeButton(
-        path: RouteName.lainnya,
+        path: RouteName.absenceLetter,
         label: 'Surat Izin',
         icon: AssetsHelper.imgHomeButtonDiskusi,
       ),
