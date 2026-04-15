@@ -57,7 +57,6 @@ class ChangeHistoryScreen extends ConsumerWidget {
                   ),
           ),
           Container(
-            color: Colors.white,
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
             decoration: BoxDecoration(
               color: Colors.white,
