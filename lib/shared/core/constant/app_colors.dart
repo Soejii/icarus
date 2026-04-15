@@ -8,6 +8,8 @@ class AppColors {
   static const Color mainText = Color.fromRGBO(4, 23, 53, 1);
 
   static const Color green = Color.fromRGBO(90, 175, 85, 1);
+  static const Color danger = Color(0xFFEC5F59);
+  static const Color warning = Color(0xFFF59E0B);
 
   static const List<BoxShadow> shadow = [
     BoxShadow(
