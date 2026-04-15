@@ -1,37 +1,37 @@
-enum Kewarganegaraan { indonesia, lainnya }
+enum Nationality { indonesia, other }
 
 class ParentDataEntity {
   final String? nik;
-  final String? namaLengkap;
-  final String? tempatLahir;
-  final DateTime? tanggalLahir;
-  final Kewarganegaraan kewarganegaraan;
-  final String? kewarganegaraanLain;
-  final String? agama;
-  final String? alamat;
-  final String? pendidikan;
-  final String? pekerjaan;
-  final String? tempatKerja;
-  final String? penghasilan;
-  final String? noTelepon;
+  final String? fullName;
+  final String? birthPlace;
+  final DateTime? birthDate;
+  final Nationality nationality;
+  final String? otherNationality;
+  final String? religion;
+  final String? address;
+  final String? education;
+  final String? occupation;
+  final String? workplace;
+  final String? income;
+  final String? phoneNumber;
   final String? email;
-  final bool berkebutuhanKhusus;
+  final bool hasSpecialNeeds;
 
   ParentDataEntity({
     this.nik,
-    this.namaLengkap,
-    this.tempatLahir,
-    this.tanggalLahir,
-    this.kewarganegaraan = Kewarganegaraan.indonesia,
-    this.kewarganegaraanLain,
-    this.agama,
-    this.alamat,
-    this.pendidikan,
-    this.pekerjaan,
-    this.tempatKerja,
-    this.penghasilan,
-    this.noTelepon,
+    this.fullName,
+    this.birthPlace,
+    this.birthDate,
+    this.nationality = Nationality.indonesia,
+    this.otherNationality,
+    this.religion,
+    this.address,
+    this.education,
+    this.occupation,
+    this.workplace,
+    this.income,
+    this.phoneNumber,
     this.email,
-    this.berkebutuhanKhusus = false,
+    this.hasSpecialNeeds = false,
   });
 }

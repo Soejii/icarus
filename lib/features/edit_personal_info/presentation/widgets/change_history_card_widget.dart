@@ -53,7 +53,7 @@ class ChangeHistoryCardWidget extends StatelessWidget {
                       children: [
                         statusBadge(context),
                         Text(
-                          _formatDate(entity.tanggalPermintaan),
+                          _formatDate(entity.requestDate),
                           style: TextStyle(
                             fontFamily: 'OpenSans',
                             fontSize: 11.sp,
@@ -77,7 +77,7 @@ class ChangeHistoryCardWidget extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          _formatDate(entity.tanggalUpdate),
+                          _formatDate(entity.updatedAt),
                           style: TextStyle(
                             fontFamily: 'OpenSans',
                             fontSize: 11.sp,
@@ -99,12 +99,12 @@ class ChangeHistoryCardWidget extends StatelessWidget {
 
   statusBadge(BuildContext context) {
     final label = switch (entity.status) {
-      ChangeRequestStatus.disetujui => 'Disetujui',
-      ChangeRequestStatus.ditolak => 'Ditolak',
-      ChangeRequestStatus.menunggu => 'Menunggu',
+      ChangeRequestStatus.approved => 'Disetujui',
+      ChangeRequestStatus.rejected => 'Ditolak',
+      ChangeRequestStatus.pending => 'Menunggu',
     };
 
-    if (entity.status == ChangeRequestStatus.disetujui) {
+    if (entity.status == ChangeRequestStatus.approved) {
       return DecoratedBox(
         decoration: BoxDecoration(
           gradient: context.brand.mainGradient,
@@ -125,7 +125,7 @@ class ChangeHistoryCardWidget extends StatelessWidget {
       );
     }
 
-    final badgeColor = entity.status == ChangeRequestStatus.ditolak
+    final badgeColor = entity.status == ChangeRequestStatus.rejected
         ? AppColors.danger
         : AppColors.warning;
 

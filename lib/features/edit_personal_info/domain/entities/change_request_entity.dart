@@ -1,13 +1,13 @@
-enum ChangeRequestStatus { menunggu, disetujui, ditolak }
+enum ChangeRequestStatus { pending, approved, rejected }
 
 class ChangeRequestEntity {
-  final DateTime tanggalPermintaan;
-  final DateTime? tanggalUpdate;
+  final DateTime requestDate;
+  final DateTime? updatedAt;
   final ChangeRequestStatus status;
 
   ChangeRequestEntity({
-    required this.tanggalPermintaan,
-    this.tanggalUpdate,
+    required this.requestDate,
+    this.updatedAt,
     required this.status,
   });
 }

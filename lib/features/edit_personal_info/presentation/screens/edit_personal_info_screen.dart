@@ -111,34 +111,30 @@ class EditPersonalInfoScreen extends HookConsumerWidget {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient: context.brand.mainGradient,
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-                child: ElevatedButton(
-                  onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Perubahan berhasil disimpan'),
-                      ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.transparent,
-                    shadowColor: Colors.transparent,
-                    foregroundColor: Colors.white,
-                    minimumSize: Size(double.infinity, 48.h),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.r),
+              child: GestureDetector(
+                onTap: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Perubahan berhasil disimpan'),
                     ),
+                  );
+                },
+                child: Container(
+                  height: 48.h,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    gradient: context.brand.mainGradient,
+                    borderRadius: BorderRadius.circular(8.r),
                   ),
-                  child: Text(
-                    'Simpan',
-                    style: TextStyle(
-                      fontFamily: 'OpenSans',
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
+                  child: Center(
+                    child: Text(
+                      'Simpan',
+                      style: TextStyle(
+                        fontFamily: 'OpenSans',
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),

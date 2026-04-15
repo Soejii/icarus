@@ -1,9 +1,9 @@
 class WhatsappNotificationEntity {
-  final String? nomorWhatsapp1;
-  final String? nomorWhatsapp2;
+  final String? whatsappNumber1;
+  final String? whatsappNumber2;
 
   WhatsappNotificationEntity({
-    this.nomorWhatsapp1,
-    this.nomorWhatsapp2,
+    this.whatsappNumber1,
+    this.whatsappNumber2,
   });
 }
