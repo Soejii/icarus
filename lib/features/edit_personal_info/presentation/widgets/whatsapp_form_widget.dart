@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:icarus/app/theme/brand_palette.dart';
 import 'package:icarus/features/edit_personal_info/presentation/widgets/labeled_form_field_widget.dart';
 
 class WhatsappFormWidget extends ConsumerStatefulWidget {
@@ -29,27 +30,57 @@ class _WhatsappFormWidgetState extends ConsumerState<WhatsappFormWidget> {
     super.dispose();
   }
 
+  sectionCard(String title, List<Widget> children) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(16.w),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12.r),
+        boxShadow: context.brand.shadow,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              fontFamily: 'OpenSans',
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w600,
+              color: context.brand.textSecondary,
+            ),
+          ),
+          SizedBox(height: 16.h),
+          ...children,
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
       child: ListView(
         physics: const ClampingScrollPhysics(),
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
         children: [
-          LabeledFormFieldWidget(
-            controller: _wa1Controller,
-            label: 'Nomor WhatsApp 1',
-            hintText: 'Masukkan nomor WhatsApp',
-            keyboardType: TextInputType.phone,
-          ),
-          SizedBox(height: 24.h),
-          LabeledFormFieldWidget(
-            controller: _wa2Controller,
-            label: 'Nomor WhatsApp 2',
-            hintText: 'Masukkan nomor WhatsApp',
-            keyboardType: TextInputType.phone,
-          ),
+          sectionCard('Nomor WhatsApp', [
+            LabeledFormFieldWidget(
+              controller: _wa1Controller,
+              label: 'Nomor WhatsApp 1',
+              hintText: 'Masukkan nomor WhatsApp',
+              keyboardType: TextInputType.phone,
+            ),
+            SizedBox(height: 16.h),
+            LabeledFormFieldWidget(
+              controller: _wa2Controller,
+              label: 'Nomor WhatsApp 2',
+              hintText: 'Masukkan nomor WhatsApp',
+              keyboardType: TextInputType.phone,
+            ),
+          ]),
           SizedBox(height: 32.h),
         ],
       ),
