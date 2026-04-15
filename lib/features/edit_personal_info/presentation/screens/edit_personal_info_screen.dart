@@ -96,14 +96,17 @@ class EditPersonalInfoScreen extends HookConsumerWidget {
           children: [
             EditPersonalInfoTabBarWidget(tabController: tabController),
             Expanded(
-              child: TabBarView(
-                controller: tabController,
-                children: const [
-                  WhatsappFormWidget(),
-                  ParentDataFormWidget(parentLabel: 'Ayah'),
-                  ParentDataFormWidget(parentLabel: 'Ibu'),
-                  ParentDataFormWidget(parentLabel: 'Wali'),
-                ],
+              child: ColoredBox(
+                color: Colors.grey.shade50,
+                child: TabBarView(
+                  controller: tabController,
+                  children: const [
+                    WhatsappFormWidget(),
+                    ParentDataFormWidget(parentLabel: 'Ayah'),
+                    ParentDataFormWidget(parentLabel: 'Ibu'),
+                    ParentDataFormWidget(parentLabel: 'Wali'),
+                  ],
+                ),
               ),
             ),
             Padding(
