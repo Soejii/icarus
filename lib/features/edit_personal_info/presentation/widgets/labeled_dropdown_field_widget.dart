@@ -6,7 +6,7 @@ class LabeledDropdownFieldWidget extends StatelessWidget {
   final String label;
   final String? value;
   final List<String> items;
-  final ValueChanged<String?> onChanged;
+  final ValueChanged<String?>? onChanged;
   final String? Function(String?)? validator;
 
   const LabeledDropdownFieldWidget({

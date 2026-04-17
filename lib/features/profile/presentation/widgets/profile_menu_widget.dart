@@ -16,6 +16,10 @@ class ProfileMenuWidget extends StatelessWidget {
           label: 'Ubah Data Diri',
           path: 'change-history'),
       ProfileMenuData(
+          icon: Icons.supervisor_account,
+          label: 'Informasi Akun Anak',
+          path: 'child-account-info'),
+      ProfileMenuData(
           icon: Icons.lock, label: 'Ubah Kata Sandi', path: 'change-password'),
       ProfileMenuData(icon: Icons.help, label: 'Bantuan', path: ''),
       ProfileMenuData(

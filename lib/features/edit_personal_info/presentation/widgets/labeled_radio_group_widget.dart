@@ -6,7 +6,7 @@ class LabeledRadioGroupWidget extends StatelessWidget {
   final String label;
   final List<String> options;
   final String? groupValue;
-  final ValueChanged<String?> onChanged;
+  final ValueChanged<String?>? onChanged;
 
   const LabeledRadioGroupWidget({
     super.key,
@@ -31,36 +31,35 @@ class LabeledRadioGroupWidget extends StatelessWidget {
           ),
         ),
         SizedBox(height: 8.h),
-        Row(
+        Wrap(
+          spacing: 16.w,
+          runSpacing: 8.h,
           children: options.map((option) {
-            return Padding(
-              padding: EdgeInsets.only(right: 16.w),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Radio<String>(
-                    value: option,
-                    groupValue: groupValue,
-                    onChanged: onChanged,
-                    activeColor: context.brand.primary,
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    visualDensity: const VisualDensity(
-                      horizontal: -4,
-                      vertical: -4,
-                    ),
+            return Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Radio<String>(
+                  value: option,
+                  groupValue: groupValue,
+                  onChanged: onChanged,
+                  activeColor: context.brand.primary,
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  visualDensity: const VisualDensity(
+                    horizontal: -4,
+                    vertical: -4,
                   ),
-                  SizedBox(width: 4.w),
-                  Text(
-                    option,
-                    style: TextStyle(
-                      fontFamily: 'OpenSans',
-                      color: context.brand.textMain,
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w400,
-                    ),
+                ),
+                SizedBox(width: 4.w),
+                Text(
+                  option,
+                  style: TextStyle(
+                    fontFamily: 'OpenSans',
+                    color: context.brand.textMain,
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w400,
                   ),
-                ],
-              ),
+                ),
+              ],
             );
           }).toList(),
         ),

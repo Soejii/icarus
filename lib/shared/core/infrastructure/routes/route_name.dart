@@ -61,4 +61,10 @@ class RouteName {
   // Edit Personal Info
   static const changeHistory = 'change-history';
   static const editPersonalInfo = 'edit-personal-info';
+
+  // Edit Child Info
+  static const childAccountInfo = 'child-account-info';
+  static const childChangeHistory = 'child-change-history';
+  static const editChildInfo = 'edit-child-info';
+  static const childDetail = 'child-detail';
 }

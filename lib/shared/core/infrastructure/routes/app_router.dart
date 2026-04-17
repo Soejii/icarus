@@ -40,6 +40,11 @@ import 'package:icarus/features/absence_letter/presentation/screens/absence_lett
 import 'package:icarus/features/absence_letter/presentation/screens/edit_absence_letter_screen.dart';
 import 'package:icarus/features/edit_personal_info/presentation/screens/change_history_screen.dart';
 import 'package:icarus/features/edit_personal_info/presentation/screens/edit_personal_info_screen.dart';
+import 'package:icarus/features/edit_child_info/presentation/screens/child_account_info_screen.dart';
+import 'package:icarus/features/edit_child_info/presentation/screens/child_change_history_screen.dart';
+import 'package:icarus/features/edit_child_info/presentation/screens/edit_child_info_screen.dart';
+import 'package:icarus/features/edit_child_info/presentation/screens/child_detail_screen.dart';
+import 'package:icarus/features/child/domain/entities/child_entity.dart';
 import 'package:icarus/features/child/presentation/screens/child_selection_screen.dart';
 import 'package:icarus/features/schedule/presentation/screens/schedule_screen.dart';
 import 'package:icarus/features/school/presentation/screens/school_information_screen.dart';
@@ -367,6 +372,32 @@ GoRouter appRouter(Ref ref) {
                       name: RouteName.editPersonalInfo,
                       parentNavigatorKey: rootNavigatorKey,
                       builder: (_, __) => const EditPersonalInfoScreen(),
+                    ),
+                    GoRoute(
+                      path: 'child-account-info',
+                      name: RouteName.childAccountInfo,
+                      parentNavigatorKey: rootNavigatorKey,
+                      builder: (_, __) => const ChildAccountInfoScreen(),
+                    ),
+                    GoRoute(
+                      path: 'child-change-history',
+                      name: RouteName.childChangeHistory,
+                      parentNavigatorKey: rootNavigatorKey,
+                      builder: (_, __) => const ChildChangeHistoryScreen(),
+                    ),
+                    GoRoute(
+                      path: 'edit-child-info',
+                      name: RouteName.editChildInfo,
+                      parentNavigatorKey: rootNavigatorKey,
+                      builder: (_, __) => const EditChildInfoScreen(),
+                    ),
+                    GoRoute(
+                      path: 'child-detail',
+                      name: RouteName.childDetail,
+                      parentNavigatorKey: rootNavigatorKey,
+                      builder: (_, state) => ChildDetailScreen(
+                        child: state.extra! as ChildEntity,
+                      ),
                     ),
                   ]),
             ],
