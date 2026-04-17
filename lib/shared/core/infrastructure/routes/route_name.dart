@@ -57,4 +57,8 @@ class RouteName {
   // Absence Letter
   static const absenceLetter = 'absence-letter';
   static const editAbsenceLetter = 'edit-absence-letter';
+
+  // Edit Personal Info
+  static const changeHistory = 'change-history';
+  static const editPersonalInfo = 'edit-personal-info';
 }

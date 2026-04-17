@@ -7,11 +7,25 @@ class ProfileMenuWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<ProfileMenuData> listMenuButton = [
-      ProfileMenuData(icon: Icons.person, label: 'Informasi Akun', path: 'account-information'),
-      ProfileMenuData(icon: Icons.lock, label: 'Ubah Kata Sandi', path: 'change-password'),
+      ProfileMenuData(
+          icon: Icons.person,
+          label: 'Informasi Akun',
+          path: 'account-information'),
+      ProfileMenuData(
+          icon: Icons.person_search_rounded,
+          label: 'Ubah Data Diri',
+          path: 'change-history'),
+      ProfileMenuData(
+          icon: Icons.lock, label: 'Ubah Kata Sandi', path: 'change-password'),
       ProfileMenuData(icon: Icons.help, label: 'Bantuan', path: ''),
-      ProfileMenuData(icon: Icons.info, label: 'Informasi Sekolah', path: 'school-information'),
-      ProfileMenuData(icon: Icons.shield, label: 'Kebijakan Privasi', path: 'privacy-policy'),
+      ProfileMenuData(
+          icon: Icons.info,
+          label: 'Informasi Sekolah',
+          path: 'school-information'),
+      ProfileMenuData(
+          icon: Icons.shield,
+          label: 'Kebijakan Privasi',
+          path: 'privacy-policy'),
       ProfileMenuData(icon: Icons.logout, label: 'Logout', path: 'logout'),
     ];
 

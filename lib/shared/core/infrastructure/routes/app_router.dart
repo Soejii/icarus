@@ -38,6 +38,8 @@ import 'package:icarus/features/finance/presentation/screens/va_payment_screen.d
 import 'package:icarus/features/finance/domain/types/va_bank_type.dart';
 import 'package:icarus/features/absence_letter/presentation/screens/absence_letter_screen.dart';
 import 'package:icarus/features/absence_letter/presentation/screens/edit_absence_letter_screen.dart';
+import 'package:icarus/features/edit_personal_info/presentation/screens/change_history_screen.dart';
+import 'package:icarus/features/edit_personal_info/presentation/screens/edit_personal_info_screen.dart';
 import 'package:icarus/features/child/presentation/screens/child_selection_screen.dart';
 import 'package:icarus/features/schedule/presentation/screens/schedule_screen.dart';
 import 'package:icarus/features/school/presentation/screens/school_information_screen.dart';
@@ -353,6 +355,18 @@ GoRouter appRouter(Ref ref) {
                       name: RouteName.changePassword,
                       parentNavigatorKey: rootNavigatorKey,
                       builder: (_, __) => const ChangePasswordScreen(),
+                    ),
+                    GoRoute(
+                      path: 'change-history',
+                      name: RouteName.changeHistory,
+                      parentNavigatorKey: rootNavigatorKey,
+                      builder: (_, __) => const ChangeHistoryScreen(),
+                    ),
+                    GoRoute(
+                      path: 'edit-personal-info',
+                      name: RouteName.editPersonalInfo,
+                      parentNavigatorKey: rootNavigatorKey,
+                      builder: (_, __) => const EditPersonalInfoScreen(),
                     ),
                   ]),
             ],
