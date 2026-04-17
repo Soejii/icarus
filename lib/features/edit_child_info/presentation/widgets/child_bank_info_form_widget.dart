@@ -116,7 +116,7 @@ class _ChildBankInfoFormWidgetState
               options: const ['Ya', 'Tidak'],
               groupValue: _mutasi,
               onChanged: isReadOnly
-                  ? (_) {}
+                  ? null
                   : (value) =>
                       setState(() => _mutasi = value ?? 'Tidak'),
             ),

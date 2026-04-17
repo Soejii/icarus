@@ -6,7 +6,7 @@ class LabeledRadioGroupWidget extends StatelessWidget {
   final String label;
   final List<String> options;
   final String? groupValue;
-  final ValueChanged<String?> onChanged;
+  final ValueChanged<String?>? onChanged;
 
   const LabeledRadioGroupWidget({
     super.key,

@@ -179,7 +179,7 @@ class _ChildPersonalDataFormWidgetState
               options: const ['Laki-laki', 'Perempuan'],
               groupValue: _jenisKelamin,
               onChanged: isReadOnly
-                  ? (_) {}
+                  ? null
                   : (value) =>
                       setState(() => _jenisKelamin = value ?? 'Laki-laki'),
             ),
@@ -351,7 +351,7 @@ class _ChildPersonalDataFormWidgetState
                     value: _golonganDarah,
                     items: _golonganDarahOptions,
                     onChanged: isReadOnly
-                        ? (_) {}
+                        ? null
                         : (value) =>
                             setState(() => _golonganDarah = value),
                   ),
@@ -364,7 +364,7 @@ class _ChildPersonalDataFormWidgetState
               options: const ['Anak Kandung', 'Anak Angkat', 'Lainnya'],
               groupValue: _statusKeluarga,
               onChanged: isReadOnly
-                  ? (_) {}
+                  ? null
                   : (value) =>
                       setState(() => _statusKeluarga = value ?? 'Anak Kandung'),
             ),
@@ -381,7 +381,7 @@ class _ChildPersonalDataFormWidgetState
               value: _statusOrangTua,
               items: _statusOrangTuaOptions,
               onChanged: isReadOnly
-                  ? (_) {}
+                  ? null
                   : (value) => setState(() => _statusOrangTua = value),
             ),
             SizedBox(height: 16.h),
@@ -390,7 +390,7 @@ class _ChildPersonalDataFormWidgetState
               options: const ['Indonesia', 'Lainnya'],
               groupValue: _kewarganegaraan,
               onChanged: isReadOnly
-                  ? (_) {}
+                  ? null
                   : (value) =>
                       setState(() => _kewarganegaraan = value ?? 'Indonesia'),
             ),
@@ -414,7 +414,7 @@ class _ChildPersonalDataFormWidgetState
               value: _agama,
               items: _agamaOptions,
               onChanged: isReadOnly
-                  ? (_) {}
+                  ? null
                   : (value) => setState(() => _agama = value),
             ),
             SizedBox(height: 16.h),
@@ -431,7 +431,7 @@ class _ChildPersonalDataFormWidgetState
               options: const ['Ya', 'Tidak'],
               groupValue: _berkebutuhanKhusus,
               onChanged: isReadOnly
-                  ? (_) {}
+                  ? null
                   : (value) =>
                       setState(() => _berkebutuhanKhusus = value ?? 'Tidak'),
             ),

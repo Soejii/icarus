@@ -125,7 +125,7 @@ class _ChildSchoolProgramFormWidgetState
               options: const ['Ya', 'Tidak'],
               groupValue: _penerimaKps,
               onChanged: isReadOnly
-                  ? (_) {}
+                  ? null
                   : (value) =>
                       setState(() => _penerimaKps = value ?? 'Tidak'),
             ),
@@ -142,7 +142,7 @@ class _ChildSchoolProgramFormWidgetState
               options: const ['Ya', 'Tidak'],
               groupValue: _penerimaKip,
               onChanged: isReadOnly
-                  ? (_) {}
+                  ? null
                   : (value) =>
                       setState(() => _penerimaKip = value ?? 'Tidak'),
             ),
@@ -174,7 +174,7 @@ class _ChildSchoolProgramFormWidgetState
               options: const ['Ya', 'Tidak'],
               groupValue: _layakPip,
               onChanged: isReadOnly
-                  ? (_) {}
+                  ? null
                   : (value) =>
                       setState(() => _layakPip = value ?? 'Tidak'),
             ),

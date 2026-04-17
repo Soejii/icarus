@@ -114,7 +114,7 @@ class _ChildAdditionalInfoFormWidgetState
                     value: _transportasi,
                     items: _transportasiOptions,
                     onChanged: isReadOnly
-                        ? (_) {}
+                        ? null
                         : (value) =>
                             setState(() => _transportasi = value),
                   ),
