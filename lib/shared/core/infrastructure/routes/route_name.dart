@@ -3,6 +3,11 @@ class RouteName {
   static const home = 'home';
 
   static const lainnya = 'lainnya';
+  static const konseling = 'konseling';
+  static const konselingDetail = 'konseling-detail';
+  static const pusatUnduh = 'pusat-unduh';
+  static const sentra = 'sentra';
+  static const sentraDetail = 'sentra-detail';
 
   static const notification = 'notification';
 

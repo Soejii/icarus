@@ -49,6 +49,11 @@ import 'package:icarus/features/child/presentation/screens/child_selection_scree
 import 'package:icarus/features/schedule/presentation/screens/schedule_screen.dart';
 import 'package:icarus/features/school/presentation/screens/school_information_screen.dart';
 import 'package:icarus/features/tahfidz_tahsin/presentation/screens/tahfidz_tahsin_screen.dart';
+import 'package:icarus/features/konseling/presentation/screens/list_konseling_screen.dart';
+import 'package:icarus/features/konseling/presentation/screens/detail_konseling_screen.dart';
+import 'package:icarus/features/pusat_unduh/presentation/screens/pusat_unduh_screen.dart';
+import 'package:icarus/features/sentra/presentation/screens/list_sentra_screen.dart';
+import 'package:icarus/features/sentra/presentation/screens/detail_sentra_screen.dart';
 import 'package:icarus/shared/core/infrastructure/analytics/analytics_providers.dart';
 import 'package:icarus/shared/core/infrastructure/analytics/analytics_tracker.dart';
 import 'package:icarus/shared/core/infrastructure/auth/auth_state_provider.dart';
@@ -132,6 +137,42 @@ GoRouter appRouter(Ref ref) {
                     name: RouteName.lainnya,
                     parentNavigatorKey: rootNavigatorKey,
                     builder: (_, __) => const LainnyaScreen(),
+                  ),
+                  GoRoute(
+                    path: 'konseling',
+                    name: RouteName.konseling,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, __) => const ListKonselingScreen(),
+                  ),
+                  GoRoute(
+                    path: 'konseling/:id',
+                    name: RouteName.konselingDetail,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, state) {
+                      final id = state.pathParameters['id']!;
+                      return DetailKonselingScreen(id: int.parse(id));
+                    },
+                  ),
+                  GoRoute(
+                    path: 'pusat-unduh',
+                    name: RouteName.pusatUnduh,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, __) => const PusatUnduhScreen(),
+                  ),
+                  GoRoute(
+                    path: 'sentra',
+                    name: RouteName.sentra,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, __) => const ListSentraScreen(),
+                  ),
+                  GoRoute(
+                    path: 'sentra/:id',
+                    name: RouteName.sentraDetail,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, state) {
+                      final id = state.pathParameters['id']!;
+                      return DetailSentraScreen(id: int.parse(id));
+                    },
                   ),
                   GoRoute(
                     path: 'notification',
