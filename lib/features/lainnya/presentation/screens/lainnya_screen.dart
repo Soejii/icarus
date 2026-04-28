@@ -22,6 +22,18 @@ class LainnyaScreen extends StatelessWidget {
         label: 'Chat',
       ),
       RouteButton(
+        path: RouteName.konseling,
+        label: 'Konseling',
+      ),
+      RouteButton(
+        path: RouteName.pusatUnduh,
+        label: 'Pusat Unduh',
+      ),
+      RouteButton(
+        path: RouteName.sentra,
+        label: 'Sentra',
+      ),
+      RouteButton(
         path: RouteName.notification,
         label: 'Notifikasi',
       ),
