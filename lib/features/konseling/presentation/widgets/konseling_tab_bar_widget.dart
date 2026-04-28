@@ -65,7 +65,7 @@ class KonselingTabBarWidget extends ConsumerWidget {
       width: 80.w,
       padding: EdgeInsets.symmetric(vertical: 10.h),
       decoration: BoxDecoration(
-        border: Border.all(color: context.brand.green, width: 1),
+        border: Border.all(color: context.brand.green, width: 1.w),
         borderRadius: BorderRadius.circular(10.r),
       ),
       alignment: Alignment.center,
