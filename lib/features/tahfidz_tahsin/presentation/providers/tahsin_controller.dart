@@ -39,7 +39,7 @@ class TahsinController extends _$TahsinController {
 
   Future<List<TahsinRecord>> _fetch(int studentId, int page) async {
     final usecase = ref.read(getListTahsinUsecaseProvider);
-    final result = await usecase.execute(studentId: studentId, page: page);
+    final result = await usecase(studentId: studentId, page: page);
     return result.fold((failure) => throw failure, (list) => list);
   }
 
