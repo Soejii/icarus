@@ -33,77 +33,78 @@ class TahfidzRecordCard extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-            Container(
-              width: 4.w,
-              decoration: BoxDecoration(
-                gradient: context.brand.mainGradient,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(8.r),
-                  bottomLeft: Radius.circular(8.r),
+              Container(
+                width: 4.w,
+                decoration: BoxDecoration(
+                  gradient: context.brand.mainGradient,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(8.r),
+                    bottomLeft: Radius.circular(8.r),
+                  ),
                 ),
               ),
-            ),
-            Expanded(
-              child: Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+              Expanded(
+                child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Ziyadah: ${record.ziyadahSurah}',
+                              style: TextStyle(
+                                fontFamily: 'OpenSans',
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.w600,
+                                color: context.brand.primary,
+                              ),
+                            ),
+                            SizedBox(height: 2.h),
+                            Text(
+                              'Murajaah: ${record.murajaahSurah}',
+                              style: TextStyle(
+                                fontFamily: 'OpenSans',
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.w600,
+                                color: context.brand.primary,
+                              ),
+                            ),
+                            SizedBox(height: 6.h),
+                            Text(
+                              record.date,
+                              style: TextStyle(
+                                fontFamily: 'OpenSans',
+                                fontSize: 11.sp,
+                                color: context.brand.textSecondary,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: 8.w),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text(
-                            'Ziyadah: ${record.ziyadahSurah}',
-                            style: TextStyle(
-                              fontFamily: 'OpenSans',
-                              fontSize: 13.sp,
-                              fontWeight: FontWeight.w600,
-                              color: context.brand.primary,
-                            ),
-                          ),
-                          SizedBox(height: 2.h),
-                          Text(
-                            'Murajaah: ${record.murajaahSurah}',
-                            style: TextStyle(
-                              fontFamily: 'OpenSans',
-                              fontSize: 13.sp,
-                              fontWeight: FontWeight.w600,
-                              color: context.brand.primary,
-                            ),
-                          ),
-                          SizedBox(height: 6.h),
-                          Text(
-                            record.date,
-                            style: TextStyle(
-                              fontFamily: 'OpenSans',
-                              fontSize: 11.sp,
-                              color: context.brand.textSecondary,
-                            ),
-                          ),
+                          scoreBadge(context, record.ziyadahScore),
+                          SizedBox(height: 4.h),
+                          scoreBadge(context, record.murajaahScore),
                         ],
                       ),
-                    ),
-                    SizedBox(width: 8.w),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        scoreBadge(context, record.ziyadahScore),
-                        SizedBox(height: 4.h),
-                        scoreBadge(context, record.murajaahScore),
-                      ],
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
           ),
         ),
       ),
     );
   }
+
   scoreBadge(BuildContext context, String score) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),

@@ -53,9 +53,8 @@ class TahfidzTahsinTabToggle extends ConsumerWidget {
           padding: EdgeInsets.symmetric(vertical: 10.h),
           decoration: BoxDecoration(
             gradient: isSelected ? context.brand.mainGradient : null,
-            border: isSelected
-                ? null
-                : Border.all(color: context.brand.primary),
+            border:
+                isSelected ? null : Border.all(color: context.brand.primary),
             borderRadius: BorderRadius.circular(10.r),
           ),
           child: Center(
