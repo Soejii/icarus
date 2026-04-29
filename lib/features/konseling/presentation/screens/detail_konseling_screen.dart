@@ -49,24 +49,24 @@ class DetailKonselingScreen extends ConsumerWidget {
       children: [
         headerCard(context, entity),
         SizedBox(height: 12.h),
-        if (entity.deskripsi != null)
+        if (entity.description != null)
           sectionCard(
             context,
             title: 'Deskripsi Masalah Konseling',
-            body: entity.deskripsi!,
+            body: entity.description!,
           ),
-        if (entity.deskripsi != null) SizedBox(height: 12.h),
-        if (entity.evaluasi != null)
+        if (entity.description != null) SizedBox(height: 12.h),
+        if (entity.evaluation != null)
           sectionCard(
             context,
             title: 'Evaluasi',
-            body: entity.evaluasi!,
+            body: entity.evaluation!,
           ),
-        if (entity.lampiranUrl != null) ...[
+        if (entity.attachmentUrl != null) ...[
           SizedBox(height: 20.h),
           attachmentButton(
             context,
-            entity.lampiranUrl!,
+            entity.attachmentUrl!,
           ),
         ],
         SizedBox(height: 24.h),
@@ -96,7 +96,7 @@ class DetailKonselingScreen extends ConsumerWidget {
           ),
           SizedBox(height: 4.h),
           Text(
-            entity.topik,
+            entity.topic,
             style: TextStyle(
               fontFamily: 'OpenSans',
               fontSize: 18.sp,
@@ -111,28 +111,28 @@ class DetailKonselingScreen extends ConsumerWidget {
           DetailKonselingField(
             icon: Icons.event_outlined,
             label: 'Tanggal',
-            value: entity.tanggal,
+            value: entity.date,
           ),
           SizedBox(height: 12.h),
           DetailKonselingField(
             icon: Icons.access_time_outlined,
             label: 'Durasi Konseling',
-            value: '${entity.durasiMenit} Menit',
+            value: '${entity.durationMinutes} Menit',
           ),
-          if (entity.namaGuru != null) ...[
+          if (entity.teacherName != null) ...[
             SizedBox(height: 12.h),
             DetailKonselingField(
               icon: Icons.person_outline,
               label: 'Nama Guru',
-              value: entity.namaGuru!,
+              value: entity.teacherName!,
             ),
           ],
-          if (entity.pendekatan != null) ...[
+          if (entity.approach != null) ...[
             SizedBox(height: 12.h),
             DetailKonselingField(
               icon: Icons.psychology_outlined,
               label: 'Pendekatan',
-              value: entity.pendekatan!,
+              value: entity.approach!,
             ),
           ],
         ],

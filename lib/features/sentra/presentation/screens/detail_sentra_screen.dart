@@ -25,13 +25,13 @@ class DetailSentraScreen extends StatelessWidget {
           sectionCard(
             context,
             title: 'Keterangan',
-            body: entity.keterangan,
+            body: entity.note,
           ),
           SizedBox(height: 12.h),
           sectionCard(
             context,
             title: 'Deskripsi',
-            body: entity.deskripsi,
+            body: entity.description,
           ),
           SizedBox(height: 24.h),
         ],
@@ -68,7 +68,7 @@ class DetailSentraScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 4.h),
                     Text(
-                      entity.namaSentra,
+                      entity.name,
                       style: TextStyle(
                         fontFamily: 'OpenSans',
                         fontSize: 18.sp,
@@ -81,7 +81,7 @@ class DetailSentraScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(width: 12.w),
-              scoreChip(context, entity.nilai),
+              scoreChip(context, entity.score),
             ],
           ),
           SizedBox(height: 14.h),
@@ -90,26 +90,26 @@ class DetailSentraScreen extends StatelessWidget {
           DetailSentraField(
             icon: Icons.event_outlined,
             label: 'Tanggal',
-            value: entity.tanggal,
+            value: entity.date,
           ),
           SizedBox(height: 12.h),
           DetailSentraField(
             icon: Icons.school_outlined,
             label: 'Rombel',
-            value: entity.rombel,
+            value: entity.classGroup,
           ),
           SizedBox(height: 12.h),
           DetailSentraField(
             icon: Icons.person_outline,
             label: 'Nama Guru',
-            value: entity.namaGuru,
+            value: entity.teacherName,
           ),
         ],
       ),
     );
   }
 
-  scoreChip(BuildContext context, int nilai) {
+  scoreChip(BuildContext context, int score) {
     return Container(
       width: 72.w,
       height: 72.w,
@@ -122,7 +122,7 @@ class DetailSentraScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            nilai.toString(),
+            score.toString(),
             style: TextStyle(
               fontFamily: 'OpenSans',
               fontSize: 28.sp,
@@ -146,7 +146,8 @@ class DetailSentraScreen extends StatelessWidget {
     );
   }
 
-  sectionCard(BuildContext context, {required String title, required String body}) {
+  sectionCard(BuildContext context,
+      {required String title, required String body}) {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),

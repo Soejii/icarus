@@ -30,7 +30,7 @@ class KonselingCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              entity.topik,
+              entity.topic,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
@@ -46,12 +46,12 @@ class KonselingCard extends StatelessWidget {
             SizedBox(height: 12.h),
             Row(
               children: [
-                metaIcon(context, Icons.event_outlined, entity.tanggal),
+                metaIcon(context, Icons.event_outlined, entity.date),
                 SizedBox(width: 16.w),
                 metaIcon(
                   context,
                   Icons.access_time_outlined,
-                  '${entity.durasiMenit} Menit',
+                  '${entity.durationMinutes} Menit',
                 ),
               ],
             ),

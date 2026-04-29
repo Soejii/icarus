@@ -45,7 +45,7 @@ class PusatUnduhCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      entity.judul,
+                      entity.title,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -58,7 +58,7 @@ class PusatUnduhCard extends StatelessWidget {
                     ),
                     SizedBox(height: 4.h),
                     Text(
-                      entity.pengunggah,
+                      entity.uploader,
                       style: TextStyle(
                         fontFamily: 'OpenSans',
                         fontSize: 11.sp,
@@ -78,14 +78,14 @@ class PusatUnduhCard extends StatelessWidget {
             context,
             Icons.event_available_outlined,
             'Mulai Terbit',
-            entity.tanggalMulaiTerbit,
+            entity.startDate,
           ),
           SizedBox(height: 6.h),
           metaRow(
             context,
             Icons.event_busy_outlined,
             'Selesai Terbit',
-            entity.tanggalSelesaiTerbit,
+            entity.endDate,
           ),
           SizedBox(height: 14.h),
           downloadButton(context),
@@ -130,7 +130,7 @@ class PusatUnduhCard extends StatelessWidget {
 
   downloadButton(BuildContext context) {
     return GestureDetector(
-      onTap: () => _launchUrl(entity.lampiranUrl),
+      onTap: () => _launchUrl(entity.fileUrl),
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 12.h),
         decoration: BoxDecoration(

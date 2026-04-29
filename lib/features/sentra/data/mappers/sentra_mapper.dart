@@ -5,12 +5,12 @@ import 'package:icarus/shared/utils/date_helper.dart';
 extension SentraMapper on SentraModel {
   SentraEntity toEntity() => SentraEntity(
         id: id,
-        namaSentra: sentraRombel?.sentra?.sentraName ?? '-',
-        tanggal: formatIndoDate(createdAt),
-        rombel: sentraRombel?.name ?? '-',
-        namaGuru: teacher?.name ?? '-',
-        keterangan: note ?? '-',
-        nilai: int.tryParse(score ?? '0') ?? 0,
-        deskripsi: description ?? '-',
+        name: sentraRombel?.sentra?.sentraName ?? '-',
+        date: formatIndoDate(createdAt),
+        classGroup: sentraRombel?.name ?? '-',
+        teacherName: teacher?.name ?? '-',
+        note: note ?? '-',
+        score: int.tryParse(score ?? '0') ?? 0,
+        description: description ?? '-',
       );
 }

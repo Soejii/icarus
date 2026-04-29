@@ -59,9 +59,9 @@ class _PusatUnduhScreenState extends ConsumerState<PusatUnduhScreen> {
               itemCount: data.items.length + (data.isMoreLoading ? 1 : 0),
               itemBuilder: (_, i) {
                 if (i >= data.items.length) {
-                  return const Padding(
+                  return Padding(
                     padding: EdgeInsets.all(16.r),
-                    child: Center(child: CircularProgressIndicator()),
+                    child: const Center(child: CircularProgressIndicator()),
                   );
                 }
                 return PusatUnduhCard(entity: data.items[i]);

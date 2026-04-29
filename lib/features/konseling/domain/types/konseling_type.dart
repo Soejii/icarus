@@ -1,25 +1,25 @@
 enum KonselingType {
-  siswa,
-  orangTua,
+  student,
+  parent,
   homeVisit,
 }
 
 extension KonselingTypeDisplay on KonselingType {
   String get displayName => switch (this) {
-        KonselingType.siswa => 'Siswa',
-        KonselingType.orangTua => 'Orang Tua',
+        KonselingType.student => 'Siswa',
+        KonselingType.parent => 'Orang Tua',
         KonselingType.homeVisit => 'Home Visit',
       };
 
   String get apiValue => switch (this) {
-        KonselingType.siswa => 'student',
-        KonselingType.orangTua => 'parent',
+        KonselingType.student => 'student',
+        KonselingType.parent => 'parent',
         KonselingType.homeVisit => 'home_visit',
       };
 }
 
 const konselingTypes = [
-  KonselingType.siswa,
-  KonselingType.orangTua,
+  KonselingType.student,
+  KonselingType.parent,
   KonselingType.homeVisit,
 ];

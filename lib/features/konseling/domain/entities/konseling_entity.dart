@@ -3,25 +3,25 @@ import 'package:icarus/features/konseling/domain/types/konseling_type.dart';
 class KonselingEntity {
   final int id;
   final KonselingType type;
-  final String topik;
-  final String tanggal;
-  final int durasiMenit;
-  final String? namaGuru;
-  final String? pendekatan;
-  final String? deskripsi;
-  final String? evaluasi;
-  final String? lampiranUrl;
+  final String topic;
+  final String date;
+  final int durationMinutes;
+  final String? teacherName;
+  final String? approach;
+  final String? description;
+  final String? evaluation;
+  final String? attachmentUrl;
 
   KonselingEntity({
     required this.id,
     required this.type,
-    required this.topik,
-    required this.tanggal,
-    required this.durasiMenit,
-    this.namaGuru,
-    this.pendekatan,
-    this.deskripsi,
-    this.evaluasi,
-    this.lampiranUrl,
+    required this.topic,
+    required this.date,
+    required this.durationMinutes,
+    this.teacherName,
+    this.approach,
+    this.description,
+    this.evaluation,
+    this.attachmentUrl,
   });
 }

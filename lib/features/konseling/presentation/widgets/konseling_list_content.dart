@@ -60,9 +60,9 @@ class _KonselingListContentState extends ConsumerState<KonselingListContent> {
             itemCount: data.items.length + (data.isMoreLoading ? 1 : 0),
             itemBuilder: (_, i) {
               if (i >= data.items.length) {
-                return const Padding(
+                return Padding(
                   padding: EdgeInsets.all(16.r),
-                  child: Center(child: CircularProgressIndicator()),
+                  child: const Center(child: CircularProgressIndicator()),
                 );
               }
               return KonselingCard(entity: data.items[i]);
