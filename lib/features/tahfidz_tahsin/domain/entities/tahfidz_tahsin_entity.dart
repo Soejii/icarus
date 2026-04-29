@@ -1,4 +1,5 @@
 class TahfidzRecord {
+  final int id;
   final String date;
   final String monthLabel;
   final String className;
@@ -12,6 +13,7 @@ class TahfidzRecord {
   final String catatan;
 
   const TahfidzRecord({
+    required this.id,
     required this.date,
     required this.monthLabel,
     required this.className,
@@ -27,6 +29,7 @@ class TahfidzRecord {
 }
 
 class TahsinRecord {
+  final int id;
   final String date;
   final String monthLabel;
   final String className;
@@ -40,6 +43,7 @@ class TahsinRecord {
   final String catatan;
 
   const TahsinRecord({
+    required this.id,
     required this.date,
     required this.monthLabel,
     required this.className,
