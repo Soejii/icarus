@@ -8,6 +8,7 @@ import 'package:icarus/features/konseling/presentation/providers/konseling_contr
 import 'package:icarus/features/konseling/presentation/widgets/detail_konseling_field.dart';
 import 'package:icarus/shared/screens/buffer_error_view.dart';
 import 'package:icarus/shared/widgets/custom_app_bar_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailKonselingScreen extends ConsumerWidget {
   const DetailKonselingScreen({
@@ -21,8 +22,7 @@ class DetailKonselingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncEntity =
-        ref.watch(detailKonselingControllerProvider(type, id));
+    final asyncEntity = ref.watch(detailKonselingControllerProvider(type, id));
 
     return Scaffold(
       appBar: const CustomAppBarWidget(
@@ -64,7 +64,10 @@ class DetailKonselingScreen extends ConsumerWidget {
           ),
         if (entity.lampiranUrl != null) ...[
           SizedBox(height: 20.h),
-          attachmentButton(context),
+          attachmentButton(
+            context,
+            entity.lampiranUrl!,
+          ),
         ],
         SizedBox(height: 24.h),
       ],
@@ -176,9 +179,16 @@ class DetailKonselingScreen extends ConsumerWidget {
     );
   }
 
-  attachmentButton(BuildContext context) {
+  Future<void> _launchUrl(String url) async {
+    final uri = Uri.parse(url);
+    await launchUrl(uri, mode: LaunchMode.externalApplication);
+  }
+
+  attachmentButton(BuildContext context, String value) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        _launchUrl(value);
+      },
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 14.h),
         decoration: BoxDecoration(
