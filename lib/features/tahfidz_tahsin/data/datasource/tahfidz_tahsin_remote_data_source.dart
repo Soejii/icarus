@@ -11,7 +11,7 @@ class TahfidzTahsinRemoteDataSource {
       queryParameters: {
         'paginate': true,
         'page': page,
-        'limit': 5,
+        'limit': 10,
       },
     );
     final data =
@@ -27,7 +27,7 @@ class TahfidzTahsinRemoteDataSource {
       queryParameters: {
         'paginate': true,
         'page': page,
-        'limit': 5,
+        'limit': 10,
       },
     );
     final data =
