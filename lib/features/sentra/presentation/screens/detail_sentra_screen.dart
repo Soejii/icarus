@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
 import 'package:icarus/features/sentra/domain/entities/sentra_entity.dart';
-import 'package:icarus/features/sentra/presentation/providers/sentra_controller.dart';
 import 'package:icarus/features/sentra/presentation/widgets/detail_sentra_field.dart';
 import 'package:icarus/shared/widgets/custom_app_bar_widget.dart';
 
-class DetailSentraScreen extends ConsumerWidget {
-  const DetailSentraScreen({super.key, required this.id});
+class DetailSentraScreen extends StatelessWidget {
+  const DetailSentraScreen({super.key, required this.entity});
 
-  final int id;
+  final SentraEntity entity;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final entity = ref.watch(detailSentraControllerProvider(id));
-
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBarWidget(
         title: 'Detail Sentra',

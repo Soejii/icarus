@@ -16,6 +16,7 @@ class SentraCard extends StatelessWidget {
       onTap: () => context.pushNamed(
         RouteName.sentraDetail,
         pathParameters: {'id': entity.id.toString()},
+        extra: entity,
       ),
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 6.h),
