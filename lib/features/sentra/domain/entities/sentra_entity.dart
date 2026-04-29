@@ -1,21 +1,21 @@
 class SentraEntity {
   final int id;
-  final String namaSentra;
-  final String tanggal;
-  final String rombel;
-  final String namaGuru;
-  final String keterangan;
-  final int nilai;
-  final String deskripsi;
+  final String name;
+  final String date;
+  final String classGroup;
+  final String teacherName;
+  final String note;
+  final int score;
+  final String description;
 
   SentraEntity({
     required this.id,
-    required this.namaSentra,
-    required this.tanggal,
-    required this.rombel,
-    required this.namaGuru,
-    required this.keterangan,
-    required this.nilai,
-    required this.deskripsi,
+    required this.name,
+    required this.date,
+    required this.classGroup,
+    required this.teacherName,
+    required this.note,
+    required this.score,
+    required this.description,
   });
 }

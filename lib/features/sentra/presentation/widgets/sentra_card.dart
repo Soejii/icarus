@@ -16,6 +16,7 @@ class SentraCard extends StatelessWidget {
       onTap: () => context.pushNamed(
         RouteName.sentraDetail,
         pathParameters: {'id': entity.id.toString()},
+        extra: entity,
       ),
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 6.h),
@@ -33,7 +34,7 @@ class SentraCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    entity.namaSentra,
+                    entity.name,
                     style: TextStyle(
                       fontFamily: 'OpenSans',
                       fontSize: 15.sp,
@@ -52,7 +53,7 @@ class SentraCard extends StatelessWidget {
                       ),
                       SizedBox(width: 4.w),
                       Text(
-                        entity.tanggal,
+                        entity.date,
                         style: TextStyle(
                           fontFamily: 'OpenSans',
                           fontSize: 11.sp,
@@ -73,7 +74,7 @@ class SentraCard extends StatelessWidget {
                       SizedBox(width: 4.w),
                       Expanded(
                         child: Text(
-                          entity.rombel,
+                          entity.classGroup,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -90,14 +91,14 @@ class SentraCard extends StatelessWidget {
               ),
             ),
             SizedBox(width: 12.w),
-            scoreChip(context, entity.nilai),
+            scoreChip(context, entity.score),
           ],
         ),
       ),
     );
   }
 
-  scoreChip(BuildContext context, int nilai) {
+  scoreChip(BuildContext context, int score) {
     return Container(
       width: 64.w,
       height: 64.w,
@@ -110,7 +111,7 @@ class SentraCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            nilai.toString(),
+            score.toString(),
             style: TextStyle(
               fontFamily: 'OpenSans',
               fontSize: 24.sp,

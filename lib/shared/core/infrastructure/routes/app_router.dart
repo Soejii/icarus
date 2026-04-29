@@ -49,9 +49,11 @@ import 'package:icarus/features/child/presentation/screens/child_selection_scree
 import 'package:icarus/features/schedule/presentation/screens/schedule_screen.dart';
 import 'package:icarus/features/school/presentation/screens/school_information_screen.dart';
 import 'package:icarus/features/tahfidz_tahsin/presentation/screens/tahfidz_tahsin_screen.dart';
+import 'package:icarus/features/konseling/domain/types/konseling_type.dart';
 import 'package:icarus/features/konseling/presentation/screens/list_konseling_screen.dart';
 import 'package:icarus/features/konseling/presentation/screens/detail_konseling_screen.dart';
 import 'package:icarus/features/pusat_unduh/presentation/screens/pusat_unduh_screen.dart';
+import 'package:icarus/features/sentra/domain/entities/sentra_entity.dart';
 import 'package:icarus/features/sentra/presentation/screens/list_sentra_screen.dart';
 import 'package:icarus/features/sentra/presentation/screens/detail_sentra_screen.dart';
 import 'package:icarus/shared/core/infrastructure/analytics/analytics_providers.dart';
@@ -149,8 +151,9 @@ GoRouter appRouter(Ref ref) {
                     name: RouteName.konselingDetail,
                     parentNavigatorKey: rootNavigatorKey,
                     builder: (_, state) {
-                      final id = state.pathParameters['id']!;
-                      return DetailKonselingScreen(id: int.parse(id));
+                      final id = int.parse(state.pathParameters['id']!);
+                      final type = state.extra! as KonselingType;
+                      return DetailKonselingScreen(id: id, type: type);
                     },
                   ),
                   GoRoute(
@@ -170,8 +173,8 @@ GoRouter appRouter(Ref ref) {
                     name: RouteName.sentraDetail,
                     parentNavigatorKey: rootNavigatorKey,
                     builder: (_, state) {
-                      final id = state.pathParameters['id']!;
-                      return DetailSentraScreen(id: int.parse(id));
+                      final entity = state.extra! as SentraEntity;
+                      return DetailSentraScreen(entity: entity);
                     },
                   ),
                   GoRoute(

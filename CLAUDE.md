@@ -37,7 +37,7 @@ Files ending in `.g.dart` and `.freezed.dart` are generated, never edit manually
 
 ### File Naming
 
-ALWAYS use english naming when naming a file unless there's a very very specific thing that couldnt or hard to understand in english
+ALWAYS use english naming when naming a file or function or everything unless there's a very very specific thing that couldnt or hard to understand in english
 
 ### Color Usage
 

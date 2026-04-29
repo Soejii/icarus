@@ -3,47 +3,74 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
 import 'package:icarus/features/konseling/domain/entities/konseling_entity.dart';
+import 'package:icarus/features/konseling/domain/types/konseling_type.dart';
 import 'package:icarus/features/konseling/presentation/providers/konseling_controller.dart';
 import 'package:icarus/features/konseling/presentation/widgets/detail_konseling_field.dart';
+import 'package:icarus/shared/screens/buffer_error_view.dart';
 import 'package:icarus/shared/widgets/custom_app_bar_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailKonselingScreen extends ConsumerWidget {
-  const DetailKonselingScreen({super.key, required this.id});
+  const DetailKonselingScreen({
+    super.key,
+    required this.id,
+    required this.type,
+  });
 
   final int id;
+  final KonselingType type;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final entity = ref.watch(detailKonselingControllerProvider(id));
+    final asyncEntity = ref.watch(detailKonselingControllerProvider(type, id));
 
     return Scaffold(
       appBar: const CustomAppBarWidget(
-        title: 'Detail Konseling Siswa',
+        title: 'Detail Konseling',
         leadingIcon: true,
       ),
-      body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-        children: [
-          headerCard(context, entity),
-          SizedBox(height: 12.h),
+      body: asyncEntity.when(
+        data: (entity) => detailBody(context, entity, ref),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => BufferErrorView(
+          error: error,
+          stackTrace: stack,
+          onRetry: () =>
+              ref.invalidate(detailKonselingControllerProvider(type, id)),
+        ),
+      ),
+    );
+  }
+
+  Widget detailBody(
+      BuildContext context, KonselingEntity entity, WidgetRef ref) {
+    return ListView(
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+      children: [
+        headerCard(context, entity),
+        SizedBox(height: 12.h),
+        if (entity.description != null)
           sectionCard(
             context,
             title: 'Deskripsi Masalah Konseling',
-            body: entity.deskripsi,
+            body: entity.description!,
           ),
-          SizedBox(height: 12.h),
+        if (entity.description != null) SizedBox(height: 12.h),
+        if (entity.evaluation != null)
           sectionCard(
             context,
             title: 'Evaluasi',
-            body: entity.evaluasi,
+            body: entity.evaluation!,
           ),
-          if (entity.lampiranUrl != null) ...[
-            SizedBox(height: 20.h),
-            attachmentButton(context),
-          ],
-          SizedBox(height: 24.h),
+        if (entity.attachmentUrl != null) ...[
+          SizedBox(height: 20.h),
+          attachmentButton(
+            context,
+            entity.attachmentUrl!,
+          ),
         ],
-      ),
+        SizedBox(height: 24.h),
+      ],
     );
   }
 
@@ -69,7 +96,7 @@ class DetailKonselingScreen extends ConsumerWidget {
           ),
           SizedBox(height: 4.h),
           Text(
-            entity.topik,
+            entity.topic,
             style: TextStyle(
               fontFamily: 'OpenSans',
               fontSize: 18.sp,
@@ -84,32 +111,37 @@ class DetailKonselingScreen extends ConsumerWidget {
           DetailKonselingField(
             icon: Icons.event_outlined,
             label: 'Tanggal',
-            value: entity.tanggal,
+            value: entity.date,
           ),
           SizedBox(height: 12.h),
           DetailKonselingField(
             icon: Icons.access_time_outlined,
             label: 'Durasi Konseling',
-            value: '${entity.durasiMenit} Menit',
+            value: '${entity.durationMinutes} Menit',
           ),
-          SizedBox(height: 12.h),
-          DetailKonselingField(
-            icon: Icons.person_outline,
-            label: 'Nama Guru',
-            value: entity.namaGuru,
-          ),
-          SizedBox(height: 12.h),
-          DetailKonselingField(
-            icon: Icons.psychology_outlined,
-            label: 'Pendekatan',
-            value: entity.pendekatan,
-          ),
+          if (entity.teacherName != null) ...[
+            SizedBox(height: 12.h),
+            DetailKonselingField(
+              icon: Icons.person_outline,
+              label: 'Nama Guru',
+              value: entity.teacherName!,
+            ),
+          ],
+          if (entity.approach != null) ...[
+            SizedBox(height: 12.h),
+            DetailKonselingField(
+              icon: Icons.psychology_outlined,
+              label: 'Pendekatan',
+              value: entity.approach!,
+            ),
+          ],
         ],
       ),
     );
   }
 
-  sectionCard(BuildContext context, {required String title, required String body}) {
+  sectionCard(BuildContext context,
+      {required String title, required String body}) {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
@@ -147,9 +179,16 @@ class DetailKonselingScreen extends ConsumerWidget {
     );
   }
 
-  attachmentButton(BuildContext context) {
+  Future<void> _launchUrl(String url) async {
+    final uri = Uri.parse(url);
+    await launchUrl(uri, mode: LaunchMode.externalApplication);
+  }
+
+  attachmentButton(BuildContext context, String value) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        _launchUrl(value);
+      },
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 14.h),
         decoration: BoxDecoration(

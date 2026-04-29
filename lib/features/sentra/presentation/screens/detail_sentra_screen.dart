@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
 import 'package:icarus/features/sentra/domain/entities/sentra_entity.dart';
-import 'package:icarus/features/sentra/presentation/providers/sentra_controller.dart';
 import 'package:icarus/features/sentra/presentation/widgets/detail_sentra_field.dart';
 import 'package:icarus/shared/widgets/custom_app_bar_widget.dart';
 
-class DetailSentraScreen extends ConsumerWidget {
-  const DetailSentraScreen({super.key, required this.id});
+class DetailSentraScreen extends StatelessWidget {
+  const DetailSentraScreen({super.key, required this.entity});
 
-  final int id;
+  final SentraEntity entity;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final entity = ref.watch(detailSentraControllerProvider(id));
-
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBarWidget(
         title: 'Detail Sentra',
@@ -29,13 +25,13 @@ class DetailSentraScreen extends ConsumerWidget {
           sectionCard(
             context,
             title: 'Keterangan',
-            body: entity.keterangan,
+            body: entity.note,
           ),
           SizedBox(height: 12.h),
           sectionCard(
             context,
             title: 'Deskripsi',
-            body: entity.deskripsi,
+            body: entity.description,
           ),
           SizedBox(height: 24.h),
         ],
@@ -72,7 +68,7 @@ class DetailSentraScreen extends ConsumerWidget {
                     ),
                     SizedBox(height: 4.h),
                     Text(
-                      entity.namaSentra,
+                      entity.name,
                       style: TextStyle(
                         fontFamily: 'OpenSans',
                         fontSize: 18.sp,
@@ -85,7 +81,7 @@ class DetailSentraScreen extends ConsumerWidget {
                 ),
               ),
               SizedBox(width: 12.w),
-              scoreChip(context, entity.nilai),
+              scoreChip(context, entity.score),
             ],
           ),
           SizedBox(height: 14.h),
@@ -94,26 +90,26 @@ class DetailSentraScreen extends ConsumerWidget {
           DetailSentraField(
             icon: Icons.event_outlined,
             label: 'Tanggal',
-            value: entity.tanggal,
+            value: entity.date,
           ),
           SizedBox(height: 12.h),
           DetailSentraField(
             icon: Icons.school_outlined,
             label: 'Rombel',
-            value: entity.rombel,
+            value: entity.classGroup,
           ),
           SizedBox(height: 12.h),
           DetailSentraField(
             icon: Icons.person_outline,
             label: 'Nama Guru',
-            value: entity.namaGuru,
+            value: entity.teacherName,
           ),
         ],
       ),
     );
   }
 
-  scoreChip(BuildContext context, int nilai) {
+  scoreChip(BuildContext context, int score) {
     return Container(
       width: 72.w,
       height: 72.w,
@@ -126,7 +122,7 @@ class DetailSentraScreen extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            nilai.toString(),
+            score.toString(),
             style: TextStyle(
               fontFamily: 'OpenSans',
               fontSize: 28.sp,
@@ -150,7 +146,8 @@ class DetailSentraScreen extends ConsumerWidget {
     );
   }
 
-  sectionCard(BuildContext context, {required String title, required String body}) {
+  sectionCard(BuildContext context,
+      {required String title, required String body}) {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),

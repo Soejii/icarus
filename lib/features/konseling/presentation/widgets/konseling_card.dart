@@ -16,6 +16,7 @@ class KonselingCard extends StatelessWidget {
       onTap: () => context.pushNamed(
         RouteName.konselingDetail,
         pathParameters: {'id': entity.id.toString()},
+        extra: entity.type,
       ),
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 6.h),
@@ -28,20 +29,8 @@ class KonselingCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                pendekatanChip(context, entity.pendekatan),
-                const Spacer(),
-                Icon(
-                  Icons.chevron_right,
-                  size: 20.sp,
-                  color: context.brand.textSecondary,
-                ),
-              ],
-            ),
-            SizedBox(height: 10.h),
             Text(
-              entity.topik,
+              entity.topic,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
@@ -57,35 +46,16 @@ class KonselingCard extends StatelessWidget {
             SizedBox(height: 12.h),
             Row(
               children: [
-                metaIcon(context, Icons.event_outlined, entity.tanggal),
+                metaIcon(context, Icons.event_outlined, entity.date),
                 SizedBox(width: 16.w),
                 metaIcon(
                   context,
                   Icons.access_time_outlined,
-                  '${entity.durasiMenit} Menit',
+                  '${entity.durationMinutes} Menit',
                 ),
               ],
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  pendekatanChip(BuildContext context, String label) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
-      decoration: BoxDecoration(
-        color: context.brand.green,
-        borderRadius: BorderRadius.circular(20.r),
-      ),
-      child: Text(
-        label,
-        style: TextStyle(
-          fontFamily: 'OpenSans',
-          fontSize: 10.sp,
-          fontWeight: FontWeight.w700,
-          color: Colors.white,
         ),
       ),
     );
