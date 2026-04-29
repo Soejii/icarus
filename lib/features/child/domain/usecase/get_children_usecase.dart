@@ -7,5 +7,5 @@ class GetChildrenUsecase {
 
   final ChildRepository _repository;
 
-  Future<Result<List<ChildEntity>>> call() => _repository.getChildren();
+  Future<Result<List<ChildEntity>>> getChildren() => _repository.getChildren();
 }

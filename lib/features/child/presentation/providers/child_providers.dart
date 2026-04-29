@@ -26,7 +26,7 @@ class ChildListController extends _$ChildListController {
   @override
   Future<List<ChildEntity>> build() async {
     final usecase = ref.read(getChildrenUsecaseProvider);
-    final result = await usecase.call();
+    final result = await usecase.getChildren();
     return result.fold((f) => throw f, (list) => list);
   }
 }

@@ -41,7 +41,7 @@ class KonselingController extends _$KonselingController {
 
   Future<List<KonselingEntity>> _fetch(int page) async {
     final uc = ref.read(getListKonselingUsecaseProvider);
-    final result = await uc.execute(type: type, page: page);
+    final result = await uc.getListKonseling(type: type, page: page);
     return result.fold((f) => throw f, (list) => list);
   }
 
@@ -93,7 +93,7 @@ class DetailKonselingController extends _$DetailKonselingController {
   @override
   Future<KonselingEntity> build(KonselingType type, int id) async {
     final uc = ref.read(getDetailKonselingUsecaseProvider);
-    final result = await uc.execute(type: type, id: id);
+    final result = await uc.getDetailKonseling(type: type, id: id);
     return result.fold((f) => throw f, (entity) => entity);
   }
 }

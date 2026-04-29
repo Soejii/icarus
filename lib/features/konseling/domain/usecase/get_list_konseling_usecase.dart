@@ -7,7 +7,7 @@ class GetListKonselingUsecase {
   final KonselingRepository _repository;
   GetListKonselingUsecase(this._repository);
 
-  Future<Result<List<KonselingEntity>>> execute({
+  Future<Result<List<KonselingEntity>>> getListKonseling({
     required KonselingType type,
     int page = 1,
   }) {

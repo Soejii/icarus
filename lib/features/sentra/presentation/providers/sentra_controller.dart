@@ -39,7 +39,7 @@ class SentraController extends _$SentraController {
 
   Future<List<SentraEntity>> _fetch(int studentId, int page) async {
     final uc = ref.read(getListSentraUsecaseProvider);
-    final result = await uc.execute(studentId: studentId, page: page);
+    final result = await uc.getListSentra(studentId: studentId, page: page);
     return result.fold((f) => throw f, (list) => list);
   }
 
@@ -83,8 +83,8 @@ class SentraController extends _$SentraController {
         ),
       );
     } catch (e, st) {
-      state = AsyncValue<Paged<SentraEntity>>.error(e, st)
-          .copyWithPrevious(state);
+      state =
+          AsyncValue<Paged<SentraEntity>>.error(e, st).copyWithPrevious(state);
     } finally {
       _loadingMore = false;
     }

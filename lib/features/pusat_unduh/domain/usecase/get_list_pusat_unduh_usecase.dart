@@ -6,7 +6,7 @@ class GetListPusatUnduhUsecase {
   final PusatUnduhRepository _repository;
   GetListPusatUnduhUsecase(this._repository);
 
-  Future<Result<List<PusatUnduhEntity>>> execute({int page = 1}) {
+  Future<Result<List<PusatUnduhEntity>>> getListPusatUnduh({int page = 1}) {
     return _repository.getListPusatUnduh(page: page);
   }
 }

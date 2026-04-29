@@ -7,7 +7,7 @@ class GetDetailKonselingUsecase {
   final KonselingRepository _repository;
   GetDetailKonselingUsecase(this._repository);
 
-  Future<Result<KonselingEntity>> execute({
+  Future<Result<KonselingEntity>> getDetailKonseling({
     required KonselingType type,
     required int id,
   }) {

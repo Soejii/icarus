@@ -33,7 +33,7 @@ class PusatUnduhController extends _$PusatUnduhController {
 
   Future<List<PusatUnduhEntity>> _fetch(int page) async {
     final uc = ref.read(getListPusatUnduhUsecaseProvider);
-    final result = await uc.execute(page: page);
+    final result = await uc.getListPusatUnduh(page: page);
     return result.fold((f) => throw f, (list) => list);
   }
 
