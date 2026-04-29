@@ -96,7 +96,7 @@ class TahsinDetailSheet extends StatelessWidget {
                   surah: record.ummiSurah,
                   ayat: record.ummiAyat,
                   score: record.ummiScore,
-                  labelColor: const Color(0xFFFF1E00),
+                  labelColor: context.brand.secondary,
                 ),
               ),
             ],

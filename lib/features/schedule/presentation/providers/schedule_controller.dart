@@ -9,7 +9,7 @@ class ScheduleController extends _$ScheduleController {
   @override
   Future<List<ScheduleEntity>> build(DayOfWeek day, int studentId) async {
     final usecase = ref.read(getScheduleByDayUsecaseProvider);
-    final result = await usecase.call(day, studentId);
+    final result = await usecase.getScheduleByDay(day, studentId);
     return result.fold(
       (failure) => throw failure,
       (entities) => entities,

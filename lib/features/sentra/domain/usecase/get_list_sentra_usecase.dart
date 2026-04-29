@@ -6,7 +6,7 @@ class GetListSentraUsecase {
   final SentraRepository _repository;
   GetListSentraUsecase(this._repository);
 
-  Future<Result<List<SentraEntity>>> execute({
+  Future<Result<List<SentraEntity>>> getListSentra({
     required int studentId,
     int page = 1,
   }) {

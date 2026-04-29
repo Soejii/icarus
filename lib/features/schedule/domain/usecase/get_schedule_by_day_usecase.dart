@@ -7,6 +7,9 @@ class GetScheduleByDayUsecase {
 
   final ScheduleRepository _repository;
 
-  Future<Result<List<ScheduleEntity>>> call(DayOfWeek day, int studentId) =>
+  Future<Result<List<ScheduleEntity>>> getScheduleByDay(
+    DayOfWeek day,
+    int studentId,
+  ) =>
       _repository.getScheduleByDay(day, studentId);
 }
