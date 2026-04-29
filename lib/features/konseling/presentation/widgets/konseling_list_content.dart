@@ -34,7 +34,7 @@ class _KonselingListContentState extends ConsumerState<KonselingListContent> {
 
   void _onScroll() {
     if (_scrollController.position.pixels >=
-        _scrollController.position.maxScrollExtent - 200) {
+        _scrollController.position.maxScrollExtent - 200.h) {
       ref
           .read(konselingControllerProvider(widget.type).notifier)
           .loadMore();
@@ -61,7 +61,7 @@ class _KonselingListContentState extends ConsumerState<KonselingListContent> {
             itemBuilder: (_, i) {
               if (i >= data.items.length) {
                 return const Padding(
-                  padding: EdgeInsets.all(16),
+                  padding: EdgeInsets.all(16.r),
                   child: Center(child: CircularProgressIndicator()),
                 );
               }

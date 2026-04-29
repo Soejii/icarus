@@ -21,6 +21,7 @@ class PusatUnduhModel with _$PusatUnduhModel {
 
 @freezed
 class PusatUnduhUserModel with _$PusatUnduhUserModel {
+  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory PusatUnduhUserModel({
     required int id,
     String? name,
