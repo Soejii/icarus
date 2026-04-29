@@ -10,6 +10,12 @@ extension KonselingTypeDisplay on KonselingType {
         KonselingType.orangTua => 'Orang Tua',
         KonselingType.homeVisit => 'Home Visit',
       };
+
+  String get apiValue => switch (this) {
+        KonselingType.siswa => 'student',
+        KonselingType.orangTua => 'parent',
+        KonselingType.homeVisit => 'home_visit',
+      };
 }
 
 const konselingTypes = [

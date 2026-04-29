@@ -16,6 +16,7 @@ class KonselingCard extends StatelessWidget {
       onTap: () => context.pushNamed(
         RouteName.konselingDetail,
         pathParameters: {'id': entity.id.toString()},
+        extra: entity.type,
       ),
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 6.h),
@@ -30,7 +31,7 @@ class KonselingCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                pendekatanChip(context, entity.pendekatan),
+                pendekatanChip(context, entity.pendekatan ?? '-'),
                 const Spacer(),
                 Icon(
                   Icons.chevron_right,

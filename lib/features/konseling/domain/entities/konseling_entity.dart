@@ -6,10 +6,10 @@ class KonselingEntity {
   final String topik;
   final String tanggal;
   final int durasiMenit;
-  final String namaGuru;
-  final String pendekatan;
-  final String deskripsi;
-  final String evaluasi;
+  final String? namaGuru;
+  final String? pendekatan;
+  final String? deskripsi;
+  final String? evaluasi;
   final String? lampiranUrl;
 
   KonselingEntity({
@@ -18,10 +18,10 @@ class KonselingEntity {
     required this.topik,
     required this.tanggal,
     required this.durasiMenit,
-    required this.namaGuru,
-    required this.pendekatan,
-    required this.deskripsi,
-    required this.evaluasi,
+    this.namaGuru,
+    this.pendekatan,
+    this.deskripsi,
+    this.evaluasi,
     this.lampiranUrl,
   });
 }

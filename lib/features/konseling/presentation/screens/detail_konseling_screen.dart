@@ -3,47 +3,71 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
 import 'package:icarus/features/konseling/domain/entities/konseling_entity.dart';
+import 'package:icarus/features/konseling/domain/types/konseling_type.dart';
 import 'package:icarus/features/konseling/presentation/providers/konseling_controller.dart';
 import 'package:icarus/features/konseling/presentation/widgets/detail_konseling_field.dart';
+import 'package:icarus/shared/screens/buffer_error_view.dart';
 import 'package:icarus/shared/widgets/custom_app_bar_widget.dart';
 
 class DetailKonselingScreen extends ConsumerWidget {
-  const DetailKonselingScreen({super.key, required this.id});
+  const DetailKonselingScreen({
+    super.key,
+    required this.id,
+    required this.type,
+  });
 
   final int id;
+  final KonselingType type;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final entity = ref.watch(detailKonselingControllerProvider(id));
+    final asyncEntity =
+        ref.watch(detailKonselingControllerProvider(type, id));
 
     return Scaffold(
       appBar: const CustomAppBarWidget(
-        title: 'Detail Konseling Siswa',
+        title: 'Detail Konseling',
         leadingIcon: true,
       ),
-      body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-        children: [
-          headerCard(context, entity),
-          SizedBox(height: 12.h),
+      body: asyncEntity.when(
+        data: (entity) => detailBody(context, entity, ref),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => BufferErrorView(
+          error: error,
+          stackTrace: stack,
+          onRetry: () =>
+              ref.invalidate(detailKonselingControllerProvider(type, id)),
+        ),
+      ),
+    );
+  }
+
+  Widget detailBody(
+      BuildContext context, KonselingEntity entity, WidgetRef ref) {
+    return ListView(
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+      children: [
+        headerCard(context, entity),
+        SizedBox(height: 12.h),
+        if (entity.deskripsi != null)
           sectionCard(
             context,
             title: 'Deskripsi Masalah Konseling',
-            body: entity.deskripsi,
+            body: entity.deskripsi!,
           ),
-          SizedBox(height: 12.h),
+        if (entity.deskripsi != null) SizedBox(height: 12.h),
+        if (entity.evaluasi != null)
           sectionCard(
             context,
             title: 'Evaluasi',
-            body: entity.evaluasi,
+            body: entity.evaluasi!,
           ),
-          if (entity.lampiranUrl != null) ...[
-            SizedBox(height: 20.h),
-            attachmentButton(context),
-          ],
-          SizedBox(height: 24.h),
+        if (entity.lampiranUrl != null) ...[
+          SizedBox(height: 20.h),
+          attachmentButton(context),
         ],
-      ),
+        SizedBox(height: 24.h),
+      ],
     );
   }
 
@@ -92,24 +116,29 @@ class DetailKonselingScreen extends ConsumerWidget {
             label: 'Durasi Konseling',
             value: '${entity.durasiMenit} Menit',
           ),
-          SizedBox(height: 12.h),
-          DetailKonselingField(
-            icon: Icons.person_outline,
-            label: 'Nama Guru',
-            value: entity.namaGuru,
-          ),
-          SizedBox(height: 12.h),
-          DetailKonselingField(
-            icon: Icons.psychology_outlined,
-            label: 'Pendekatan',
-            value: entity.pendekatan,
-          ),
+          if (entity.namaGuru != null) ...[
+            SizedBox(height: 12.h),
+            DetailKonselingField(
+              icon: Icons.person_outline,
+              label: 'Nama Guru',
+              value: entity.namaGuru!,
+            ),
+          ],
+          if (entity.pendekatan != null) ...[
+            SizedBox(height: 12.h),
+            DetailKonselingField(
+              icon: Icons.psychology_outlined,
+              label: 'Pendekatan',
+              value: entity.pendekatan!,
+            ),
+          ],
         ],
       ),
     );
   }
 
-  sectionCard(BuildContext context, {required String title, required String body}) {
+  sectionCard(BuildContext context,
+      {required String title, required String body}) {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
