@@ -6,7 +6,7 @@ class GetListTahsinUsecase {
   final TahfidzTahsinRepository _repository;
   GetListTahsinUsecase(this._repository);
 
-  Future<Result<List<TahsinRecord>>> call({
+  Future<Result<List<TahsinRecord>>> getListTahsin({
     required int studentId,
     int page = 1,
   }) {

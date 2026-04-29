@@ -39,7 +39,10 @@ class TahfidzController extends _$TahfidzController {
 
   Future<List<TahfidzRecord>> _fetch(int studentId, int page) async {
     final usecase = ref.read(getListTahfidzUsecaseProvider);
-    final result = await usecase(studentId: studentId, page: page);
+    final result = await usecase.getListTahfidz(
+      studentId: studentId,
+      page: page,
+    );
     return result.fold((failure) => throw failure, (list) => list);
   }
 
