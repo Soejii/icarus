@@ -6,12 +6,14 @@ class AbsenceLetterActionSheetWidget extends StatelessWidget {
   const AbsenceLetterActionSheetWidget({
     super.key,
     required this.isEditable,
+    required this.hasAttachment,
     required this.onViewAttachment,
     required this.onEdit,
     required this.onDelete,
   });
 
   final bool isEditable;
+  final bool hasAttachment;
   final VoidCallback onViewAttachment;
   final VoidCallback onEdit;
   final VoidCallback onDelete;
@@ -35,8 +37,9 @@ class AbsenceLetterActionSheetWidget extends StatelessWidget {
           sheetOption(
             context,
             label: 'Lihat Lampiran',
-            color: context.brand.primary,
-            onTap: onViewAttachment,
+            color:
+                hasAttachment ? context.brand.primary : context.brand.inactive,
+            onTap: hasAttachment ? onViewAttachment : null,
           ),
           Divider(height: 1.h, color: context.brand.inactive.withOpacity(0.3)),
           sheetOption(

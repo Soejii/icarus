@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
 import 'package:icarus/features/absence_letter/domain/entities/absence_letter_entity.dart';
 import 'package:icarus/features/absence_letter/presentation/widgets/absence_letter_action_sheet_widget.dart';
-import 'package:icarus/shared/core/infrastructure/routes/route_name.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AbsenceLetterCard extends StatelessWidget {
   const AbsenceLetterCard({super.key, required this.entity});
@@ -36,8 +35,7 @@ class AbsenceLetterCard extends StatelessWidget {
             ),
             Expanded(
               child: Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -114,10 +112,16 @@ class AbsenceLetterCard extends StatelessWidget {
       ),
       builder: (sheetCtx) => AbsenceLetterActionSheetWidget(
         isEditable: entity.isEditable,
-        onViewAttachment: () => Navigator.pop(sheetCtx),
+        hasAttachment: entity.evidencePath != null,
+        onViewAttachment: () {
+          Navigator.pop(sheetCtx);
+          viewAttachment(context);
+        },
         onEdit: () {
           Navigator.pop(sheetCtx);
-          context.pushNamed(RouteName.editAbsenceLetter);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Edit surat izin belum tersedia')),
+          );
         },
         onDelete: () {
           Navigator.pop(sheetCtx);
@@ -125,6 +129,19 @@ class AbsenceLetterCard extends StatelessWidget {
         },
       ),
     );
+  }
+
+  Future<void> viewAttachment(BuildContext context) async {
+    final evidencePath = entity.evidencePath;
+    if (evidencePath == null) return;
+    final uri = Uri.tryParse(evidencePath);
+    if (uri == null) return;
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Lampiran tidak dapat dibuka')),
+      );
+    }
   }
 
   void showDeleteDialog(BuildContext context) {

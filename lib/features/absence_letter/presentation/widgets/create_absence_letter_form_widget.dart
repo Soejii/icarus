@@ -3,35 +3,40 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
+import 'package:icarus/features/absence_letter/presentation/providers/absence_letter_form_controller.dart';
 import 'package:icarus/shared/widgets/gradient_text.dart';
 import 'package:image_picker/image_picker.dart';
 
-class CreateAbsenceLetterFormWidget extends HookWidget {
+class CreateAbsenceLetterFormWidget extends HookConsumerWidget {
   const CreateAbsenceLetterFormWidget({
     super.key,
-    this.initialReason = 'Sakit',
-    this.initialNotes = '',
-    this.initialStartDate,
-    this.initialEndDate,
-    this.studentName = 'M. Khazil',
-    this.studentClass = 'XII - RPL 1',
+    required this.studentName,
+    required this.studentClass,
   });
 
-  final String initialReason;
-  final String initialNotes;
-  final DateTime? initialStartDate;
-  final DateTime? initialEndDate;
   final String studentName;
   final String studentClass;
 
   @override
-  Widget build(BuildContext context) {
-    final selectedReason = useState(initialReason);
-    final notesController = useTextEditingController(text: initialNotes);
-    final startDate = useState<DateTime?>(initialStartDate);
-    final endDate = useState<DateTime?>(initialEndDate);
-    final pickedFile = useState<XFile?>(null);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final form = ref.watch(absenceLetterFormControllerProvider);
+    final formController =
+        ref.read(absenceLetterFormControllerProvider.notifier);
+    final selectedReason = useState(form.status == 'permit' ? 'Izin' : 'Sakit');
+    final notesController = useTextEditingController(text: form.notes);
+    final startDate = useState<DateTime?>(form.startDate);
+    final endDate = useState<DateTime?>(form.endDate);
+    final pickedFile = useState<XFile?>(
+      form.evidencePath == null ? null : XFile(form.evidencePath!),
+    );
+
+    useEffect(() {
+      void listener() => formController.setNotes(notesController.text);
+      notesController.addListener(listener);
+      return () => notesController.removeListener(listener);
+    }, [notesController]);
 
     return ColoredBox(
       color: Colors.grey.shade50,
@@ -45,7 +50,7 @@ class CreateAbsenceLetterFormWidget extends HookWidget {
             sectionCard(
               context,
               title: 'Alasan tidak hadir',
-              child: reasonToggle(context, selectedReason),
+              child: reasonToggle(context, selectedReason, formController),
             ),
             SizedBox(height: 12.h),
             sectionCard(
@@ -57,13 +62,13 @@ class CreateAbsenceLetterFormWidget extends HookWidget {
             sectionCard(
               context,
               title: 'Periode Tidak Hadir',
-              child: dateRangeRow(context, startDate, endDate),
+              child: dateRangeRow(context, startDate, endDate, formController),
             ),
             SizedBox(height: 12.h),
             sectionCard(
               context,
               title: 'Lampiran dokumen pendukung*',
-              child: attachmentArea(context, pickedFile),
+              child: attachmentArea(context, pickedFile, formController),
             ),
             SizedBox(height: 24.h),
           ],
@@ -162,12 +167,26 @@ class CreateAbsenceLetterFormWidget extends HookWidget {
     );
   }
 
-  reasonToggle(BuildContext context, ValueNotifier<String> selectedReason) {
+  reasonToggle(
+    BuildContext context,
+    ValueNotifier<String> selectedReason,
+    AbsenceLetterFormController formController,
+  ) {
     return Row(
       children: [
-        reasonPill(context, label: 'Sakit', selectedReason: selectedReason),
+        reasonPill(
+          context,
+          label: 'Sakit',
+          selectedReason: selectedReason,
+          formController: formController,
+        ),
         SizedBox(width: 10.w),
-        reasonPill(context, label: 'Izin', selectedReason: selectedReason),
+        reasonPill(
+          context,
+          label: 'Izin',
+          selectedReason: selectedReason,
+          formController: formController,
+        ),
       ],
     );
   }
@@ -176,19 +195,22 @@ class CreateAbsenceLetterFormWidget extends HookWidget {
     BuildContext context, {
     required String label,
     required ValueNotifier<String> selectedReason,
+    required AbsenceLetterFormController formController,
   }) {
     final isSelected = selectedReason.value == label;
     return Expanded(
       child: GestureDetector(
-        onTap: () => selectedReason.value = label,
+        onTap: () {
+          selectedReason.value = label;
+          formController.setStatus(label == 'Izin' ? 'permit' : 'sick');
+        },
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 180),
           padding: EdgeInsets.symmetric(vertical: 12.h),
           decoration: BoxDecoration(
             gradient: isSelected ? context.brand.mainGradient : null,
-            border: isSelected
-                ? null
-                : Border.all(color: context.brand.primary),
+            border:
+                isSelected ? null : Border.all(color: context.brand.primary),
             borderRadius: BorderRadius.circular(10.r),
           ),
           child: Center(
@@ -233,8 +255,7 @@ class CreateAbsenceLetterFormWidget extends HookWidget {
           fontSize: 13.sp,
           color: context.brand.inactive,
         ),
-        contentPadding:
-            EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+        contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
         filled: true,
         fillColor: Colors.grey.shade50,
         border: OutlineInputBorder(
@@ -261,6 +282,7 @@ class CreateAbsenceLetterFormWidget extends HookWidget {
     BuildContext context,
     ValueNotifier<DateTime?> startDate,
     ValueNotifier<DateTime?> endDate,
+    AbsenceLetterFormController formController,
   ) {
     return Row(
       children: [
@@ -277,7 +299,11 @@ class CreateAbsenceLetterFormWidget extends HookWidget {
                 ),
               ),
               SizedBox(height: 6.h),
-              datePillButton(context, startDate),
+              datePillButton(
+                context,
+                startDate,
+                onPicked: formController.setStartDate,
+              ),
             ],
           ),
         ),
@@ -305,7 +331,11 @@ class CreateAbsenceLetterFormWidget extends HookWidget {
                 ),
               ),
               SizedBox(height: 6.h),
-              datePillButton(context, endDate),
+              datePillButton(
+                context,
+                endDate,
+                onPicked: formController.setEndDate,
+              ),
             ],
           ),
         ),
@@ -313,7 +343,11 @@ class CreateAbsenceLetterFormWidget extends HookWidget {
     );
   }
 
-  datePillButton(BuildContext context, ValueNotifier<DateTime?> dateNotifier) {
+  datePillButton(
+    BuildContext context,
+    ValueNotifier<DateTime?> dateNotifier, {
+    required ValueChanged<DateTime> onPicked,
+  }) {
     final label = dateNotifier.value != null
         ? '${dateNotifier.value!.day.toString().padLeft(2, '0')}/'
             '${dateNotifier.value!.month.toString().padLeft(2, '0')}/'
@@ -329,7 +363,10 @@ class CreateAbsenceLetterFormWidget extends HookWidget {
           firstDate: DateTime(2020),
           lastDate: DateTime(2030),
         );
-        if (picked != null) dateNotifier.value = picked;
+        if (picked != null) {
+          dateNotifier.value = picked;
+          onPicked(picked);
+        }
       },
       child: Container(
         padding: EdgeInsets.all(2.5.r),
@@ -365,8 +402,7 @@ class CreateAbsenceLetterFormWidget extends HookWidget {
                 style: TextStyle(
                   fontFamily: 'OpenSans',
                   fontSize: 11.sp,
-                  fontWeight:
-                      hasValue ? FontWeight.w600 : FontWeight.w400,
+                  fontWeight: hasValue ? FontWeight.w600 : FontWeight.w400,
                   color: hasValue
                       ? context.brand.textMain
                       : context.brand.inactive,
@@ -380,13 +416,17 @@ class CreateAbsenceLetterFormWidget extends HookWidget {
     );
   }
 
-  attachmentArea(BuildContext context, ValueNotifier<XFile?> pickedFile) {
+  attachmentArea(
+    BuildContext context,
+    ValueNotifier<XFile?> pickedFile,
+    AbsenceLetterFormController formController,
+  ) {
     if (pickedFile.value != null) {
-      return pickedFilePreview(context, pickedFile);
+      return pickedFilePreview(context, pickedFile, formController);
     }
 
     return GestureDetector(
-      onTap: () => showPickerSheet(context, pickedFile),
+      onTap: () => showPickerSheet(context, pickedFile, formController),
       child: DashedBorderContainer(
         child: Column(
           children: [
@@ -428,7 +468,11 @@ class CreateAbsenceLetterFormWidget extends HookWidget {
     );
   }
 
-  pickedFilePreview(BuildContext context, ValueNotifier<XFile?> pickedFile) {
+  pickedFilePreview(
+    BuildContext context,
+    ValueNotifier<XFile?> pickedFile,
+    AbsenceLetterFormController formController,
+  ) {
     final file = pickedFile.value!;
     return Container(
       decoration: BoxDecoration(
@@ -449,9 +493,9 @@ class CreateAbsenceLetterFormWidget extends HookWidget {
               right: 8.w,
               child: Row(
                 children: [
-                  changeButton(context, pickedFile),
+                  changeButton(context, pickedFile, formController),
                   SizedBox(width: 6.w),
-                  removeButton(context, pickedFile),
+                  removeButton(context, pickedFile, formController),
                 ],
               ),
             ),
@@ -461,9 +505,13 @@ class CreateAbsenceLetterFormWidget extends HookWidget {
     );
   }
 
-  changeButton(BuildContext context, ValueNotifier<XFile?> pickedFile) {
+  changeButton(
+    BuildContext context,
+    ValueNotifier<XFile?> pickedFile,
+    AbsenceLetterFormController formController,
+  ) {
     return GestureDetector(
-      onTap: () => showPickerSheet(context, pickedFile),
+      onTap: () => showPickerSheet(context, pickedFile, formController),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
         decoration: BoxDecoration(
@@ -483,9 +531,16 @@ class CreateAbsenceLetterFormWidget extends HookWidget {
     );
   }
 
-  removeButton(BuildContext context, ValueNotifier<XFile?> pickedFile) {
+  removeButton(
+    BuildContext context,
+    ValueNotifier<XFile?> pickedFile,
+    AbsenceLetterFormController formController,
+  ) {
     return GestureDetector(
-      onTap: () => pickedFile.value = null,
+      onTap: () {
+        pickedFile.value = null;
+        formController.clearEvidence();
+      },
       child: Container(
         padding: EdgeInsets.all(5.r),
         decoration: BoxDecoration(
@@ -497,7 +552,11 @@ class CreateAbsenceLetterFormWidget extends HookWidget {
     );
   }
 
-  void showPickerSheet(BuildContext context, ValueNotifier<XFile?> pickedFile) {
+  void showPickerSheet(
+    BuildContext context,
+    ValueNotifier<XFile?> pickedFile,
+    AbsenceLetterFormController formController,
+  ) {
     showModalBottomSheet<void>(
       context: context,
       shape: RoundedRectangleBorder(
@@ -518,7 +577,8 @@ class CreateAbsenceLetterFormWidget extends HookWidget {
             ),
             SizedBox(height: 8.h),
             ListTile(
-              leading: Icon(Icons.camera_alt_outlined, color: context.brand.primary),
+              leading:
+                  Icon(Icons.camera_alt_outlined, color: context.brand.primary),
               title: Text(
                 'Ambil foto',
                 style: TextStyle(
@@ -530,13 +590,17 @@ class CreateAbsenceLetterFormWidget extends HookWidget {
               ),
               onTap: () async {
                 Navigator.pop(sheetCtx);
-                final picked = await ImagePicker()
-                    .pickImage(source: ImageSource.camera);
-                if (picked != null) pickedFile.value = picked;
+                final picked =
+                    await ImagePicker().pickImage(source: ImageSource.camera);
+                if (picked != null) {
+                  pickedFile.value = picked;
+                  formController.setEvidencePath(picked.path);
+                }
               },
             ),
             ListTile(
-              leading: Icon(Icons.photo_library_outlined, color: context.brand.primary),
+              leading: Icon(Icons.photo_library_outlined,
+                  color: context.brand.primary),
               title: Text(
                 'Pilih dari galeri',
                 style: TextStyle(
@@ -548,9 +612,12 @@ class CreateAbsenceLetterFormWidget extends HookWidget {
               ),
               onTap: () async {
                 Navigator.pop(sheetCtx);
-                final picked = await ImagePicker()
-                    .pickImage(source: ImageSource.gallery);
-                if (picked != null) pickedFile.value = picked;
+                final picked =
+                    await ImagePicker().pickImage(source: ImageSource.gallery);
+                if (picked != null) {
+                  pickedFile.value = picked;
+                  formController.setEvidencePath(picked.path);
+                }
               },
             ),
             SizedBox(height: 8.h),
