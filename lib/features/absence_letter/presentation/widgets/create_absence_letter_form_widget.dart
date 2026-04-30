@@ -21,11 +21,22 @@ class CreateAbsenceLetterFormWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final form = ref.watch(absenceLetterFormControllerProvider);
+    final form = ref.watch(
+      absenceLetterFormControllerProvider.select(
+        (value) => (
+          status: value.status,
+          startDate: value.startDate,
+          endDate: value.endDate,
+          evidencePath: value.evidencePath,
+        ),
+      ),
+    );
     final formController =
         ref.read(absenceLetterFormControllerProvider.notifier);
     final selectedReason = useState(form.status == 'permit' ? 'Izin' : 'Sakit');
-    final notesController = useTextEditingController(text: form.notes);
+    final notesController = useTextEditingController(
+      text: ref.read(absenceLetterFormControllerProvider).notes,
+    );
     final startDate = useState<DateTime?>(form.startDate);
     final endDate = useState<DateTime?>(form.endDate);
     final pickedFile = useState<XFile?>(

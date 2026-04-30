@@ -11,6 +11,8 @@ class AbsenceLetterCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final hasAttachment = entity.evidencePath?.isNotEmpty == true;
+
     return GestureDetector(
       onTap: () => viewAttachment(context),
       child: Container(
@@ -60,7 +62,7 @@ class AbsenceLetterCard extends StatelessWidget {
                           color: context.brand.primary,
                         ),
                       ),
-                      if (entity.evidencePath == null) ...[
+                      if (!hasAttachment) ...[
                         SizedBox(height: 6.h),
                         Text(
                           'Tidak ada lampiran',
@@ -75,7 +77,7 @@ class AbsenceLetterCard extends StatelessWidget {
                   ),
                 ),
               ),
-              if (entity.evidencePath != null)
+              if (hasAttachment)
                 Padding(
                   padding: EdgeInsets.only(right: 12.w),
                   child: Center(

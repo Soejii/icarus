@@ -27,10 +27,14 @@ class AbsenceLetterRemoteDataSource {
   }
 
   Future<void> submit(SubmitAbsenceLetterRequest request) async {
+    final evidenceFileName = Uri.file(request.evidencePath).pathSegments.last;
     final formData = FormData.fromMap({
       'student_id': request.studentId,
       'status': request.status,
-      'evidence': await MultipartFile.fromFile(request.evidencePath),
+      'evidence': await MultipartFile.fromFile(
+        request.evidencePath,
+        filename: evidenceFileName,
+      ),
       'notes': request.notes,
       'start_date': request.startDate,
       'end_date': request.endDate,
