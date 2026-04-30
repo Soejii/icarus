@@ -15,8 +15,6 @@ class EditAbsenceLetterScreen extends StatelessWidget {
         leadingIcon: true,
       ),
       body: const CreateAbsenceLetterFormWidget(
-        initialReason: 'Sick',
-        initialNotes: 'Gejala Tipus/Tipes',
         studentName: 'M. Khazil',
         studentClass: 'XII - RPL 1',
       ),
