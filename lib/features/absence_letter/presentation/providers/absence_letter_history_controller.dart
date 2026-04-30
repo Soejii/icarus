@@ -9,6 +9,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'absence_letter_history_controller.g.dart';
 
+const _historyType = 'permit';
+
 @riverpod
 class AbsenceLetterHistoryController extends _$AbsenceLetterHistoryController {
   int _page = 1;
@@ -29,24 +31,22 @@ class AbsenceLetterHistoryController extends _$AbsenceLetterHistoryController {
     ref.onDispose(() => _ttl?.cancel());
 
     final child = ref.watch(selectedChildProvider);
-    final type = ref.watch(absenceLetterHistoryTypeProvider);
     if (child == null) {
       return const AsyncData(Paged(hasMore: false));
     }
 
-    _firstLoad(child.id, type);
+    _firstLoad(child.id);
     return const AsyncLoading();
   }
 
   Future<Paged<AbsenceLetterEntity>> _fetch(
     int studentId,
-    String type,
     int page,
   ) async {
     final usecase = ref.read(getAbsenceLetterHistoryUsecaseProvider);
     final result = await usecase.getHistory(
       studentId: studentId,
-      type: type,
+      type: _historyType,
       page: page,
     );
     final historyPage = result.fold((failure) => throw failure, (data) => data);
@@ -58,30 +58,28 @@ class AbsenceLetterHistoryController extends _$AbsenceLetterHistoryController {
     );
   }
 
-  Future<void> _firstLoad(int studentId, String type) async {
+  Future<void> _firstLoad(int studentId) async {
     _page = 1;
     state = const AsyncLoading();
-    state = await AsyncValue.guard(() => _fetch(studentId, type, 1));
+    state = await AsyncValue.guard(() => _fetch(studentId, 1));
   }
 
   Future<void> refresh() async {
     final child = ref.read(selectedChildProvider);
-    final type = ref.read(absenceLetterHistoryTypeProvider);
     if (child == null) return;
-    await _firstLoad(child.id, type);
+    await _firstLoad(child.id);
   }
 
   Future<void> loadMore() async {
     final data = state.asData?.value;
     final child = ref.read(selectedChildProvider);
-    final type = ref.read(absenceLetterHistoryTypeProvider);
     if (data == null || child == null || _loadingMore || !data.hasMore) return;
 
     _loadingMore = true;
     state = AsyncValue.data(data.copyWith(isMoreLoading: true, error: null));
     try {
       final next = _page + 1;
-      final pageData = await _fetch(child.id, type, next);
+      final pageData = await _fetch(child.id, next);
       _page = pageData.page;
       state = AsyncValue.data(
         data.copyWith(

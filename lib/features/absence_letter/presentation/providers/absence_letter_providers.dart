@@ -11,8 +11,6 @@ part 'absence_letter_providers.g.dart';
 
 final absenceLetterTabIndexProvider = StateProvider<int>((ref) => 0);
 
-final absenceLetterHistoryTypeProvider = StateProvider<String>((ref) => 'all');
-
 @riverpod
 AbsenceLetterRemoteDataSource absenceLetterRemoteDataSource(Ref ref) {
   return AbsenceLetterRemoteDataSource(ref.watch(dioProvider));

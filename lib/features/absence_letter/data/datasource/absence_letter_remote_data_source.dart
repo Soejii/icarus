@@ -18,6 +18,7 @@ class AbsenceLetterRemoteDataSource {
         'student_id': studentId,
         'type': type,
         'page': page,
+        'limit': 20,
       },
     );
     return AbsenceLetterHistoryPageModel.fromJson(

@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
 import 'package:icarus/features/absence_letter/domain/entities/absence_letter_entity.dart';
 import 'package:icarus/features/absence_letter/presentation/providers/absence_letter_history_controller.dart';
-import 'package:icarus/features/absence_letter/presentation/providers/absence_letter_providers.dart';
 import 'package:icarus/features/absence_letter/presentation/widgets/absence_letter_card.dart';
 import 'package:icarus/shared/presentation/paged.dart';
 import 'package:icarus/shared/screens/buffer_error_view.dart';
@@ -16,71 +15,15 @@ class AbsenceLetterHistoryListWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final historyAsync = ref.watch(absenceLetterHistoryControllerProvider);
 
-    return Column(
-      children: [
-        filterTabs(context, ref),
-        Expanded(
-          child: historyAsync.when(
-            data: (paged) => historyList(context, ref, paged),
-            error: (error, stack) => BufferErrorView(
-              error: error,
-              stackTrace: stack,
-              onRetry: () => ref
-                  .read(absenceLetterHistoryControllerProvider.notifier)
-                  .refresh(),
-            ),
-            loading: () => const Center(child: CircularProgressIndicator()),
-          ),
-        ),
-      ],
-    );
-  }
-
-  filterTabs(BuildContext context, WidgetRef ref) {
-    final selectedType = ref.watch(absenceLetterHistoryTypeProvider);
-    const filters = [
-      ('all', 'Semua'),
-      ('attend', 'Hadir'),
-      ('not_attend', 'Tidak Hadir'),
-      ('permit', 'Izin'),
-    ];
-
-    return SizedBox(
-      height: 52.h,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
-        itemCount: filters.length,
-        separatorBuilder: (_, __) => SizedBox(width: 8.w),
-        itemBuilder: (context, index) {
-          final (type, label) = filters[index];
-          final isSelected = selectedType == type;
-          return GestureDetector(
-            onTap: () => ref
-                .read(absenceLetterHistoryTypeProvider.notifier)
-                .state = type,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 8.h),
-              decoration: BoxDecoration(
-                gradient: isSelected ? context.brand.mainGradient : null,
-                border: isSelected
-                    ? null
-                    : Border.all(color: context.brand.primary),
-                borderRadius: BorderRadius.circular(20.r),
-              ),
-              child: Text(
-                label,
-                style: TextStyle(
-                  fontFamily: 'OpenSans',
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w600,
-                  color: isSelected ? Colors.white : context.brand.primary,
-                ),
-              ),
-            ),
-          );
-        },
+    return historyAsync.when(
+      data: (paged) => historyList(context, ref, paged),
+      error: (error, stack) => BufferErrorView(
+        error: error,
+        stackTrace: stack,
+        onRetry: () =>
+            ref.read(absenceLetterHistoryControllerProvider.notifier).refresh(),
       ),
+      loading: () => const Center(child: CircularProgressIndicator()),
     );
   }
 
