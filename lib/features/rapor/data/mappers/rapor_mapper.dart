@@ -1,8 +1,6 @@
 import 'package:icarus/features/rapor/data/models/rapor_detail_report_model.dart';
-import 'package:icarus/features/rapor/data/models/rapor_history_page_model.dart';
 import 'package:icarus/features/rapor/data/models/rapor_period_model.dart';
 import 'package:icarus/features/rapor/domain/entities/rapor_detail_report_entity.dart';
-import 'package:icarus/features/rapor/domain/entities/rapor_history_page.dart';
 import 'package:icarus/features/rapor/domain/entities/rapor_period_entity.dart';
 
 extension RaporDetailReportMapper on RaporDetailReportModel {
@@ -37,16 +35,6 @@ extension RaporPeriodMapper on RaporPeriodModel {
       createdAt: DateTime.tryParse(createdAt ?? ''),
       updatedAt: DateTime.tryParse(updatedAt ?? ''),
       detailReports: List.unmodifiable(details),
-    );
-  }
-}
-
-extension RaporHistoryPageMapper on RaporHistoryPageModel {
-  RaporHistoryPage toEntity() {
-    return RaporHistoryPage(
-      items: items.map((m) => m.toEntity()).toList(growable: false),
-      currentPage: currentPage,
-      totalPages: totalPages,
     );
   }
 }

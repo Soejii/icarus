@@ -1,4 +1,4 @@
-import 'package:icarus/features/rapor/domain/entities/rapor_history_page.dart';
+import 'package:icarus/features/rapor/domain/entities/rapor_period_entity.dart';
 import 'package:icarus/features/rapor/domain/rapor_repository.dart';
 import 'package:icarus/shared/core/types/result.dart';
 
@@ -7,7 +7,7 @@ class GetRaporHistoryUsecase {
 
   const GetRaporHistoryUsecase(this._repository);
 
-  Future<Result<RaporHistoryPage>> getHistory({
+  Future<Result<List<RaporPeriodEntity>>> getHistory({
     required int studentId,
     int page = 1,
   }) =>

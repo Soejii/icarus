@@ -11,7 +11,7 @@ part 'rapor_history_controller.g.dart';
 
 @riverpod
 class RaporHistoryController extends _$RaporHistoryController {
-  int _page = 1;
+  static const _pageSize = 20;
   bool _loadingMore = false;
   Timer? _ttl;
   KeepAliveLink? _link;
@@ -37,22 +37,23 @@ class RaporHistoryController extends _$RaporHistoryController {
     return const AsyncLoading();
   }
 
-  Future<Paged<RaporPeriodEntity>> _fetch(int studentId, int page) async {
+  Future<List<RaporPeriodEntity>> _fetch(int studentId, int page) async {
     final usecase = ref.read(getRaporHistoryUsecaseProvider);
     final result = await usecase.getHistory(studentId: studentId, page: page);
-    final pageData = result.fold((f) => throw f, (d) => d);
-    return Paged(
-      items: pageData.items,
-      page: pageData.currentPage,
-      hasMore: pageData.currentPage < pageData.totalPages,
-      isFirstLoading: false,
-    );
+    return result.fold((f) => throw f, (d) => d);
   }
 
   Future<void> _firstLoad(int studentId) async {
-    _page = 1;
     state = const AsyncLoading();
-    state = await AsyncValue.guard(() => _fetch(studentId, 1));
+    state = await AsyncValue.guard(() async {
+      final items = await _fetch(studentId, 1);
+      return Paged(
+        items: items,
+        page: 1,
+        hasMore: items.length >= _pageSize,
+        isFirstLoading: false,
+      );
+    });
   }
 
   Future<void> refresh() async {
@@ -69,14 +70,13 @@ class RaporHistoryController extends _$RaporHistoryController {
     _loadingMore = true;
     state = AsyncValue.data(data.copyWith(isMoreLoading: true, error: null));
     try {
-      final next = _page + 1;
-      final pageData = await _fetch(child.id, next);
-      _page = pageData.page;
+      final next = data.page + 1;
+      final items = await _fetch(child.id, next);
       state = AsyncValue.data(
         data.copyWith(
-          items: [...data.items, ...pageData.items],
-          page: pageData.page,
-          hasMore: pageData.hasMore,
+          items: [...data.items, ...items],
+          page: next,
+          hasMore: items.length >= _pageSize,
           isMoreLoading: false,
         ),
       );
