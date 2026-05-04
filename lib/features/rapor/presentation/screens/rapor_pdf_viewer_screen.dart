@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
@@ -8,7 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
 import 'package:icarus/features/rapor/presentation/providers/rapor_pdf_controller.dart';
-import 'package:icarus/features/rapor/presentation/providers/rapor_providers.dart';
 import 'package:icarus/features/rapor/presentation/screens/rapor_pdf_viewer_args.dart';
 import 'package:icarus/shared/screens/buffer_error_view.dart';
 import 'package:open_file/open_file.dart';
@@ -28,7 +26,7 @@ class _RaporPdfViewerScreenState extends ConsumerState<RaporPdfViewerScreen> {
   int _totalPages = 0;
   bool _showPageCounter = false;
   Timer? _hideTimer;
-  bool _isSavingToDevice = false;
+  bool _isOpeningExternalViewer = false;
 
   @override
   void dispose() {
@@ -85,7 +83,7 @@ class _RaporPdfViewerScreenState extends ConsumerState<RaporPdfViewerScreen> {
                   ),
                 ),
                 IconButton(
-                  icon: _isSavingToDevice
+                  icon: _isOpeningExternalViewer
                       ? SizedBox(
                           width: 18.r,
                           height: 18.r,
@@ -95,11 +93,11 @@ class _RaporPdfViewerScreenState extends ConsumerState<RaporPdfViewerScreen> {
                           ),
                         )
                       : const Icon(
-                          Icons.download_rounded,
+                          Icons.open_in_new_rounded,
                           color: Colors.white,
                         ),
-                  onPressed: state.isReady && !_isSavingToDevice
-                      ? _downloadToDevice
+                  onPressed: state.isReady && !_isOpeningExternalViewer
+                      ? openExternalViewer
                       : null,
                 ),
               ],
@@ -227,7 +225,7 @@ class _RaporPdfViewerScreenState extends ConsumerState<RaporPdfViewerScreen> {
     });
   }
 
-  Future<void> _downloadToDevice() async {
+  Future<void> openExternalViewer() async {
     final state = ref.read(
       raporPdfControllerProvider(
         widget.args.fileUrl,
@@ -237,39 +235,24 @@ class _RaporPdfViewerScreenState extends ConsumerState<RaporPdfViewerScreen> {
     final localPath = state.localPath;
     if (localPath == null) return;
 
-    setState(() => _isSavingToDevice = true);
+    setState(() => _isOpeningExternalViewer = true);
     try {
-      final destPath =
-          await ref.read(raporFileDataSourceProvider).savePdfToDevice(
-                sourcePath: localPath,
-                suggestedFileName: widget.args.suggestedFileName,
-              );
-      if (!mounted) return;
-      if (Platform.isAndroid) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Rapor berhasil disimpan di $destPath')),
-        );
-        return;
-      }
-
-      final result = await OpenFile.open(destPath);
+      final result = await OpenFile.open(localPath);
       if (!mounted) return;
       if (result.type != ResultType.done) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Tersimpan di $destPath')),
+          SnackBar(
+            content: Text(result.message),
+          ),
         );
-        return;
       }
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Rapor berhasil disimpan dan dibuka')),
-      );
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Gagal menyimpan dokumen')),
+        const SnackBar(content: Text('Gagal membuka dokumen')),
       );
     } finally {
-      if (mounted) setState(() => _isSavingToDevice = false);
+      if (mounted) setState(() => _isOpeningExternalViewer = false);
     }
   }
 }

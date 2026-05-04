@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:icarus/features/rapor/data/datasource/rapor_file_data_source.dart';
 import 'package:icarus/features/rapor/data/datasource/rapor_remote_data_source.dart';
 import 'package:icarus/features/rapor/data/rapor_repository_impl.dart';
 import 'package:icarus/features/rapor/domain/rapor_repository.dart';
@@ -12,9 +11,6 @@ part 'rapor_providers.g.dart';
 @riverpod
 RaporRemoteDataSource raporRemoteDataSource(Ref ref) =>
     RaporRemoteDataSource(ref.watch(dioProvider));
-
-@riverpod
-RaporFileDataSource raporFileDataSource(Ref ref) => RaporFileDataSource();
 
 @riverpod
 RaporRepository raporRepository(Ref ref) =>
