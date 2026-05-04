@@ -8,10 +8,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
 import 'package:icarus/features/rapor/presentation/providers/rapor_pdf_controller.dart';
+import 'package:icarus/features/rapor/presentation/providers/rapor_providers.dart';
 import 'package:icarus/features/rapor/presentation/screens/rapor_pdf_viewer_args.dart';
 import 'package:icarus/shared/screens/buffer_error_view.dart';
 import 'package:open_file/open_file.dart';
-import 'package:path_provider/path_provider.dart';
 
 class RaporPdfViewerScreen extends ConsumerStatefulWidget {
   const RaporPdfViewerScreen({super.key, required this.args});
@@ -239,18 +239,19 @@ class _RaporPdfViewerScreenState extends ConsumerState<RaporPdfViewerScreen> {
 
     setState(() => _isSavingToDevice = true);
     try {
-      final docsDir = await getApplicationDocumentsDirectory();
-      final raporDir = Directory('${docsDir.path}/Rapor');
-      if (!await raporDir.exists()) {
-        await raporDir.create(recursive: true);
-      }
-      final safeName = widget.args.suggestedFileName.replaceAll(
-        RegExp(r'[^a-zA-Z0-9._-]'),
-        '_',
-      );
-      final destPath = '${raporDir.path}/$safeName';
-      await File(localPath).copy(destPath);
+      final destPath =
+          await ref.read(raporFileDataSourceProvider).savePdfToDevice(
+                sourcePath: localPath,
+                suggestedFileName: widget.args.suggestedFileName,
+              );
       if (!mounted) return;
+      if (Platform.isAndroid) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Rapor berhasil disimpan di $destPath')),
+        );
+        return;
+      }
+
       final result = await OpenFile.open(destPath);
       if (!mounted) return;
       if (result.type != ResultType.done) {
