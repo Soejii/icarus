@@ -42,7 +42,7 @@ class QuickHomeGrid extends StatelessWidget {
         icon: AssetsHelper.imgHomeButtonMapel,
       ),
       QuickHomeButton(
-        path: RouteName.lainnya,
+        path: RouteName.rapor,
         label: 'Rapor Murid',
         icon: AssetsHelper.imgHomeButtonMapel,
       ),

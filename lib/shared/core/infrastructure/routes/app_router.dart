@@ -38,6 +38,9 @@ import 'package:icarus/features/finance/presentation/screens/va_payment_screen.d
 import 'package:icarus/features/finance/domain/types/va_bank_type.dart';
 import 'package:icarus/features/absence_letter/presentation/screens/absence_letter_screen.dart';
 import 'package:icarus/features/absence_letter/presentation/screens/edit_absence_letter_screen.dart';
+import 'package:icarus/features/rapor/presentation/screens/rapor_pdf_viewer_args.dart';
+import 'package:icarus/features/rapor/presentation/screens/rapor_pdf_viewer_screen.dart';
+import 'package:icarus/features/rapor/presentation/screens/rapor_screen.dart';
 import 'package:icarus/features/edit_personal_info/presentation/screens/change_history_screen.dart';
 import 'package:icarus/features/edit_personal_info/presentation/screens/edit_personal_info_screen.dart';
 import 'package:icarus/features/edit_child_info/presentation/screens/child_account_info_screen.dart';
@@ -329,6 +332,22 @@ GoRouter appRouter(Ref ref) {
                     name: RouteName.editAbsenceLetter,
                     parentNavigatorKey: rootNavigatorKey,
                     builder: (_, __) => const EditAbsenceLetterScreen(),
+                  ),
+                  // Rapor
+                  GoRoute(
+                    path: 'rapor',
+                    name: RouteName.rapor,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, __) => const RaporScreen(),
+                  ),
+                  GoRoute(
+                    path: 'rapor-pdf-viewer',
+                    name: RouteName.raporPdfViewer,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, state) {
+                      final args = state.extra as RaporPdfViewerArgs;
+                      return RaporPdfViewerScreen(args: args);
+                    },
                   ),
                 ],
               ),
