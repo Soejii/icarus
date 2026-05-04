@@ -63,6 +63,10 @@ class RouteName {
   static const absenceLetter = 'absence-letter';
   static const editAbsenceLetter = 'edit-absence-letter';
 
+  // Rapor
+  static const rapor = 'rapor';
+  static const raporPdfViewer = 'rapor-pdf-viewer';
+
   // Edit Personal Info
   static const changeHistory = 'change-history';
   static const editPersonalInfo = 'edit-personal-info';
