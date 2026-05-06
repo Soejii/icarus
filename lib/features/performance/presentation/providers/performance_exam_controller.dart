@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:icarus/features/child/presentation/providers/child_providers.dart';
 import 'package:icarus/features/performance/presentation/providers/performance_providers.dart';
 import 'package:icarus/shared/core/domain/entities/exam_entity.dart';
 import 'package:icarus/shared/core/domain/types/exam_type.dart';
@@ -14,11 +15,13 @@ class PerformanceExamController extends _$PerformanceExamController {
   KeepAliveLink? _link;
 
   int page = 1;
+  int studentId = 0;
   static const _pageSize = 10;
   bool _loadingMore = false;
 
   @override
   AsyncValue<Paged<ExamEntity>> build(ExamType type) {
+    studentId = ref.watch(selectedChildProvider)?.id ?? 0;
     _link ??= ref.keepAlive();
     ref.onCancel(() {
       _ttl = Timer(const Duration(minutes: 5), () {
@@ -35,7 +38,7 @@ class PerformanceExamController extends _$PerformanceExamController {
   Future<List<ExamEntity>> _fetch(int page) async {
     final uc = ref.read(getListPerformanceExamUsecaseProvider);
     final either = await uc.getListPerformanceExam(
-      idStudent: 385,
+      idStudent: studentId,
       examType: type,
       page: page,
     );

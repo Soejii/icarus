@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:icarus/features/child/presentation/providers/child_providers.dart';
 import 'package:icarus/features/performance/domain/entities/note_entity.dart';
 import 'package:icarus/features/performance/presentation/providers/performance_providers.dart';
 import 'package:icarus/shared/presentation/paged.dart';
@@ -13,11 +14,13 @@ class PerformanceStudentNoteController extends _$PerformanceStudentNoteControlle
   KeepAliveLink? _link;
 
   int page = 1;
+  int studentId = 0;
   static const _pageSize = 10;
   bool _loadingMore = false;
 
   @override
   AsyncValue<Paged<NoteEntity>> build() {
+    studentId = ref.watch(selectedChildProvider)?.id ?? 0;
     _link ??= ref.keepAlive();
     ref.onCancel(() {
       _ttl = Timer(const Duration(minutes: 5), () {
@@ -34,7 +37,7 @@ class PerformanceStudentNoteController extends _$PerformanceStudentNoteControlle
   Future<List<NoteEntity>> _fetch(int page) async {
     final uc = ref.read(getListStudentNotesUsecaseProvider);
     final either = await uc.getListStudentNotes(
-      idStudent: 385,
+      idStudent: studentId,
       page: page,
     );
     return either.fold((e) => throw e, (list) => list);
