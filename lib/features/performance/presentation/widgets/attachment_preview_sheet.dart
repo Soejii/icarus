@@ -113,9 +113,6 @@ class AttachmentPreviewSheet extends StatelessWidget {
   }
 
   Future<void> launchFileUrl() async {
-    final uri = Uri.parse(fileUrl);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
-    }
+    await launchUrl(Uri.parse(fileUrl), mode: LaunchMode.externalApplication);
   }
 }
