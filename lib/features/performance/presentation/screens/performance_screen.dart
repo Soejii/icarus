@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:icarus/features/performance/domain/types/daily_note_kind.dart';
+import 'package:icarus/features/performance/domain/types/daily_note_type.dart';
 import 'package:icarus/features/performance/domain/types/performance_type.dart';
 import 'package:icarus/features/performance/presentation/providers/performance_providers.dart';
 import 'package:icarus/features/performance/presentation/screens/performance_content_widget.dart';
@@ -59,9 +59,9 @@ class PerformanceScreen extends HookConsumerWidget {
                 PerformanceContentWidget(type: performanceTypes[0]),
                 PerformanceContentWidget(type: performanceTypes[1]),
                 PerformanceContentWidget(type: performanceTypes[2]),
-                const PerformanceNoteContentWidget(kind: DailyNoteKind.student),
+                const PerformanceNoteContentWidget(kind: DailyNoteType.student),
                 const PerformanceNoteContentWidget(
-                  kind: DailyNoteKind.classRoom,
+                  kind: DailyNoteType.classRoom,
                 ),
               ],
             ),

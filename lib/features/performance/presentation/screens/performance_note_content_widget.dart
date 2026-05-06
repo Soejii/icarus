@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:icarus/features/performance/domain/types/daily_note_kind.dart';
+import 'package:icarus/features/performance/domain/types/daily_note_type.dart';
 import 'package:icarus/features/performance/presentation/providers/performance_class_note_controller.dart';
 import 'package:icarus/features/performance/presentation/providers/performance_student_note_controller.dart';
 import 'package:icarus/features/performance/presentation/widgets/daily_note_card.dart';
@@ -13,11 +13,11 @@ import 'package:icarus/shared/screens/data_not_found_screen.dart';
 class PerformanceNoteContentWidget extends HookConsumerWidget {
   const PerformanceNoteContentWidget({super.key, required this.kind});
 
-  final DailyNoteKind kind;
+  final DailyNoteType kind;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final asyncNotes = kind == DailyNoteKind.student
+    final asyncNotes = kind == DailyNoteType.student
         ? ref.watch(performanceStudentNoteControllerProvider)
         : ref.watch(performanceClassNoteControllerProvider);
 
@@ -58,7 +58,7 @@ class PerformanceNoteContentWidget extends HookConsumerWidget {
                   entity: item,
                   kind: kind,
                   onTap: () {
-                    final routeName = kind == DailyNoteKind.student
+                    final routeName = kind == DailyNoteType.student
                         ? RouteName.studentDailyNoteDetail
                         : RouteName.classDailyNoteDetail;
                     context.pushNamed(
@@ -75,7 +75,7 @@ class PerformanceNoteContentWidget extends HookConsumerWidget {
         return const DataNotFoundScreen(dataType: 'Catatan');
       },
       error: (error, stackTrace) {
-        if (kind == DailyNoteKind.student) {
+        if (kind == DailyNoteType.student) {
           return BufferErrorView(
             error: error,
             stackTrace: stackTrace,
@@ -96,7 +96,7 @@ class PerformanceNoteContentWidget extends HookConsumerWidget {
   }
 
   Future<void> refresh(WidgetRef ref) {
-    if (kind == DailyNoteKind.student) {
+    if (kind == DailyNoteType.student) {
       return ref.read(performanceStudentNoteControllerProvider.notifier).refresh();
     }
 
@@ -104,7 +104,7 @@ class PerformanceNoteContentWidget extends HookConsumerWidget {
   }
 
   Future<void> loadMore(WidgetRef ref) {
-    if (kind == DailyNoteKind.student) {
+    if (kind == DailyNoteType.student) {
       return ref.read(performanceStudentNoteControllerProvider.notifier).loadMore();
     }
 

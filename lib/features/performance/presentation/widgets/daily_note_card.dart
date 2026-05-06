@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
 import 'package:icarus/features/performance/domain/entities/note_entity.dart';
-import 'package:icarus/features/performance/domain/types/daily_note_kind.dart';
+import 'package:icarus/features/performance/domain/types/daily_note_type.dart';
 import 'package:icarus/shared/core/constant/assets_helper.dart';
 import 'package:icarus/shared/utils/date_helper.dart';
 
@@ -15,7 +15,7 @@ class DailyNoteCard extends StatelessWidget {
   });
 
   final NoteEntity entity;
-  final DailyNoteKind kind;
+  final DailyNoteType kind;
   final VoidCallback onTap;
 
   @override
@@ -125,7 +125,7 @@ class DailyNoteCard extends StatelessWidget {
             color: context.brand.textMain,
           ),
         ),
-        if (kind == DailyNoteKind.classRoom &&
+        if (kind == DailyNoteType.classRoom &&
             (entity.place?.isNotEmpty == true ||
                 entity.clock?.isNotEmpty == true)) ...[
           SizedBox(height: 6.h),
