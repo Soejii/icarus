@@ -47,26 +47,26 @@ class StudentDailyNoteDetailScreen extends ConsumerWidget {
 
   Widget noteCard(BuildContext context, NoteEntity entity) {
     return Container(
-      padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(8.r),
+        borderRadius: BorderRadius.circular(12.r),
         boxShadow: const [
           BoxShadow(
             color: Color.fromRGBO(0, 0, 0, 0.08),
-            blurRadius: 8,
-            offset: Offset(0, 2),
+            blurRadius: 12,
+            offset: Offset(0, 4),
           ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Text(
+          Padding(
+            padding: EdgeInsets.all(16.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
                   (entity.title ?? '').toUpperCase(),
                   style: TextStyle(
                     fontFamily: 'OpenSans',
@@ -75,69 +75,136 @@ class StudentDailyNoteDetailScreen extends ConsumerWidget {
                     color: context.brand.textMain,
                   ),
                 ),
-              ),
-              if (entity.file != null)
-                GestureDetector(
-                  onTap: () => showAttachment(context, entity.file!),
-                  child: Icon(
-                    Icons.insert_drive_file_outlined,
-                    size: 24.sp,
-                    color: context.brand.textSecondary,
-                  ),
+                SizedBox(height: 8.h),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.person_outline,
+                      size: 14.sp,
+                      color: const Color.fromRGBO(0, 0, 0, 0.40),
+                    ),
+                    SizedBox(width: 4.w),
+                    Flexible(
+                      child: Text(
+                        entity.teacherName ?? '-',
+                        style: TextStyle(
+                          fontFamily: 'OpenSans',
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                          color: const Color.fromRGBO(0, 0, 0, 0.50),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 20.w),
+                    Icon(
+                      Icons.calendar_today_outlined,
+                      size: 12.sp,
+                      color: const Color.fromRGBO(0, 0, 0, 0.40),
+                    ),
+                    SizedBox(width: 4.w),
+                    Flexible(
+                      child: Text(
+                        formatIndoDate(entity.date ?? ''),
+                        style: TextStyle(
+                          fontFamily: 'OpenSans',
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400,
+                          color: const Color.fromRGBO(0, 0, 0, 0.50),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-            ],
-          ),
-          SizedBox(height: 8.h),
-          Row(
-            children: [
-              Icon(
-                Icons.person_outline,
-                size: 14.sp,
-                color: const Color.fromRGBO(0, 0, 0, 0.50),
-              ),
-              SizedBox(width: 4.w),
-              Flexible(
-                child: Text(
-                  entity.teacherName ?? '-',
+                SizedBox(height: 16.h),
+                Text(
+                  entity.note ?? '',
                   style: TextStyle(
                     fontFamily: 'OpenSans',
-                    fontSize: 12.sp,
+                    fontSize: 13.sp,
                     fontWeight: FontWeight.w400,
-                    color: const Color.fromRGBO(0, 0, 0, 0.50),
+                    height: 1.6,
+                    color: const Color.fromRGBO(0, 0, 0, 0.80),
                   ),
                 ),
-              ),
-              SizedBox(width: 20.w),
-              Icon(
-                Icons.calendar_today_outlined,
-                size: 12.sp,
-                color: const Color.fromRGBO(0, 0, 0, 0.50),
-              ),
-              SizedBox(width: 4.w),
-              Flexible(
-                child: Text(
-                  formatIndoDate(entity.date ?? ''),
-                  style: TextStyle(
-                    fontFamily: 'OpenSans',
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w400,
-                    color: const Color.fromRGBO(0, 0, 0, 0.50),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 16.h),
-          Text(
-            entity.note ?? '',
-            style: TextStyle(
-              fontFamily: 'OpenSans',
-              fontSize: 12.sp,
-              fontWeight: FontWeight.w400,
-              color: const Color.fromRGBO(0, 0, 0, 0.80),
+              ],
             ),
           ),
+          if (entity.file != null) ...[
+            Divider(height: 1.h, color: const Color.fromRGBO(0, 0, 0, 0.07)),
+            attachmentRow(context, entity.file!),
+          ],
         ],
+      ),
+    );
+  }
+
+  Widget attachmentRow(BuildContext context, String fileUrl) {
+    final isPdf = fileUrl.toLowerCase().contains('.pdf') ||
+        fileUrl.toLowerCase().contains('pdf');
+    return GestureDetector(
+      onTap: () => showAttachment(context, fileUrl),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(12.r),
+            bottomRight: Radius.circular(12.r),
+          ),
+          gradient: LinearGradient(
+            colors: [
+              context.brand.mainGradient.colors.first.withOpacity(0.06),
+              context.brand.mainGradient.colors.last.withOpacity(0.06),
+            ],
+          ),
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 36.w,
+              height: 36.w,
+              decoration: BoxDecoration(
+                gradient: context.brand.mainGradient,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                isPdf ? Icons.picture_as_pdf_rounded : Icons.image_rounded,
+                color: Colors.white,
+                size: 18.sp,
+              ),
+            ),
+            SizedBox(width: 12.w),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Lihat Lampiran',
+                    style: TextStyle(
+                      fontFamily: 'OpenSans',
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w600,
+                      color: context.brand.mainGradient.colors.last,
+                    ),
+                  ),
+                  Text(
+                    isPdf ? 'Dokumen PDF' : 'Gambar',
+                    style: TextStyle(
+                      fontFamily: 'OpenSans',
+                      fontSize: 11.sp,
+                      fontWeight: FontWeight.w400,
+                      color: const Color.fromRGBO(0, 0, 0, 0.40),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(
+              Icons.chevron_right,
+              color: const Color.fromRGBO(0, 0, 0, 0.30),
+              size: 20.sp,
+            ),
+          ],
+        ),
       ),
     );
   }
