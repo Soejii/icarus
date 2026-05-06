@@ -6,6 +6,7 @@ import 'package:icarus/features/performance/domain/entities/note_entity.dart';
 import 'package:icarus/features/performance/presentation/providers/student_note_detail_controller.dart';
 import 'package:icarus/features/performance/presentation/widgets/attachment_preview_sheet.dart';
 import 'package:icarus/shared/screens/buffer_error_view.dart';
+import 'package:icarus/shared/utils/date_helper.dart';
 import 'package:icarus/shared/widgets/custom_app_bar_widget.dart';
 
 class StudentDailyNoteDetailScreen extends ConsumerWidget {
@@ -27,7 +28,8 @@ class StudentDailyNoteDetailScreen extends ConsumerWidget {
         error: (error, stackTrace) => BufferErrorView(
           error: error,
           stackTrace: stackTrace,
-          onRetry: () => ref.invalidate(studentNoteDetailControllerProvider(id)),
+          onRetry: () =>
+              ref.invalidate(studentNoteDetailControllerProvider(id)),
         ),
         loading: () => const Center(child: CircularProgressIndicator()),
       ),
@@ -114,7 +116,7 @@ class StudentDailyNoteDetailScreen extends ConsumerWidget {
               SizedBox(width: 4.w),
               Flexible(
                 child: Text(
-                  entity.date ?? '-',
+                  formatIndoDate(entity.date ?? ''),
                   style: TextStyle(
                     fontFamily: 'OpenSans',
                     fontSize: 12.sp,
