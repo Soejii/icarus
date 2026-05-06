@@ -4,6 +4,7 @@ import 'package:icarus/app/theme/brand_palette.dart';
 import 'package:icarus/features/performance/domain/entities/note_entity.dart';
 import 'package:icarus/features/performance/domain/types/daily_note_kind.dart';
 import 'package:icarus/shared/core/constant/assets_helper.dart';
+import 'package:icarus/shared/utils/date_helper.dart';
 
 class DailyNoteCard extends StatelessWidget {
   const DailyNoteCard({
@@ -99,7 +100,7 @@ class DailyNoteCard extends StatelessWidget {
             SizedBox(width: 4.w),
             Flexible(
               child: Text(
-                entity.date ?? '-',
+                formatIndoDate(entity.date ?? ''),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 style: TextStyle(
