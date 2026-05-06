@@ -1,0 +1,199 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:icarus/app/theme/brand_palette.dart';
+import 'package:icarus/features/performance/domain/entities/class_note_detail_entity.dart';
+import 'package:icarus/features/performance/presentation/providers/class_note_detail_controller.dart';
+import 'package:icarus/features/performance/presentation/widgets/attachment_preview_sheet.dart';
+import 'package:icarus/shared/screens/buffer_error_view.dart';
+import 'package:icarus/shared/widgets/custom_app_bar_widget.dart';
+
+class ClassDailyNoteDetailScreen extends ConsumerWidget {
+  const ClassDailyNoteDetailScreen({super.key, required this.id});
+
+  final int id;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final asyncNote = ref.watch(classNoteDetailControllerProvider(id));
+
+    return Scaffold(
+      appBar: const CustomAppBarWidget(
+        title: 'Detail Catatan Kelas',
+        leadingIcon: true,
+      ),
+      body: asyncNote.when(
+        data: (entity) => noteDetailBody(context, entity),
+        error: (error, stackTrace) => BufferErrorView(
+          error: error,
+          stackTrace: stackTrace,
+          onRetry: () => ref.invalidate(classNoteDetailControllerProvider(id)),
+        ),
+        loading: () => const Center(child: CircularProgressIndicator()),
+      ),
+    );
+  }
+
+  Widget noteDetailBody(BuildContext context, ClassNoteDetailEntity entity) {
+    return ListView(
+      padding: EdgeInsets.all(16.w),
+      children: [
+        noteCard(context, entity),
+        if (entity.files.isNotEmpty) ...[
+          SizedBox(height: 16.h),
+          filesList(context, entity.files),
+        ],
+      ],
+    );
+  }
+
+  Widget noteCard(BuildContext context, ClassNoteDetailEntity entity) {
+    return Container(
+      padding: EdgeInsets.all(16.w),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8.r),
+        boxShadow: const [
+          BoxShadow(
+            color: Color.fromRGBO(0, 0, 0, 0.08),
+            blurRadius: 8,
+            offset: Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            (entity.title ?? '').toUpperCase(),
+            style: TextStyle(
+              fontFamily: 'OpenSans',
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w700,
+              color: context.brand.textMain,
+            ),
+          ),
+          SizedBox(height: 8.h),
+          Row(
+            children: [
+              Icon(
+                Icons.person_outline,
+                size: 14.sp,
+                color: const Color.fromRGBO(0, 0, 0, 0.50),
+              ),
+              SizedBox(width: 4.w),
+              Flexible(
+                child: Text(
+                  entity.teacherName ?? '-',
+                  style: TextStyle(
+                    fontFamily: 'OpenSans',
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w400,
+                    color: const Color.fromRGBO(0, 0, 0, 0.50),
+                  ),
+                ),
+              ),
+              SizedBox(width: 20.w),
+              Icon(
+                Icons.calendar_today_outlined,
+                size: 12.sp,
+                color: const Color.fromRGBO(0, 0, 0, 0.50),
+              ),
+              SizedBox(width: 4.w),
+              Flexible(
+                child: Text(
+                  entity.date ?? '-',
+                  style: TextStyle(
+                    fontFamily: 'OpenSans',
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w400,
+                    color: const Color.fromRGBO(0, 0, 0, 0.50),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 16.h),
+          Text(
+            entity.notes ?? '',
+            style: TextStyle(
+              fontFamily: 'OpenSans',
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w400,
+              color: const Color.fromRGBO(0, 0, 0, 0.80),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget filesList(BuildContext context, List<ClassNoteFile> files) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Lampiran',
+          style: TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 13.sp,
+            fontWeight: FontWeight.w600,
+            color: context.brand.textMain,
+          ),
+        ),
+        SizedBox(height: 8.h),
+        ...files.asMap().entries.map((entry) {
+          return fileChip(context, entry.key, entry.value);
+        }),
+      ],
+    );
+  }
+
+  Widget fileChip(BuildContext context, int index, ClassNoteFile file) {
+    if (file.file == null) return const SizedBox.shrink();
+    final isPdf = file.file!.toLowerCase().contains('.pdf') ||
+        file.file!.toLowerCase().contains('pdf');
+
+    return Padding(
+      padding: EdgeInsets.only(bottom: 8.h),
+      child: GestureDetector(
+        onTap: () => showAttachment(context, file.file!),
+        child: Container(
+          padding: EdgeInsets.all(12.w),
+          decoration: BoxDecoration(
+            border: Border.all(color: const Color.fromRGBO(0, 0, 0, 0.15)),
+            borderRadius: BorderRadius.circular(8.r),
+          ),
+          child: Row(
+            children: [
+              Icon(
+                isPdf ? Icons.picture_as_pdf : Icons.image_outlined,
+                size: 20.sp,
+                color: context.brand.textSecondary,
+              ),
+              SizedBox(width: 8.w),
+              Text(
+                isPdf ? 'Lihat PDF ${index + 1}' : 'Lihat Gambar ${index + 1}',
+                style: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w600,
+                  color: context.brand.primary,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void showAttachment(BuildContext context, String fileUrl) {
+    showDialog(
+      context: context,
+      barrierColor: const Color.fromRGBO(0, 0, 0, 0.75),
+      builder: (_) => AttachmentPreviewSheet(fileUrl: fileUrl),
+    );
+  }
+}
