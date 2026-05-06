@@ -9,8 +9,7 @@ class AttachmentPreviewSheet extends StatelessWidget {
   final String fileUrl;
 
   bool get isPdf =>
-      fileUrl.toLowerCase().contains('.pdf') ||
-      fileUrl.toLowerCase().contains('pdf');
+      Uri.parse(fileUrl).path.toLowerCase().endsWith('.pdf');
 
   @override
   Widget build(BuildContext context) {

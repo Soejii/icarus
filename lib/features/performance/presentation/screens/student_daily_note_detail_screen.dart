@@ -139,8 +139,7 @@ class StudentDailyNoteDetailScreen extends ConsumerWidget {
   }
 
   Widget attachmentRow(BuildContext context, String fileUrl) {
-    final isPdf = fileUrl.toLowerCase().contains('.pdf') ||
-        fileUrl.toLowerCase().contains('pdf');
+    final isPdf = Uri.parse(fileUrl).path.toLowerCase().endsWith('.pdf');
     return GestureDetector(
       onTap: () => showAttachment(context, fileUrl),
       child: Container(

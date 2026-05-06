@@ -183,8 +183,7 @@ class ClassDailyNoteDetailScreen extends ConsumerWidget {
   }
 
   Widget fileRow(BuildContext context, int index, ClassNoteFile file) {
-    final isPdf = file.file!.toLowerCase().contains('.pdf') ||
-        file.file!.toLowerCase().contains('pdf');
+    final isPdf = Uri.parse(file.file!).path.toLowerCase().endsWith('.pdf');
     return Padding(
       padding: EdgeInsets.only(bottom: index < 0 ? 8.h : 0),
       child: GestureDetector(
