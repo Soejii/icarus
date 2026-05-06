@@ -13,7 +13,9 @@ import 'package:icarus/features/home/presentation/home_screen.dart';
 import 'package:icarus/features/lainnya/presentation/screens/lainnya_screen.dart';
 import 'package:icarus/features/login/presentation/screen/login_screen.dart';
 import 'package:icarus/features/notifications/presentation/screen/notification_screen.dart';
+import 'package:icarus/features/performance/presentation/screens/class_daily_note_detail_screen.dart';
 import 'package:icarus/features/performance/presentation/screens/performance_screen.dart';
+import 'package:icarus/features/performance/presentation/screens/student_daily_note_detail_screen.dart';
 import 'package:icarus/features/profile/presentation/screens/profile_screen.dart';
 import 'package:icarus/features/profile/presentation/screens/account_information_screen.dart';
 import 'package:icarus/features/profile/presentation/screens/change_password_screen.dart';
@@ -362,7 +364,24 @@ GoRouter appRouter(Ref ref) {
                 name: RouteName.performance,
                 pageBuilder: (_, __) =>
                     const MaterialPage(child: PerformanceScreen()),
-                // routes: [],
+                routes: [
+                  GoRoute(
+                    path: 'student-daily-note/:id',
+                    name: RouteName.studentDailyNoteDetail,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, state) => StudentDailyNoteDetailScreen(
+                      id: int.parse(state.pathParameters['id']!),
+                    ),
+                  ),
+                  GoRoute(
+                    path: 'class-daily-note/:id',
+                    name: RouteName.classDailyNoteDetail,
+                    parentNavigatorKey: rootNavigatorKey,
+                    builder: (_, state) => ClassDailyNoteDetailScreen(
+                      id: int.parse(state.pathParameters['id']!),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

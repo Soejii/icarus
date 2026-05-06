@@ -1,3 +1,4 @@
+import 'package:icarus/features/performance/domain/entities/class_note_detail_entity.dart';
 import 'package:icarus/features/performance/domain/entities/note_entity.dart';
 import 'package:icarus/shared/core/domain/entities/exam_entity.dart';
 import 'package:icarus/shared/core/domain/types/exam_type.dart';
@@ -13,8 +14,15 @@ abstract class PerformanceRepository {
     required int idStudent,
     required int page,
   });
-    Future<Result<List<NoteEntity>>> getListClassNote({
+  Future<Result<List<NoteEntity>>> getListClassNote({
     required int idStudent,
     required int page,
+  });
+
+  Future<Result<NoteEntity>> getStudentNoteDetail({required int noteId});
+
+  Future<Result<ClassNoteDetailEntity>> getClassNoteDetail({
+    required int noteId,
+    required int idStudent,
   });
 }

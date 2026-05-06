@@ -23,6 +23,8 @@ class RouteName {
   static const accountInformation = 'account-information';
 
   static const performance = 'performance';
+  static const studentDailyNoteDetail = 'student-daily-note-detail';
+  static const classDailyNoteDetail = 'class-daily-note-detail';
 
   static const chat = 'chat';
   static const contactPicker = 'contact-picker';

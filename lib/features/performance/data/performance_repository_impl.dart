@@ -1,6 +1,8 @@
 import 'package:icarus/features/performance/data/datasources/performance_remote_data_source.dart';
 import 'package:icarus/features/performance/data/mappers/exam_mapper.dart';
+import 'package:icarus/features/performance/data/mappers/class_note_detail_mapper.dart';
 import 'package:icarus/features/performance/data/mappers/note_mapper.dart';
+import 'package:icarus/features/performance/domain/entities/class_note_detail_entity.dart';
 import 'package:icarus/features/performance/domain/entities/note_entity.dart';
 import 'package:icarus/features/performance/domain/performance_repository.dart';
 import 'package:icarus/shared/core/domain/entities/exam_entity.dart';
@@ -51,7 +53,7 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
         },
       );
 
-        @override
+  @override
   Future<Result<List<NoteEntity>>> getListClassNote({
     required int idStudent,
     required int page,
@@ -67,6 +69,27 @@ class PerformanceRepositoryImpl implements PerformanceRepository {
                 (model) => model.toEntity(),
               )
               .toList();
+        },
+      );
+
+  @override
+  Future<Result<NoteEntity>> getStudentNoteDetail({required int noteId}) =>
+      guard(
+        () async {
+          final model = await _dataSource.getStudentNoteDetail(noteId);
+          return model.toEntity();
+        },
+      );
+
+  @override
+  Future<Result<ClassNoteDetailEntity>> getClassNoteDetail({
+    required int noteId,
+    required int idStudent,
+  }) =>
+      guard(
+        () async {
+          final model = await _dataSource.getClassNoteDetail(noteId, idStudent);
+          return model.toEntity();
         },
       );
 }

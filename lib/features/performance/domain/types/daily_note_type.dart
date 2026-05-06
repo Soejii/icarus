@@ -1,0 +1,1 @@
+enum DailyNoteType { student, classRoom }

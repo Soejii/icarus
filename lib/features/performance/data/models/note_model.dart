@@ -14,6 +14,11 @@ class NoteModel with _$NoteModel {
     String? file,
     TeacherModel? teacher,
     String? notes,
+    String? status,
+    String? place,
+    String? clock,
+    String? poin,
+    String? noteHeadmaster,
   }) = _NoteModel;
 
   factory NoteModel.fromJson(Map<String, dynamic> json) =>
