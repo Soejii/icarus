@@ -6,8 +6,12 @@ extension NoteMapper on NoteModel {
         id: id,
         title: title,
         teacherName: teacher?.name,
+        teacherPhoto: teacher?.photo,
         date: date,
         note: notes,
         file: file,
+        status: status,
+        place: place,
+        clock: clock,
       );
 }
