@@ -217,7 +217,9 @@ GoRouter appRouter(Ref ref) {
                     path: 'view-all-history',
                     name: RouteName.viewAllHistory,
                     parentNavigatorKey: rootNavigatorKey,
-                    builder: (_, __) => const ViewAllHistoryScreen(),
+                    builder: (_, state) => ViewAllHistoryScreen(
+                      historyType: state.extra as String? ?? 'emoney',
+                    ),
                   ),
                   GoRoute(
                     path: 'nominal-entry',

@@ -3,7 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
 
 class SavingsBalanceHeaderWidget extends StatelessWidget {
-  const SavingsBalanceHeaderWidget({super.key});
+  const SavingsBalanceHeaderWidget({
+    super.key,
+    required this.balance,
+  });
+
+  final String balance;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +31,7 @@ class SavingsBalanceHeaderWidget extends StatelessWidget {
           ),
           SizedBox(height: 4.h),
           Text(
-            'Rp 1.500.000',
+            balance,
             style: TextStyle(
               fontFamily: 'OpenSans',
               fontSize: 28.sp,

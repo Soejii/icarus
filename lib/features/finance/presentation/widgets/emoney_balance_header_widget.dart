@@ -3,8 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
 
 class EmoneyBalanceHeaderWidget extends StatelessWidget {
-  const EmoneyBalanceHeaderWidget({super.key, this.onTopUp});
+  const EmoneyBalanceHeaderWidget({
+    super.key,
+    required this.balance,
+    this.onTopUp,
+  });
 
+  final String balance;
   final VoidCallback? onTopUp;
 
   @override
@@ -28,7 +33,7 @@ class EmoneyBalanceHeaderWidget extends StatelessWidget {
           ),
           SizedBox(height: 4.h),
           Text(
-            'Rp 250.000',
+            balance,
             style: TextStyle(
               fontFamily: 'OpenSans',
               fontSize: 28.sp,
