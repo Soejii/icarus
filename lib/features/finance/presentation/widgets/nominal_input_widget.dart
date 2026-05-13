@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
+import 'package:intl/intl.dart';
 
 class NominalInputWidget extends StatelessWidget {
   const NominalInputWidget({
@@ -37,7 +38,10 @@ class NominalInputWidget extends StatelessWidget {
           TextField(
             controller: controller,
             keyboardType: TextInputType.number,
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+              _ThousandsSeparatorFormatter(),
+            ],
             style: TextStyle(
               fontFamily: 'OpenSans',
               fontSize: 20.sp,
@@ -77,6 +81,25 @@ class NominalInputWidget extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _ThousandsSeparatorFormatter extends TextInputFormatter {
+  final _fmt = NumberFormat('#,###', 'id_ID');
+
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    if (newValue.text.isEmpty) return newValue;
+    final number = int.tryParse(newValue.text);
+    if (number == null) return oldValue;
+    final formatted = _fmt.format(number);
+    return TextEditingValue(
+      text: formatted,
+      selection: TextSelection.collapsed(offset: formatted.length),
     );
   }
 }

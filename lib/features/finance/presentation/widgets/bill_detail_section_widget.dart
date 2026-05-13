@@ -12,7 +12,9 @@ class BillDetailSectionWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final bill = ref.watch(paymentFlowNotifierProvider).selectedBill;
+    final flow = ref.watch(paymentFlowNotifierProvider);
+    final bill = flow.selectedBill;
+    final amount = flow.nominalAmount ?? bill?.billAmount;
 
     return Container(
       width: double.infinity,
@@ -39,7 +41,7 @@ class BillDetailSectionWidget extends ConsumerWidget {
           SizedBox(height: 8.h),
           detailRow(context, 'Kategori', bill?.category.label ?? '-'),
           SizedBox(height: 8.h),
-          detailRow(context, 'Jumlah', formatRupiah(bill?.billAmount)),
+          detailRow(context, 'Jumlah', formatRupiah(amount)),
           SizedBox(height: 8.h),
           detailRow(
             context,
