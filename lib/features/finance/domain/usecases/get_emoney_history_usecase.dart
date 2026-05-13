@@ -7,6 +7,6 @@ class GetEmoneyHistoryUsecase {
   GetEmoneyHistoryUsecase(this._repository);
 
   Future<Result<List<EmoneyTransactionEntity>>> call(int studentId,
-          {int limit = 10, int offset = 0}) =>
+          {int limit = 20, int offset = 0}) =>
       _repository.getEmoneyHistory(studentId, limit: limit, offset: offset);
 }

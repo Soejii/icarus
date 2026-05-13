@@ -19,7 +19,7 @@ class SavingRepositoryImpl implements SavingRepository {
 
   @override
   Future<Result<List<SavingTransactionEntity>>> getSavingHistory(
-          int studentId, {int limit = 10, int offset = 0}) =>
+          int studentId, {int limit = 20, int offset = 0}) =>
       guard(() async {
         final models = await _dataSource.getSavingHistory(studentId,
             limit: limit, offset: offset);

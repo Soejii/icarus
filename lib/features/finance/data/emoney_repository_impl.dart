@@ -19,7 +19,7 @@ class EmoneyRepositoryImpl implements EmoneyRepository {
 
   @override
   Future<Result<List<EmoneyTransactionEntity>>> getEmoneyHistory(
-          int studentId, {int limit = 10, int offset = 0}) =>
+          int studentId, {int limit = 20, int offset = 0}) =>
       guard(() async {
         final models = await _dataSource.getEmoneyHistory(studentId,
             limit: limit, offset: offset);

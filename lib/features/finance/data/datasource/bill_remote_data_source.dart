@@ -31,7 +31,7 @@ class BillRemoteDataSource {
   Future<List<BillTransactionModel>> getListPaid(
     int studentId,
     String type, {
-    int limit = 10,
+    int limit = 20,
     int offset = 0,
   }) async {
     final res = await _dio.get(

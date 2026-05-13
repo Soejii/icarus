@@ -43,7 +43,7 @@ class BillRepositoryImpl implements BillRepository {
   @override
   Future<Result<List<BillTransactionEntity>>> getListPaid(
           int studentId, BillCategoryType type,
-          {int limit = 10, int offset = 0}) =>
+          {int limit = 20, int offset = 0}) =>
       guard(() async {
         final models = await _dataSource.getListPaid(studentId, type.name,
             limit: limit, offset: offset);

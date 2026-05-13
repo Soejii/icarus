@@ -7,7 +7,7 @@ part 'saving_history_controller.g.dart';
 
 @Riverpod(keepAlive: true)
 class SavingHistoryController extends _$SavingHistoryController {
-  static const _pageSize = 10;
+  static const _pageSize = 20;
   int _offset = 0;
   bool _hasMore = true;
 
@@ -33,7 +33,7 @@ class SavingHistoryController extends _$SavingHistoryController {
     final child = ref.read(selectedChildProvider);
     if (child == null) return;
     final current = state.asData?.value ?? [];
-    final usecase = ref.watch(getSavingHistoryUsecaseProvider);
+    final usecase = ref.read(getSavingHistoryUsecaseProvider);
     final res =
         await usecase.call(child.id, limit: _pageSize, offset: _offset);
     res.fold((f) => throw f, (more) {

@@ -16,7 +16,7 @@ class SavingRemoteDataSource {
 
   Future<List<SavingTransactionModel>> getSavingHistory(
     int studentId, {
-    int limit = 10,
+    int limit = 20,
     int offset = 0,
   }) async {
     final res = await _dio.get(

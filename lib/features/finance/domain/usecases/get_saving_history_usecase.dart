@@ -7,6 +7,6 @@ class GetSavingHistoryUsecase {
   GetSavingHistoryUsecase(this._repository);
 
   Future<Result<List<SavingTransactionEntity>>> call(int studentId,
-          {int limit = 10, int offset = 0}) =>
+          {int limit = 20, int offset = 0}) =>
       _repository.getSavingHistory(studentId, limit: limit, offset: offset);
 }

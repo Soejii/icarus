@@ -14,7 +14,7 @@ class EmoneyRemoteDataSource {
 
   Future<List<EmoneyTransactionModel>> getEmoneyHistory(
     int studentId, {
-    int limit = 10,
+    int limit = 20,
     int offset = 0,
   }) async {
     final res = await _dio.get(

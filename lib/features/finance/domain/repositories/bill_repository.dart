@@ -14,7 +14,7 @@ abstract class BillRepository {
 
   Future<Result<List<BillTransactionEntity>>> getListPaid(
       int studentId, BillCategoryType type,
-      {int limit, int offset});
+      {int limit = 20, int offset = 0});
 
   Future<Result<List<BillTransactionEntity>>> getListAllBills(int studentId);
 

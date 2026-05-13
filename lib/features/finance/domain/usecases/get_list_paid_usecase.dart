@@ -9,6 +9,6 @@ class GetListPaidUsecase {
 
   Future<Result<List<BillTransactionEntity>>> call(
           int studentId, BillCategoryType type,
-          {int limit = 10, int offset = 0}) =>
+          {int limit = 20, int offset = 0}) =>
       _repository.getListPaid(studentId, type, limit: limit, offset: offset);
 }

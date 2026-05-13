@@ -7,7 +7,7 @@ part 'emoney_history_controller.g.dart';
 
 @Riverpod(keepAlive: true)
 class EmoneyHistoryController extends _$EmoneyHistoryController {
-  static const _pageSize = 10;
+  static const _pageSize = 20;
   int _offset = 0;
   bool _hasMore = true;
 
@@ -33,7 +33,7 @@ class EmoneyHistoryController extends _$EmoneyHistoryController {
     final child = ref.read(selectedChildProvider);
     if (child == null) return;
     final current = state.asData?.value ?? [];
-    final usecase = ref.watch(getEmoneyHistoryUsecaseProvider);
+    final usecase = ref.read(getEmoneyHistoryUsecaseProvider);
     final res =
         await usecase.call(child.id, limit: _pageSize, offset: _offset);
     res.fold((f) => throw f, (more) {

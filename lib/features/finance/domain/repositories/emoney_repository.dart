@@ -6,7 +6,7 @@ abstract class EmoneyRepository {
   Future<Result<EmoneyDetailEntity>> getEmoneyDetail(int studentId);
 
   Future<Result<List<EmoneyTransactionEntity>>> getEmoneyHistory(
-      int studentId, {int limit, int offset});
+      int studentId, {int limit = 20, int offset = 0});
 
   Future<Result<EmoneyTransactionEntity>> getEmoneyTransactionDetail(int id);
 
