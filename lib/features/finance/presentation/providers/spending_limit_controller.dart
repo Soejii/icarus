@@ -1,4 +1,5 @@
 import 'package:icarus/features/child/presentation/providers/child_providers.dart';
+import 'package:icarus/features/finance/data/mappers/saving_mapper.dart';
 import 'package:icarus/features/finance/domain/entities/spending_limit_entity.dart';
 import 'package:icarus/features/finance/presentation/providers/finance_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -20,7 +21,7 @@ class SpendingLimitController extends _$SpendingLimitController {
     final child = ref.read(selectedChildProvider);
     if (child == null) return;
     final usecase = ref.read(setSpendingLimitUsecaseProvider);
-    final res = await usecase.call(child.id, type, amount);
+    final res = await usecase.call(child.id, spendingLimitTypeToApi(type), amount);
     res.fold((f) => throw f, (_) => ref.invalidateSelf());
   }
 }

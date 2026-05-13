@@ -40,6 +40,26 @@ extension SavingTransactionMapper on SavingTransactionModel {
 
 extension SpendingLimitMapper on SpendingLimitModel {
   SpendingLimitEntity toEntity() {
-    return SpendingLimitEntity(type: type, amount: amount);
+    return SpendingLimitEntity(type: _toIndonesian(type), amount: amount);
   }
+
+  static String _toIndonesian(String apiType) {
+    return switch (apiType.toLowerCase()) {
+      'daily' => 'Harian',
+      'weekly' => 'Mingguan',
+      'monthly' => 'Bulanan',
+      'yearly' || 'annually' => 'Tahunan',
+      _ => 'Tidak Dibatasi',
+    };
+  }
+}
+
+String spendingLimitTypeToApi(String indonesian) {
+  return switch (indonesian) {
+    'Harian' => 'daily',
+    'Mingguan' => 'weekly',
+    'Bulanan' => 'monthly',
+    'Tahunan' => 'yearly',
+    _ => 'unlimited',
+  };
 }
