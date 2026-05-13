@@ -129,7 +129,13 @@ class _PaymentGatewayScreenState extends ConsumerState<PaymentGatewayScreen> {
                                 },
                               );
                               final redirectUrl = data['redirect_url'] as String?;
-                              if (redirectUrl == null) return;
+                              if (redirectUrl == null) {
+                                if (!mounted) return;
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text('URL pembayaran tidak tersedia')),
+                                );
+                                return;
+                              }
                               ref
                                   .read(paymentFlowNotifierProvider.notifier)
                                   .setRedirectUrl(redirectUrl);

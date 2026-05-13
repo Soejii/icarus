@@ -34,7 +34,7 @@ class SchoolBillsPaidController extends _$SchoolBillsPaidController {
   }
 
   Future<void> loadMore() async {
-    if (!_hasMore) return;
+    if (!_hasMore || state.isLoading) return;
     final child = ref.read(selectedChildProvider);
     if (child == null) return;
     final current = state.valueOrNull ?? [];

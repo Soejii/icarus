@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
+import 'package:icarus/features/finance/domain/types/bill_category_type.dart';
 import 'package:icarus/features/finance/domain/types/va_bank_type.dart';
 import 'package:icarus/features/finance/presentation/providers/bank_transfer_info_controller.dart';
 import 'package:icarus/features/finance/presentation/providers/payment_action_controller.dart';
@@ -68,9 +69,11 @@ class _VaPaymentScreenState extends ConsumerState<VaPaymentScreen> {
     final flow = ref.watch(paymentFlowNotifierProvider);
     final bill = flow.selectedBill;
     final bankInfo = ref.watch(bankTransferInfoControllerProvider).valueOrNull;
-    final adminFee = switch (widget.bankType) {
-      VaBankType.bni => bankInfo?.adminFeeSpp ?? 0,
-      VaBankType.bmi => bankInfo?.adminFeeDpp ?? 0,
+    final adminFee = switch (bill?.category) {
+      BillCategoryType.spp => bankInfo?.adminFeeSpp ?? 0,
+      BillCategoryType.dpp => bankInfo?.adminFeeDpp ?? 0,
+      BillCategoryType.lainnya => bankInfo?.adminFeeLainnya ?? 0,
+      null => 0,
     };
     final totalAmount = (flow.nominalAmount ?? bill?.billAmount ?? 0) + adminFee;
 
