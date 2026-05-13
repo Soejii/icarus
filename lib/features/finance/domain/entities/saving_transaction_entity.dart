@@ -13,13 +13,13 @@ class SavingTransactionEntity {
   SavingTransactionEntity({
     required this.id,
     required this.amount,
-    this.notes,
+    required this.notes,
     required this.type,
     required this.confirmed,
     required this.transaction,
-    this.date,
-    this.confirmationPhoto,
-    this.receivedBy,
-    this.givenBy,
+    required this.date,
+    required this.confirmationPhoto,
+    required this.receivedBy,
+    required this.givenBy,
   });
 }

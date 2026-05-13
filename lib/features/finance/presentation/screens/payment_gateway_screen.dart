@@ -1,17 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
+import 'package:icarus/features/finance/presentation/providers/payment_action_controller.dart';
+import 'package:icarus/features/finance/presentation/providers/payment_flow_notifier.dart';
 import 'package:icarus/features/finance/presentation/widgets/payment_summary_widget.dart';
 import 'package:icarus/features/finance/presentation/widgets/student_info_card.dart';
 import 'package:icarus/shared/widgets/custom_app_bar_widget.dart';
-import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class PaymentGatewayScreen extends ConsumerWidget {
+class PaymentGatewayScreen extends ConsumerStatefulWidget {
   const PaymentGatewayScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<PaymentGatewayScreen> createState() =>
+      _PaymentGatewayScreenState();
+}
+
+class _PaymentGatewayScreenState extends ConsumerState<PaymentGatewayScreen> {
+  bool _loading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final flow = ref.watch(paymentFlowNotifierProvider);
+    final bill = flow.selectedBill;
+
     return Scaffold(
       appBar: const CustomAppBarWidget(
         title: 'Bayar Tagihan',
@@ -98,9 +112,42 @@ class PaymentGatewayScreen extends ConsumerWidget {
                     borderRadius: BorderRadius.circular(8.r),
                   ),
                   child: ElevatedButton(
-                    onPressed: () {
-                      // TODO: launch in-app webview with payment URL
-                    },
+                    onPressed: _loading || bill == null
+                        ? null
+                        : () async {
+                            setState(() => _loading = true);
+                            try {
+                              final data = await ref
+                                  .read(paymentActionControllerProvider.notifier)
+                                  .createPayment(
+                                'winpay',
+                                {
+                                  'bill_trx_id': bill.id,
+                                  'amount': ref
+                                      .read(paymentFlowNotifierProvider.notifier)
+                                      .effectiveAmount,
+                                },
+                              );
+                              final redirectUrl = data['redirect_url'] as String?;
+                              if (redirectUrl == null) return;
+                              ref
+                                  .read(paymentFlowNotifierProvider.notifier)
+                                  .setRedirectUrl(redirectUrl);
+                              await launchUrl(
+                                Uri.parse(redirectUrl),
+                                mode: LaunchMode.externalApplication,
+                              );
+                            } catch (e) {
+                              if (!mounted) return;
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(e.toString())),
+                              );
+                            } finally {
+                              if (mounted) {
+                                setState(() => _loading = false);
+                              }
+                            }
+                          },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,
                       shadowColor: Colors.transparent,
@@ -109,15 +156,24 @@ class PaymentGatewayScreen extends ConsumerWidget {
                       ),
                       padding: EdgeInsets.symmetric(vertical: 14.h),
                     ),
-                    child: Text(
-                      'Lanjutkan ke Pembayaran',
-                      style: TextStyle(
-                        fontFamily: 'OpenSans',
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
-                    ),
+                    child: _loading
+                        ? SizedBox(
+                            width: 18.w,
+                            height: 18.w,
+                            child: const CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.white,
+                            ),
+                          )
+                        : Text(
+                            'Lanjutkan ke Pembayaran',
+                            style: TextStyle(
+                              fontFamily: 'OpenSans',
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                          ),
                   ),
                 ),
               ),

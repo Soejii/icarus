@@ -1,39 +1,65 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
+import 'package:icarus/features/finance/domain/entities/bill_transaction_entity.dart';
+import 'package:icarus/features/finance/domain/types/bill_category_type.dart';
+import 'package:icarus/features/finance/presentation/providers/payment_flow_notifier.dart';
+import 'package:icarus/features/finance/presentation/providers/school_bills_controller.dart';
 import 'package:icarus/features/finance/presentation/widgets/bill_checkbox_item.dart';
 import 'package:icarus/features/finance/presentation/widgets/bill_type_checkbox_row.dart';
 import 'package:icarus/features/finance/presentation/widgets/multi_select_bottom_bar.dart';
 import 'package:icarus/shared/core/infrastructure/routes/route_name.dart';
-import 'package:go_router/go_router.dart';
+import 'package:icarus/shared/utils/currency_helper.dart';
+import 'package:intl/intl.dart';
 
 class MultiSelectPaymentScreen extends HookConsumerWidget {
   const MultiSelectPaymentScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mockData = _buildMockData();
+    final sppAsync = ref.watch(schoolBillsControllerProvider(BillCategoryType.spp));
+    final dppAsync = ref.watch(schoolBillsControllerProvider(BillCategoryType.dpp));
+    final lainnyaAsync = ref.watch(schoolBillsControllerProvider(BillCategoryType.lainnya));
 
-    // Track checked state: Map<typeIndex, Map<billIndex, bool>>
+    final isLoading = sppAsync.isLoading || dppAsync.isLoading || lainnyaAsync.isLoading;
+    final hasError = sppAsync.hasError || dppAsync.hasError || lainnyaAsync.hasError;
+    final data = sppAsync.hasValue && dppAsync.hasValue && lainnyaAsync.hasValue
+        ? [
+            billGroup(BillCategoryType.spp, sppAsync.valueOrNull ?? []),
+            billGroup(BillCategoryType.dpp, dppAsync.valueOrNull ?? []),
+            billGroup(BillCategoryType.lainnya, lainnyaAsync.valueOrNull ?? []),
+          ]
+        : <Map<String, dynamic>>[];
+
     final checkedState = useState<Map<int, Map<int, bool>>>({
-      for (int i = 0; i < mockData.length; i++)
+      for (int i = 0; i < data.length; i++)
         i: {
-          for (int j = 0; j < (mockData[i]['bills'] as List).length; j++)
-            j: false,
+          for (int j = 0; j < (data[i]['bills'] as List).length; j++) j: false,
         },
     });
 
-    // Track type-level checked state
     final typeChecked = useState<Map<int, bool>>({
-      for (int i = 0; i < mockData.length; i++) i: false,
+      for (int i = 0; i < data.length; i++) i: false,
     });
+
+    useEffect(() {
+      checkedState.value = {
+        for (int i = 0; i < data.length; i++)
+          i: {
+            for (int j = 0; j < (data[i]['bills'] as List).length; j++) j: false,
+          },
+      };
+      typeChecked.value = {for (int i = 0; i < data.length; i++) i: false};
+      return null;
+    }, [data.length]);
 
     int calculateTotal() {
       int total = 0;
       for (final typeEntry in checkedState.value.entries) {
-        final bills = mockData[typeEntry.key]['bills'] as List<Map<String, dynamic>>;
+        final bills = data[typeEntry.key]['bills'] as List<Map<String, dynamic>>;
         for (final billEntry in typeEntry.value.entries) {
           if (billEntry.value) {
             total += bills[billEntry.key]['amount'] as int;
@@ -41,16 +67,6 @@ class MultiSelectPaymentScreen extends HookConsumerWidget {
         }
       }
       return total;
-    }
-
-    String formatCurrency(int amount) {
-      final str = amount.toString();
-      final buffer = StringBuffer();
-      for (int i = 0; i < str.length; i++) {
-        if (i > 0 && (str.length - i) % 3 == 0) buffer.write('.');
-        buffer.write(str[i]);
-      }
-      return 'Rp $buffer';
     }
 
     void toggleType(int typeIndex, bool value) {
@@ -74,10 +90,24 @@ class MultiSelectPaymentScreen extends HookConsumerWidget {
       newState[typeIndex] = billMap;
       checkedState.value = newState;
 
-      final allChecked = billMap.values.every((v) => v);
+      final allChecked = billMap.values.isNotEmpty && billMap.values.every((v) => v);
       final newTypeChecked = Map<int, bool>.from(typeChecked.value);
       newTypeChecked[typeIndex] = allChecked;
       typeChecked.value = newTypeChecked;
+    }
+
+    void onContinue() {
+      final checkedEntities = <BillTransactionEntity>[];
+      for (final typeEntry in checkedState.value.entries) {
+        final bills = data[typeEntry.key]['bills'] as List<Map<String, dynamic>>;
+        for (final billEntry in typeEntry.value.entries) {
+          if (billEntry.value) {
+            checkedEntities.add(bills[billEntry.key]['entity'] as BillTransactionEntity);
+          }
+        }
+      }
+      ref.read(paymentFlowNotifierProvider.notifier).setSelectedBills(checkedEntities);
+      context.pushNamed(RouteName.selectPayment);
     }
 
     return Scaffold(
@@ -101,103 +131,86 @@ class MultiSelectPaymentScreen extends HookConsumerWidget {
           ),
         ),
       ),
-      body: ListView.builder(
-        itemCount: mockData.length,
-        itemBuilder: (context, typeIndex) {
-          final type = mockData[typeIndex];
-          final bills = type['bills'] as List<Map<String, dynamic>>;
-          return Column(
-            children: [
-              BillTypeCheckboxRow(
-                typeName: type['name'] as String,
-                isChecked: typeChecked.value[typeIndex] ?? false,
-                onChanged: (value) => toggleType(typeIndex, value),
-              ),
-              ...List.generate(bills.length, (billIndex) {
-                final bill = bills[billIndex];
-                return BillCheckboxItem(
-                  amount: _formatAmount(bill['amount'] as int),
-                  billName: bill['name'] as String,
-                  date: bill['date'] as String,
-                  isChecked:
-                      checkedState.value[typeIndex]?[billIndex] ?? false,
-                  onChanged: (value) =>
-                      toggleBill(typeIndex, billIndex, value),
-                );
-              }),
-            ],
-          );
-        },
-      ),
+      body: body(context, isLoading, hasError, data, checkedState, typeChecked, toggleType, toggleBill),
       bottomNavigationBar: MultiSelectBottomBar(
-        totalAmount: formatCurrency(calculateTotal()),
-        onContinue: () => context.pushNamed(RouteName.selectPayment),
+        totalAmount: formatRupiah(calculateTotal()),
+        onContinue: onContinue,
       ),
     );
   }
 
-  String _formatAmount(int amount) {
-    final str = amount.toString();
-    final buffer = StringBuffer();
-    for (int i = 0; i < str.length; i++) {
-      if (i > 0 && (str.length - i) % 3 == 0) buffer.write('.');
-      buffer.write(str[i]);
+  Widget body(
+    BuildContext context,
+    bool isLoading,
+    bool hasError,
+    List<Map<String, dynamic>> data,
+    ValueNotifier<Map<int, Map<int, bool>>> checkedState,
+    ValueNotifier<Map<int, bool>> typeChecked,
+    void Function(int typeIndex, bool value) toggleType,
+    void Function(int typeIndex, int billIndex, bool value) toggleBill,
+  ) {
+    if (isLoading) {
+      return const Center(child: CircularProgressIndicator());
     }
-    return buffer.toString();
+    if (hasError) {
+      return Center(
+        child: Text(
+          'Gagal memuat tagihan',
+          style: TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 12.sp,
+            fontWeight: FontWeight.w400,
+            color: context.brand.textSecondary,
+          ),
+        ),
+      );
+    }
+    return ListView.builder(
+      itemCount: data.length,
+      itemBuilder: (context, typeIndex) {
+        final type = data[typeIndex];
+        final bills = type['bills'] as List<Map<String, dynamic>>;
+        return Column(
+          children: [
+            BillTypeCheckboxRow(
+              typeName: type['name'] as String,
+              isChecked: typeChecked.value[typeIndex] ?? false,
+              onChanged: (value) => toggleType(typeIndex, value),
+            ),
+            ...List.generate(bills.length, (billIndex) {
+              final bill = bills[billIndex];
+              return BillCheckboxItem(
+                amount: (bill['amount'] as int).toString(),
+                billName: bill['name'] as String,
+                date: bill['date'] as String,
+                isChecked: checkedState.value[typeIndex]?[billIndex] ?? false,
+                onChanged: (value) => toggleBill(typeIndex, billIndex, value),
+              );
+            }),
+          ],
+        );
+      },
+    );
   }
 
-  List<Map<String, dynamic>> _buildMockData() {
-    return [
-      {
-        'name': 'SPP',
-        'bills': <Map<String, dynamic>>[
-          {
-            'name': 'SPP Maret 2026',
-            'amount': 500000,
-            'date': '15 Maret 2026',
-          },
-          {
-            'name': 'SPP Februari 2026',
-            'amount': 500000,
-            'date': '15 Februari 2026',
-          },
-        ],
-      },
-      {
-        'name': 'DPP',
-        'bills': <Map<String, dynamic>>[
-          {
-            'name': 'DPP Semester Genap',
-            'amount': 1200000,
-            'date': '10 Januari 2026',
-          },
-          {
-            'name': 'DPP Semester Ganjil',
-            'amount': 1200000,
-            'date': '10 Juli 2025',
-          },
-        ],
-      },
-      {
-        'name': 'Lainnya',
-        'bills': <Map<String, dynamic>>[
-          {
-            'name': 'Uang Seragam',
-            'amount': 300000,
-            'date': '20 Februari 2026',
-          },
-          {
-            'name': 'Uang Kegiatan',
-            'amount': 150000,
-            'date': '5 Oktober 2025',
-          },
-          {
-            'name': 'Uang Wisuda',
-            'amount': 200000,
-            'date': '1 Juni 2026',
-          },
-        ],
-      },
-    ];
+  Map<String, dynamic> billGroup(
+    BillCategoryType category,
+    List<BillTransactionEntity> txs,
+  ) {
+    return {
+      'name': category.label,
+      'bills': txs
+          .map(
+            (tx) => {
+              'name': tx.billName,
+              'amount': tx.billAmount,
+              'date': tx.endDate != null
+                  ? DateFormat('d MMM yyyy', 'id_ID').format(tx.endDate!)
+                  : '-',
+              'entity': tx,
+            },
+          )
+          .toList(),
+    };
   }
 }

@@ -9,8 +9,8 @@ class SavingDetailEntity {
 
   SavingDetailEntity({
     required this.studentName,
-    this.schoolName,
-    this.cardId,
+    required this.schoolName,
+    required this.cardId,
     required this.saldoTopup,
     required this.totalTopup,
     required this.totalCashout,

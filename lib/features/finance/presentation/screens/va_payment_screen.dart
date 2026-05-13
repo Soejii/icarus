@@ -1,22 +1,78 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
 import 'package:icarus/features/finance/domain/types/va_bank_type.dart';
+import 'package:icarus/features/finance/presentation/providers/bank_transfer_info_controller.dart';
+import 'package:icarus/features/finance/presentation/providers/payment_action_controller.dart';
+import 'package:icarus/features/finance/presentation/providers/payment_flow_notifier.dart';
 import 'package:icarus/features/finance/presentation/widgets/payment_instruction_card.dart';
 import 'package:icarus/shared/core/infrastructure/routes/route_name.dart';
+import 'package:icarus/shared/utils/currency_helper.dart';
 import 'package:icarus/shared/widgets/custom_app_bar_widget.dart';
-import 'package:go_router/go_router.dart';
 
-class VaPaymentScreen extends HookConsumerWidget {
+class VaPaymentScreen extends ConsumerStatefulWidget {
   const VaPaymentScreen({super.key, required this.bankType});
 
   final VaBankType bankType;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    const vaNumber = '8800012345678901';
+  ConsumerState<VaPaymentScreen> createState() => _VaPaymentScreenState();
+}
+
+class _VaPaymentScreenState extends ConsumerState<VaPaymentScreen> {
+  bool _loading = true;
+  String? _error;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => createVa());
+  }
+
+  Future<void> createVa() async {
+    final bill = ref.read(paymentFlowNotifierProvider).selectedBill;
+    if (bill == null) {
+      setState(() {
+        _loading = false;
+        _error = 'Tagihan tidak ditemukan';
+      });
+      return;
+    }
+
+    try {
+      final data = await ref.read(paymentActionControllerProvider.notifier).createPayment(
+        widget.bankType.slug,
+        {
+          'bill_trx_id': bill.id,
+          'amount': ref.read(paymentFlowNotifierProvider.notifier).effectiveAmount,
+        },
+      );
+      final vaNumber = data['virtual_account'] as String?;
+      if (vaNumber != null) {
+        ref.read(paymentFlowNotifierProvider.notifier).setVaNumber(vaNumber);
+      }
+    } catch (e) {
+      _error = e.toString();
+    } finally {
+      if (mounted) {
+        setState(() => _loading = false);
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final flow = ref.watch(paymentFlowNotifierProvider);
+    final bill = flow.selectedBill;
+    final bankInfo = ref.watch(bankTransferInfoControllerProvider).valueOrNull;
+    final adminFee = switch (widget.bankType) {
+      VaBankType.bni => bankInfo?.adminFeeSpp ?? 0,
+      VaBankType.bmi => bankInfo?.adminFeeDpp ?? 0,
+    };
+    final totalAmount = (flow.nominalAmount ?? bill?.billAmount ?? 0) + adminFee;
 
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
@@ -26,7 +82,6 @@ class VaPaymentScreen extends HookConsumerWidget {
       ),
       body: ListView(
         children: [
-          // ── Gradient VA header ──────────────────────────────────────
           Container(
             width: double.infinity,
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
@@ -39,7 +94,7 @@ class VaPaymentScreen extends HookConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      bankType.label,
+                      widget.bankType.label,
                       style: TextStyle(
                         fontFamily: 'OpenSans',
                         fontSize: 13.sp,
@@ -79,31 +134,24 @@ class VaPaymentScreen extends HookConsumerWidget {
                   ),
                 ),
                 SizedBox(height: 6.h),
-                Text(
-                  vaNumber,
-                  style: TextStyle(
-                    fontFamily: 'OpenSans',
-                    fontSize: 22.sp,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                    letterSpacing: 1.5,
-                  ),
-                ),
+                vaNumberText(context, flow.vaNumber),
                 SizedBox(height: 14.h),
                 GestureDetector(
-                  onTap: () async {
-                    await Clipboard.setData(
-                      const ClipboardData(text: vaNumber),
-                    );
-                    if (!context.mounted) return;
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: const Text('No. VA berhasil disalin'),
-                        duration: const Duration(seconds: 2),
-                        backgroundColor: context.brand.primary,
-                      ),
-                    );
-                  },
+                  onTap: flow.vaNumber == null
+                      ? null
+                      : () async {
+                          await Clipboard.setData(
+                            ClipboardData(text: flow.vaNumber!),
+                          );
+                          if (!context.mounted) return;
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: const Text('No. VA berhasil disalin'),
+                              duration: const Duration(seconds: 2),
+                              backgroundColor: context.brand.primary,
+                            ),
+                          );
+                        },
                   child: Container(
                     padding: EdgeInsets.symmetric(
                       horizontal: 20.w,
@@ -141,10 +189,7 @@ class VaPaymentScreen extends HookConsumerWidget {
               ],
             ),
           ),
-
           SizedBox(height: 16.h),
-
-          // ── Detail Pembayaran card ──────────────────────────────────
           sectionCard(
             context,
             padding: EdgeInsets.all(16.w),
@@ -161,18 +206,15 @@ class VaPaymentScreen extends HookConsumerWidget {
                   ),
                 ),
                 SizedBox(height: 14.h),
-                detailRow(context, label: 'Kode Bank', value: bankType.bankCode),
+                detailRow(context, label: 'Kode Bank', value: widget.bankType.bankCode),
                 SizedBox(height: 10.h),
-                detailRow(context, label: 'Biaya Admin', value: bankType.adminFee),
+                detailRow(context, label: 'Biaya Admin', value: formatRupiah(adminFee)),
                 SizedBox(height: 10.h),
-                detailRow(context, label: 'Total Tagihan', value: 'Rp 502.500'),
+                detailRow(context, label: 'Total Tagihan', value: formatRupiah(totalAmount)),
               ],
             ),
           ),
-
           SizedBox(height: 16.h),
-
-          // ── Cara Pembayaran ─────────────────────────────────────────
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: Text(
@@ -186,19 +228,15 @@ class VaPaymentScreen extends HookConsumerWidget {
             ),
           ),
           SizedBox(height: 12.h),
-
-          ...bankType.instructions.map(
+          ...widget.bankType.instructions.map(
             (instruction) => PaymentInstructionCard(
               title: instruction['title']!,
               description: instruction['description']!,
             ),
           ),
-
           SizedBox(height: 32.h),
         ],
       ),
-
-      // ── Bottom actions ────────────────────────────────────────────
       bottomNavigationBar: Container(
         padding: EdgeInsets.fromLTRB(20.w, 12.h, 20.w, 0),
         decoration: BoxDecoration(
@@ -217,8 +255,7 @@ class VaPaymentScreen extends HookConsumerWidget {
                     borderRadius: BorderRadius.circular(8.r),
                   ),
                   child: ElevatedButton(
-                    onPressed: () =>
-                        context.pushNamed(RouteName.pendingConfirmation),
+                    onPressed: () => context.pushNamed(RouteName.pendingConfirmation),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,
                       shadowColor: Colors.transparent,
@@ -257,7 +294,33 @@ class VaPaymentScreen extends HookConsumerWidget {
       ),
     );
   }
-}
+
+  Widget vaNumberText(BuildContext context, String? vaNumber) {
+    if (_loading) {
+      return const CircularProgressIndicator(color: Colors.white);
+    }
+    if (_error != null) {
+      return Text(
+        _error!,
+        style: TextStyle(
+          fontFamily: 'OpenSans',
+          fontSize: 12.sp,
+          fontWeight: FontWeight.w600,
+          color: Colors.white,
+        ),
+      );
+    }
+    return Text(
+      vaNumber ?? '-',
+      style: TextStyle(
+        fontFamily: 'OpenSans',
+        fontSize: 22.sp,
+        fontWeight: FontWeight.w700,
+        color: Colors.white,
+        letterSpacing: 1.5,
+      ),
+    );
+  }
 
   sectionCard(
     BuildContext context, {
@@ -313,4 +376,11 @@ class VaPaymentScreen extends HookConsumerWidget {
       ],
     );
   }
+}
 
+extension on VaBankType {
+  String get slug => switch (this) {
+        VaBankType.bni => 'va-bni',
+        VaBankType.bmi => 'va-bmi',
+      };
+}

@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
+import 'package:icarus/features/finance/presentation/providers/home_bill_controller.dart';
 
-class StudentInfoCard extends StatelessWidget {
+class StudentInfoCard extends ConsumerWidget {
   const StudentInfoCard({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final homeBill = ref.watch(homeBillControllerProvider);
+    final studentName = homeBill.valueOrNull?.studentName;
+    final studentClass = homeBill.valueOrNull?.studentClass;
+    final studentNis = homeBill.valueOrNull?.studentNis;
+
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(16.w),
@@ -32,7 +39,7 @@ class StudentInfoCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Ahmad Fauzi',
+                  homeBill.isLoading ? '-' : (studentName ?? '-'),
                   style: TextStyle(
                     fontFamily: 'OpenSans',
                     fontSize: 14.sp,
@@ -42,7 +49,7 @@ class StudentInfoCard extends StatelessWidget {
                 ),
                 SizedBox(height: 2.h),
                 Text(
-                  'Kelas 6A',
+                  homeBill.isLoading ? '-' : (studentClass ?? '-'),
                   style: TextStyle(
                     fontFamily: 'OpenSans',
                     fontSize: 12.sp,
@@ -52,7 +59,7 @@ class StudentInfoCard extends StatelessWidget {
                 ),
                 SizedBox(height: 2.h),
                 Text(
-                  'NIS: 2024001234',
+                  homeBill.isLoading ? '-' : 'NIS: ${studentNis ?? '-'}',
                   style: TextStyle(
                     fontFamily: 'OpenSans',
                     fontSize: 11.sp,

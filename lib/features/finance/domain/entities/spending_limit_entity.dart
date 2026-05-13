@@ -4,6 +4,6 @@ class SpendingLimitEntity {
 
   SpendingLimitEntity({
     required this.type,
-    this.amount,
+    required this.amount,
   });
 }

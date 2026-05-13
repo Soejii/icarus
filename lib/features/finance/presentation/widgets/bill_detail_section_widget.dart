@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
+import 'package:icarus/features/finance/domain/types/bill_category_type.dart';
+import 'package:icarus/features/finance/presentation/providers/payment_flow_notifier.dart';
+import 'package:icarus/shared/utils/currency_helper.dart';
+import 'package:intl/intl.dart';
 
-class BillDetailSectionWidget extends StatelessWidget {
+class BillDetailSectionWidget extends ConsumerWidget {
   const BillDetailSectionWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final bill = ref.watch(paymentFlowNotifierProvider).selectedBill;
+
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(16.w),
@@ -28,13 +35,19 @@ class BillDetailSectionWidget extends StatelessWidget {
             ),
           ),
           SizedBox(height: 12.h),
-          detailRow(context, 'Nama Tagihan', 'SPP Maret 2026'),
+          detailRow(context, 'Nama Tagihan', bill?.billName ?? '-'),
           SizedBox(height: 8.h),
-          detailRow(context, 'Kategori', 'SPP'),
+          detailRow(context, 'Kategori', bill?.category.label ?? '-'),
           SizedBox(height: 8.h),
-          detailRow(context, 'Jumlah', 'Rp 500.000'),
+          detailRow(context, 'Jumlah', formatRupiah(bill?.billAmount)),
           SizedBox(height: 8.h),
-          detailRow(context, 'Jatuh Tempo', '15 Maret 2026'),
+          detailRow(
+            context,
+            'Jatuh Tempo',
+            bill?.endDate != null
+                ? DateFormat('d MMM yyyy', 'id_ID').format(bill!.endDate!)
+                : '-',
+          ),
         ],
       ),
     );

@@ -14,7 +14,7 @@ class CanteenItemParser {
   static CanteenItemEntity? _parseLine(String line) {
     final qtyStart = line.lastIndexOf('(');
     final qtyEnd = line.lastIndexOf(')');
-    if (qtyStart < 0 || qtyEnd < 0 || qtyStart >= qtyEnd) return null;
+    if (qtyStart < 0 || qtyEnd < 0) return null;
     final name = line.substring(2, qtyStart).trim();
     final qty = int.tryParse(line.substring(qtyStart + 1, qtyEnd)) ?? 1;
     final priceStr = line

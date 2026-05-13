@@ -9,7 +9,7 @@ class BillInstallmentEntity {
 
   BillInstallmentEntity({
     required this.id,
-    this.payDate,
+    required this.payDate,
     required this.payAmount,
     required this.payMethod,
     required this.status,

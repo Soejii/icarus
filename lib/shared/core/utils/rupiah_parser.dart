@@ -1,8 +1,8 @@
 class RupiahParser {
   static int toInt(dynamic value) {
     if (value == null) return 0;
-    if (value is int) return value.abs();
-    if (value is double) return value.abs().toInt();
+    if (value is int) return value;
+    if (value is double) return value.toInt();
     final s = value
         .toString()
         .replaceAll('Rp.', '')

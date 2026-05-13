@@ -10,8 +10,8 @@ class EmoneyDetailEntity {
 
   EmoneyDetailEntity({
     required this.studentName,
-    this.schoolName,
-    this.cardId,
+    required this.schoolName,
+    required this.cardId,
     required this.saldoEmoney,
     required this.totalTopup,
     required this.totalPayment,

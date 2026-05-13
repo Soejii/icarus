@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
 import 'package:icarus/features/finance/presentation/widgets/bill_type_display_widget.dart';
+import 'package:icarus/features/finance/presentation/providers/payment_flow_notifier.dart';
 import 'package:icarus/features/finance/presentation/widgets/nominal_input_widget.dart';
 import 'package:icarus/features/finance/presentation/widgets/payment_notes_input_widget.dart';
 import 'package:icarus/features/finance/presentation/widgets/student_info_card.dart';
@@ -18,6 +19,7 @@ class NominalEntryScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final nominalController = useTextEditingController();
     final notesController = useTextEditingController();
+    final bill = ref.watch(paymentFlowNotifierProvider).selectedBill;
 
     return Scaffold(
       appBar: const CustomAppBarWidget(
@@ -30,9 +32,9 @@ class NominalEntryScreen extends HookConsumerWidget {
           children: [
             const StudentInfoCard(),
             SizedBox(height: 16.h),
-            const BillTypeDisplayWidget(
+            BillTypeDisplayWidget(
               label: 'Jenis Tagihan',
-              value: 'SPP Maret 2026',
+              value: bill?.billName ?? 'Tagihan',
             ),
             SizedBox(height: 16.h),
             NominalInputWidget(controller: nominalController),
@@ -57,7 +59,15 @@ class NominalEntryScreen extends HookConsumerWidget {
                 borderRadius: BorderRadius.circular(8.r),
               ),
               child: ElevatedButton(
-                onPressed: () => context.pushNamed(RouteName.billPaymentDetail),
+                onPressed: () {
+                  final amount = int.tryParse(nominalController.text.replaceAll('.', '').trim()) ?? 0;
+                  if (amount <= 0) return;
+                  ref.read(paymentFlowNotifierProvider.notifier).setNominal(
+                        amount,
+                        notes: notesController.text.isEmpty ? null : notesController.text,
+                      );
+                  context.pushNamed(RouteName.billPaymentDetail);
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.transparent,
                   shadowColor: Colors.transparent,

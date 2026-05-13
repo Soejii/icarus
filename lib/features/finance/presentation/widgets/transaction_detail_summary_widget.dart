@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
+import 'package:icarus/features/finance/presentation/providers/payment_flow_notifier.dart';
+import 'package:icarus/shared/utils/currency_helper.dart';
 
-class TransactionDetailSummaryWidget extends StatelessWidget {
+class TransactionDetailSummaryWidget extends ConsumerWidget {
   const TransactionDetailSummaryWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final flow = ref.watch(paymentFlowNotifierProvider);
+    final bill = flow.selectedBill;
+    final amount = flow.nominalAmount ?? bill?.billAmount ?? 0;
     final items = [
-      {'label': 'ID Transaksi', 'value': 'TRX-20260315-001'},
-      {'label': 'Tanggal', 'value': '15 Maret 2026'},
-      {'label': 'Jumlah', 'value': 'Rp 502.500'},
-      {'label': 'Metode', 'value': 'Transfer Bank'},
+      {'label': 'ID Transaksi', 'value': bill?.id.toString() ?? '-'},
+      {'label': 'Nama Tagihan', 'value': bill?.billName ?? '-'},
+      {'label': 'Jumlah', 'value': formatRupiah(amount)},
+      {'label': 'Metode', 'value': flow.paymentMethod ?? '-'},
     ];
 
     return Container(

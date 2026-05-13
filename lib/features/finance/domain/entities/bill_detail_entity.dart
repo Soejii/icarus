@@ -1,4 +1,5 @@
 import 'package:icarus/features/finance/domain/entities/bill_installment_entity.dart';
+import 'package:icarus/features/finance/domain/entities/bill_transaction_entity.dart';
 import 'package:icarus/features/finance/domain/types/bill_category_type.dart';
 import 'package:icarus/features/finance/domain/types/bill_status_type.dart';
 
@@ -38,24 +39,24 @@ class BillDetailEntity {
     required this.category,
     required this.status,
     required this.paidAmount,
-    this.payMethod,
-    this.evidencePath,
+    required this.payMethod,
+    required this.evidencePath,
     required this.discount,
-    this.notes,
-    this.payDate,
-    this.startDate,
-    this.endDate,
-    this.month,
+    required this.notes,
+    required this.payDate,
+    required this.startDate,
+    required this.endDate,
+    required this.month,
     required this.isInstallment,
     required this.studentName,
     required this.studentNis,
     required this.studentClass,
     required this.installmentsConfirmed,
-    this.pendingInstallment,
-    this.latestTransactionRedirectUrl,
-    this.latestTransactionVirtualAccount,
-    this.latestTransactionTrxId,
-    this.latestTransactionStatus,
-    this.latestTransactionAmount,
+    required this.pendingInstallment,
+    required this.latestTransactionRedirectUrl,
+    required this.latestTransactionVirtualAccount,
+    required this.latestTransactionTrxId,
+    required this.latestTransactionStatus,
+    required this.latestTransactionAmount,
   });
 }

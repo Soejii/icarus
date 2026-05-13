@@ -16,6 +16,6 @@ class HomeBillEntity {
     required this.unpaidSpp,
     required this.unpaidDpp,
     required this.unpaidLainnya,
-    this.info,
+    required this.info,
   });
 }

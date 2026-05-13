@@ -1,16 +1,20 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
+import 'package:icarus/features/finance/domain/types/bill_category_type.dart';
+import 'package:icarus/features/finance/presentation/providers/bank_transfer_info_controller.dart';
+import 'package:icarus/features/finance/presentation/providers/payment_action_controller.dart';
+import 'package:icarus/features/finance/presentation/providers/payment_flow_notifier.dart';
 import 'package:icarus/features/finance/presentation/widgets/proof_upload_widget.dart';
 import 'package:icarus/shared/core/infrastructure/routes/route_name.dart';
+import 'package:icarus/shared/utils/currency_helper.dart';
 import 'package:icarus/shared/widgets/custom_app_bar_widget.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 class BankTransferPaymentScreen extends HookConsumerWidget {
   const BankTransferPaymentScreen({super.key});
@@ -18,6 +22,17 @@ class BankTransferPaymentScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedImage = useState<XFile?>(null);
+    final submitting = useState(false);
+    final flow = ref.watch(paymentFlowNotifierProvider);
+    final bill = flow.selectedBill;
+    final bankInfo = ref.watch(bankTransferInfoControllerProvider).valueOrNull;
+    final adminFee = switch (bill?.category) {
+      BillCategoryType.spp => bankInfo?.adminFeeSpp ?? 0,
+      BillCategoryType.dpp => bankInfo?.adminFeeDpp ?? 0,
+      BillCategoryType.lainnya => bankInfo?.adminFeeLainnya ?? 0,
+      null => 0,
+    };
+    final totalAmount = (flow.nominalAmount ?? bill?.billAmount ?? 0) + adminFee;
 
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
@@ -47,7 +62,7 @@ class BankTransferPaymentScreen extends HookConsumerWidget {
                 ),
                 SizedBox(height: 4.h),
                 Text(
-                  'Rp 502.500',
+                  formatRupiah(totalAmount),
                   style: TextStyle(
                     fontFamily: 'OpenSans',
                     fontSize: 28.sp,
@@ -116,7 +131,7 @@ class BankTransferPaymentScreen extends HookConsumerWidget {
                     ),
                     SizedBox(width: 12.w),
                     Text(
-                      'Bank Muamalat Indonesia',
+                      bankInfo?.bankName ?? '-',
                       style: TextStyle(
                         fontFamily: 'OpenSans',
                         fontSize: 14.sp,
@@ -131,7 +146,7 @@ class BankTransferPaymentScreen extends HookConsumerWidget {
                 SizedBox(height: 14.h),
                 copyableRow(context,
                   label: 'No. Rekening',
-                  value: '1234567890',
+                  value: bankInfo?.bankNumber ?? '-',
                 ),
               ],
             ),
@@ -158,17 +173,19 @@ class BankTransferPaymentScreen extends HookConsumerWidget {
                 SizedBox(height: 14.h),
                 detailRow(context,
                   label: 'Batas Pembayaran',
-                  value: '15 Maret 2026',
+                  value: bill?.endDate != null
+                      ? DateFormat('d MMM yyyy', 'id_ID').format(bill!.endDate!)
+                      : '-',
                 ),
                 SizedBox(height: 10.h),
                 detailRow(context,
                   label: 'ID Transaksi',
-                  value: '#1024',
+                  value: bill != null ? '#${bill.id}' : '-',
                 ),
                 SizedBox(height: 10.h),
                 detailRow(context,
                   label: 'Catatan Transfer',
-                  value: 'SPP Maret 2026 - Ahmad Fauzi',
+                  value: bill?.billName ?? '-',
                 ),
               ],
             ),
@@ -264,7 +281,9 @@ class BankTransferPaymentScreen extends HookConsumerWidget {
                     borderRadius: BorderRadius.circular(8.r),
                   ),
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: submitting.value
+                        ? null
+                        : () async {
                       if (selectedImage.value == null) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
@@ -276,7 +295,23 @@ class BankTransferPaymentScreen extends HookConsumerWidget {
                         );
                         return;
                       }
-                      context.pushNamed(RouteName.pendingConfirmation);
+                      if (bill == null) return;
+                      submitting.value = true;
+                      try {
+                        await ref.read(paymentActionControllerProvider.notifier).confirmTransfer(
+                              billTrxId: bill.id,
+                              filePath: selectedImage.value!.path,
+                            );
+                        if (!context.mounted) return;
+                        context.pushNamed(RouteName.pendingConfirmation);
+                      } catch (e) {
+                        if (!context.mounted) return;
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(e.toString())),
+                        );
+                      } finally {
+                        submitting.value = false;
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,
@@ -286,15 +321,24 @@ class BankTransferPaymentScreen extends HookConsumerWidget {
                       ),
                       padding: EdgeInsets.symmetric(vertical: 14.h),
                     ),
-                    child: Text(
-                      'Saya Sudah Transfer',
-                      style: TextStyle(
-                        fontFamily: 'OpenSans',
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
-                    ),
+                    child: submitting.value
+                        ? SizedBox(
+                            width: 18.w,
+                            height: 18.w,
+                            child: const CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.white,
+                            ),
+                          )
+                        : Text(
+                            'Saya Sudah Transfer',
+                            style: TextStyle(
+                              fontFamily: 'OpenSans',
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                          ),
                   ),
                 ),
               ),

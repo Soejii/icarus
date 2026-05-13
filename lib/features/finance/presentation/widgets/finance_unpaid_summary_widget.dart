@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
+import 'package:icarus/features/finance/presentation/providers/home_bill_controller.dart';
+import 'package:icarus/shared/utils/currency_helper.dart';
 
-class FinanceUnpaidSummaryWidget extends StatelessWidget {
+class FinanceUnpaidSummaryWidget extends ConsumerWidget {
   const FinanceUnpaidSummaryWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final homeBill = ref.watch(homeBillControllerProvider);
+
+    String amountText(int? amount) {
+      if (homeBill.isLoading) return '...';
+      if (homeBill.hasError) return '-';
+      return formatRupiah(amount);
+    }
+
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(16.w),
@@ -29,7 +40,7 @@ class FinanceUnpaidSummaryWidget extends StatelessWidget {
           ),
           SizedBox(height: 4.h),
           Text(
-            'Rp 2.500.000',
+            amountText(homeBill.valueOrNull?.unpaidTotal),
             style: TextStyle(
               fontFamily: 'OpenSans',
               fontSize: 20.sp,
@@ -40,11 +51,11 @@ class FinanceUnpaidSummaryWidget extends StatelessWidget {
           SizedBox(height: 12.h),
           const Divider(height: 1, color: Color(0x1A000000)),
           SizedBox(height: 12.h),
-          breakdownRow(context, 'SPP', 'Rp 1.000.000'),
+          breakdownRow(context, 'SPP', amountText(homeBill.valueOrNull?.unpaidSpp)),
           SizedBox(height: 6.h),
-          breakdownRow(context, 'DPP', 'Rp 1.200.000'),
+          breakdownRow(context, 'DPP', amountText(homeBill.valueOrNull?.unpaidDpp)),
           SizedBox(height: 6.h),
-          breakdownRow(context, 'Lainnya', 'Rp 300.000'),
+          breakdownRow(context, 'Lainnya', amountText(homeBill.valueOrNull?.unpaidLainnya)),
         ],
       ),
     );

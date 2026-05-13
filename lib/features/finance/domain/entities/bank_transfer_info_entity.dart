@@ -9,7 +9,7 @@ class BankTransferInfoEntity {
   final int adminFeeEmoney;
 
   BankTransferInfoEntity({
-    this.bankLogo,
+    required this.bankLogo,
     required this.bankAccount,
     required this.bankName,
     required this.bankNumber,
