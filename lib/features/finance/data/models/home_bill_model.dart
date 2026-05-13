@@ -1,17 +1,20 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:icarus/shared/core/utils/rupiah_parser.dart';
 
 part 'home_bill_model.freezed.dart';
 part 'home_bill_model.g.dart';
+
+int _safeInt(dynamic v) => RupiahParser.toInt(v);
 
 @freezed
 class HomeBillModel with _$HomeBillModel {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory HomeBillModel({
     required HomeBillStudentModel student,
-    required int unpaidTotal,
-    required int unpaidSpp,
-    required int unpaidDpp,
-    required int unpaidLainnya,
+    @JsonKey(fromJson: _safeInt) required int unpaidTotal,
+    @JsonKey(fromJson: _safeInt) required int unpaidSpp,
+    @JsonKey(fromJson: _safeInt) required int unpaidDpp,
+    @JsonKey(fromJson: _safeInt) required int unpaidLainnya,
     String? info,
   }) = _HomeBillModel;
 
