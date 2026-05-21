@@ -57,7 +57,7 @@ class BankTransferPaymentScreen extends HookConsumerWidget {
           // submitTransfer error is non-fatal: we still show the screen
           // and let the user proceed; backend may handle idempotently
         } finally {
-          initLoading.value = false;
+          if (context.mounted) initLoading.value = false;
         }
       });
       return null;
@@ -333,7 +333,12 @@ class BankTransferPaymentScreen extends HookConsumerWidget {
                         );
                         return;
                       }
-                      if (bill == null) return;
+                      if (bill == null) {
+                        // Multi-bill mode: payMultiple was already called upstream;
+                        // skip confirmTransfer and go straight to pending.
+                        context.pushNamed(RouteName.pendingConfirmation);
+                        return;
+                      }
                       submitting.value = true;
                       try {
                         await ref.read(paymentActionControllerProvider.notifier).confirmTransfer(
@@ -348,7 +353,7 @@ class BankTransferPaymentScreen extends HookConsumerWidget {
                           SnackBar(content: Text(e.toString())),
                         );
                       } finally {
-                        submitting.value = false;
+                        if (context.mounted) submitting.value = false;
                       }
                     },
                     style: ElevatedButton.styleFrom(

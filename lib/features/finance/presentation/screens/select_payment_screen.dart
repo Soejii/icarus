@@ -76,16 +76,20 @@ class SelectPaymentScreen extends HookConsumerWidget {
                 mode: LaunchMode.externalApplication,
               );
             }
+            if (!context.mounted) return;
+            context.pushNamed(RouteName.pendingConfirmation);
+          } else if (slug == 'transfer-bank') {
+            context.pushNamed(RouteName.bankTransferPayment);
+          } else {
+            context.pushNamed(RouteName.pendingConfirmation);
           }
-          if (!context.mounted) return;
-          context.pushNamed(RouteName.pendingConfirmation);
         } catch (e) {
           if (!context.mounted) return;
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(e.toString())),
           );
         } finally {
-          submitting.value = false;
+          if (context.mounted) submitting.value = false;
         }
         return;
       }
@@ -121,7 +125,7 @@ class SelectPaymentScreen extends HookConsumerWidget {
               SnackBar(content: Text(e.toString())),
             );
           } finally {
-            submitting.value = false;
+            if (context.mounted) submitting.value = false;
           }
       }
     }
