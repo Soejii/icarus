@@ -397,5 +397,7 @@ extension on VaBankType {
   String get slug => switch (this) {
         VaBankType.bni => 'va-bni',
         VaBankType.bmi => 'va-bmi',
+        VaBankType.bca => 'va-bca',
+        VaBankType.bsi => 'va-bsi',
       };
 }

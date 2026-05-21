@@ -1,19 +1,25 @@
-enum VaBankType { bmi, bni }
+enum VaBankType { bmi, bni, bca, bsi }
 
 extension VaBankTypeX on VaBankType {
   String get label => switch (this) {
         VaBankType.bmi => 'Bank Muamalat Indonesia',
         VaBankType.bni => 'Bank Negara Indonesia',
+        VaBankType.bca => 'Bank Central Asia',
+        VaBankType.bsi => 'Bank Syariah Indonesia',
       };
 
   String get bankCode => switch (this) {
         VaBankType.bmi => '147',
         VaBankType.bni => '009',
+        VaBankType.bca => '014',
+        VaBankType.bsi => '451',
       };
 
   String get logoAsset => switch (this) {
         VaBankType.bmi => 'assets/images/ic_bmi.png',
         VaBankType.bni => 'assets/images/ic_bni.png',
+        VaBankType.bca => 'assets/images/ic_bca.png',
+        VaBankType.bsi => 'assets/images/ic_bsi.png',
       };
 
   String get adminFee => 'Rp 2.000';
@@ -71,6 +77,50 @@ extension VaBankTypeX on VaBankType {
               'title': 'Via ATM Bank Lain',
               'description':
                   '1. Pilih menu "Transfer Antar Bank"\n2. Masukkan kode bank BNI (009)\n3. Masukkan Nomor Virtual Account\n4. Masukkan jumlah pembayaran\n5. Konfirmasi dan selesaikan transaksi',
+            },
+          ],
+        VaBankType.bca => [
+            {
+              'title': 'Via m-BCA (BCA Mobile)',
+              'description':
+                  '1. Login ke BCA Mobile\n2. Pilih menu "m-Transfer"\n3. Pilih "BCA Virtual Account"\n4. Masukkan Nomor Virtual Account\n5. Periksa informasi tagihan, klik "OK"\n6. Masukkan PIN m-BCA\n7. Simpan bukti pembayaran',
+            },
+            {
+              'title': 'Via KlikBCA (Internet Banking)',
+              'description':
+                  '1. Login ke KlikBCA Individual\n2. Pilih menu "Transfer Dana"\n3. Pilih "Transfer ke BCA Virtual Account"\n4. Masukkan Nomor Virtual Account\n5. Periksa informasi tagihan, klik "Lanjutkan"\n6. Masukkan respon KeyBCA APPLI 1\n7. Simpan bukti pembayaran',
+            },
+            {
+              'title': 'Via ATM BCA',
+              'description':
+                  '1. Masukkan kartu ATM, lalu input PIN Anda.\n2. Pilih menu "Transaksi Lainnya".\n3. Pilih menu "Transfer".\n4. Pilih "ke Rek BCA Virtual Account".\n5. Masukkan Nomor Virtual Account.\n6. Periksa informasi tagihan, tekan "Benar" jika setuju.\n7. Simpan struk ATM sebagai bukti pembayaran.',
+            },
+            {
+              'title': 'Via ATM / Mobile Banking Bank Lain',
+              'description':
+                  '1. Pilih menu "Transfer Antar Bank Online".\n2. Isi kode Bank BCA (014) diikuti Nomor Virtual Account BCA.\n3. Masukkan jumlah transaksi. Jumlah transaksi yang diinput harus sama persis dengan informasi tagihan.\n4. Periksa kembali pembayaran Virtual Account.\n5. Simpan bukti pembayaran.',
+            },
+          ],
+        VaBankType.bsi => [
+            {
+              'title': 'Via BSI Mobile',
+              'description':
+                  '1. Login ke BSI Mobile\n2. Pilih menu "Transfer"\n3. Pilih "Virtual Account"\n4. Masukkan Nomor Virtual Account\n5. Periksa informasi tagihan, klik "Lanjutkan"\n6. Masukkan PIN BSI Mobile\n7. Simpan bukti pembayaran',
+            },
+            {
+              'title': 'Via Mobile Banking Bank Lain',
+              'description':
+                  '1. Login ke akun\n2. Pilih menu "Transfer"\n3. Klik "Tambah penerima baru"\n4. Pilih BSI sebagai bank tujuan transfer\n5. Masukkan/paste Nomor Virtual Account\n6. Klik "Lanjutkan"\n7. Ketik nominal transfer\n8. Klik "Lanjutkan"',
+            },
+            {
+              'title': 'Via ATM BSI',
+              'description':
+                  '1. Masukkan kartu ATM, lalu input PIN Anda.\n2. Pilih Menu TRANSAKSI LAIN.\n3. Pilih menu PEMBAYARAN kemudian pilih menu VIRTUAL ACCOUNT.\n4. Masukkan Nomor Virtual Account\n5. Periksa informasi tagihan.\n6. Tekan BAYAR jika setuju dengan informasi pembayaran.\n7. Simpan struk ATM sebagai bukti pembayaran.',
+            },
+            {
+              'title': 'Via ATM Bank Lain',
+              'description':
+                  '1. Pilih menu TRANSFER ANTAR BANK ONLINE.\n2. Isi kode Bank BSI (451) diikuti Nomor Virtual Account BSI\n3. Masukkan jumlah transaksi. Jumlah transaksi yang diinput harus sama persis dengan informasi tagihan di layar ATM.\n4. Periksa kembali pembayaran Virtual Account.',
             },
           ],
       };

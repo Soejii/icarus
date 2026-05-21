@@ -101,6 +101,10 @@ class SelectPaymentScreen extends HookConsumerWidget {
           context.pushNamed(RouteName.vaPayment, extra: VaBankType.bni);
         case 'va-bmi':
           context.pushNamed(RouteName.vaPayment, extra: VaBankType.bmi);
+        case 'va-bca':
+          context.pushNamed(RouteName.vaPayment, extra: VaBankType.bca);
+        case 'va-bsi':
+          context.pushNamed(RouteName.vaPayment, extra: VaBankType.bsi);
         case 'winpay':
           context.pushNamed(RouteName.paymentGateway);
         case 'emoney':
@@ -241,6 +245,18 @@ class SelectPaymentScreen extends HookConsumerWidget {
           icon: Icons.credit_card_outlined,
           label: method.name,
           subtitle: 'VA Bank Muamalat Indonesia',
+        ),
+      'va-bca' => PaymentMethodOption(
+          slug: method.slug,
+          icon: Icons.credit_card_outlined,
+          label: method.name,
+          subtitle: 'VA Bank Central Asia',
+        ),
+      'va-bsi' => PaymentMethodOption(
+          slug: method.slug,
+          icon: Icons.credit_card_outlined,
+          label: method.name,
+          subtitle: 'VA Bank Syariah Indonesia',
         ),
       'winpay' => PaymentMethodOption(
           slug: method.slug,
