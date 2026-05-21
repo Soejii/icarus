@@ -84,8 +84,9 @@ class BillRemoteDataSource {
     return Map<String, dynamic>.from(res.data['data'] as Map? ?? {});
   }
 
-  Future<void> submitTransfer(FormData data) async {
-    await _dio.post('/bill/submit-transfer', data: data);
+  Future<Map<String, dynamic>> submitTransfer(FormData data) async {
+    final res = await _dio.post('/bill/submit-transfer', data: data);
+    return Map<String, dynamic>.from(res.data['data'] as Map? ?? {});
   }
 
   Future<void> transferConfirmation(FormData data) async {

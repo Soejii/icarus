@@ -5,7 +5,7 @@ class SubmitTransferUsecase {
   final BillRepository _repository;
   SubmitTransferUsecase(this._repository);
 
-  Future<Result<void>> call({
+  Future<Result<Map<String, dynamic>>> call({
     required int billTrxId,
     required int amount,
     String? notes,

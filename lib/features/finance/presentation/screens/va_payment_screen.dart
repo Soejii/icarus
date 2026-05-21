@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
+import 'package:icarus/features/child/presentation/providers/child_providers.dart';
 import 'package:icarus/features/finance/domain/types/bill_category_type.dart';
 import 'package:icarus/features/finance/domain/types/va_bank_type.dart';
 import 'package:icarus/features/finance/presentation/providers/bank_transfer_info_controller.dart';
@@ -43,11 +44,22 @@ class _VaPaymentScreenState extends ConsumerState<VaPaymentScreen> {
       return;
     }
 
+    final child = ref.read(selectedChildProvider);
+    if (child == null) {
+      setState(() {
+        _loading = false;
+        _error = 'Data siswa tidak ditemukan';
+      });
+      return;
+    }
+
     try {
       final data = await ref.read(paymentActionControllerProvider.notifier).createPayment(
         widget.bankType.slug,
         {
+          'student_id': child.id,
           'bill_trx_id': bill.id,
+          'payment_type': 'bill',
           'amount': ref.read(paymentFlowNotifierProvider.notifier).effectiveAmount,
         },
       );

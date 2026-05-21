@@ -24,7 +24,7 @@ class PaymentActionController extends _$PaymentActionController {
     });
   }
 
-  Future<void> submitTransfer({
+  Future<Map<String, dynamic>> submitTransfer({
     required int billTrxId,
     required int amount,
     String? notes,
@@ -33,10 +33,13 @@ class PaymentActionController extends _$PaymentActionController {
     final usecase = ref.read(submitTransferUsecaseProvider);
     final res = await usecase.call(
         billTrxId: billTrxId, amount: amount, notes: notes);
-    res.fold((f) {
+    return res.fold((f) {
       state = AsyncError(f, StackTrace.current);
       throw f;
-    }, (_) => state = const AsyncData({}));
+    }, (data) {
+      state = AsyncData(data);
+      return data;
+    });
   }
 
   Future<void> confirmTransfer({
@@ -69,8 +72,8 @@ class PaymentActionController extends _$PaymentActionController {
     state = const AsyncLoading();
     final child = ref.read(selectedChildProvider);
     if (child == null) {
-      state = const AsyncData({});
-      return {};
+      state = AsyncError(StateError('No student selected'), StackTrace.current);
+      throw StateError('No student selected');
     }
     final usecase = ref.read(payMultipleUsecaseProvider);
     final res = await usecase.call(paymentMethod, child.id, bills);
@@ -90,7 +93,10 @@ class PaymentActionController extends _$PaymentActionController {
   }) async {
     state = const AsyncLoading();
     final child = ref.read(selectedChildProvider);
-    if (child == null) return;
+    if (child == null) {
+      state = AsyncError(StateError('No student selected'), StackTrace.current);
+      throw StateError('No student selected');
+    }
     final usecase = ref.read(payWithEmoneyUsecaseProvider);
     final res = await usecase.call(
       studentId: child.id,

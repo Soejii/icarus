@@ -23,6 +23,8 @@ class BankTransferPaymentScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedImage = useState<XFile?>(null);
     final submitting = useState(false);
+    final initLoading = useState(true);
+    final serverAmount = useState<int?>(null);
     final flow = ref.watch(paymentFlowNotifierProvider);
     final bill = flow.selectedBill;
     final bankInfo = ref.watch(bankTransferInfoControllerProvider).valueOrNull;
@@ -32,7 +34,34 @@ class BankTransferPaymentScreen extends HookConsumerWidget {
       BillCategoryType.lainnya => bankInfo?.adminFeeLainnya ?? 0,
       null => 0,
     };
-    final totalAmount = (flow.nominalAmount ?? bill?.billAmount ?? 0) + adminFee;
+    final baseAmount = (flow.nominalAmount ?? bill?.billAmount ?? 0) + adminFee;
+    final totalAmount = serverAmount.value ?? baseAmount;
+
+    useEffect(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        if (bill == null) {
+          initLoading.value = false;
+          return;
+        }
+        try {
+          final result = await ref
+              .read(paymentActionControllerProvider.notifier)
+              .submitTransfer(
+                billTrxId: bill.id,
+                amount: baseAmount,
+                notes: flow.notes,
+              );
+          final amt = result['total_amount'] as int?;
+          if (amt != null) serverAmount.value = amt;
+        } catch (_) {
+          // submitTransfer error is non-fatal: we still show the screen
+          // and let the user proceed; backend may handle idempotently
+        } finally {
+          initLoading.value = false;
+        }
+      });
+      return null;
+    }, const []);
 
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
@@ -61,15 +90,24 @@ class BankTransferPaymentScreen extends HookConsumerWidget {
                   ),
                 ),
                 SizedBox(height: 4.h),
-                Text(
-                  formatRupiah(totalAmount),
-                  style: TextStyle(
-                    fontFamily: 'OpenSans',
-                    fontSize: 28.sp,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
-                ),
+                initLoading.value
+                    ? const SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: const CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2,
+                        ),
+                      )
+                    : Text(
+                        formatRupiah(totalAmount),
+                        style: TextStyle(
+                          fontFamily: 'OpenSans',
+                          fontSize: 28.sp,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                        ),
+                      ),
                 SizedBox(height: 12.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

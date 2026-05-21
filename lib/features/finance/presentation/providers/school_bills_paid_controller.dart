@@ -47,7 +47,10 @@ class SchoolBillsPaidController extends _$SchoolBillsPaidController {
       offset: _offset,
     );
     res.fold(
-      (f) => _offset -= _pageSize,
+      (f) {
+        _offset -= _pageSize;
+        state = AsyncError(f, StackTrace.current);
+      },
       (newItems) {
         _hasMore = newItems.length == _pageSize;
         state = AsyncData([...current, ...newItems]);

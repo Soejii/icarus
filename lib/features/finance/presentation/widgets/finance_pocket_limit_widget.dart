@@ -187,6 +187,17 @@ class _FinancePocketLimitWidgetState
                                     ? null
                                     : int.tryParse(_nominalController.text),
                               );
+                          if (mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Batas uang jajan berhasil disimpan')),
+                            );
+                          }
+                        } catch (e) {
+                          if (mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(e.toString())),
+                            );
+                          }
                         } finally {
                           if (mounted) {
                             setState(() => _saving = false);

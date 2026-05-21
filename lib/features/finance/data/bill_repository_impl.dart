@@ -85,7 +85,7 @@ class BillRepositoryImpl implements BillRepository {
       guard(() => _dataSource.createPayment(slug, body));
 
   @override
-  Future<Result<void>> submitTransfer({
+  Future<Result<Map<String, dynamic>>> submitTransfer({
     required int billTrxId,
     required int amount,
     String? notes,
@@ -96,7 +96,7 @@ class BillRepositoryImpl implements BillRepository {
           'amount': amount.toString(),
           if (notes != null) 'notes': notes,
         });
-        await _dataSource.submitTransfer(data);
+        return _dataSource.submitTransfer(data);
       });
 
   @override

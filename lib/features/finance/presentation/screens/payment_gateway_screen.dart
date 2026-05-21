@@ -3,10 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:icarus/app/theme/brand_palette.dart';
+import 'package:icarus/features/child/presentation/providers/child_providers.dart';
 import 'package:icarus/features/finance/presentation/providers/payment_action_controller.dart';
 import 'package:icarus/features/finance/presentation/providers/payment_flow_notifier.dart';
 import 'package:icarus/features/finance/presentation/widgets/payment_summary_widget.dart';
 import 'package:icarus/features/finance/presentation/widgets/student_info_card.dart';
+import 'package:icarus/shared/core/infrastructure/routes/route_name.dart';
 import 'package:icarus/shared/widgets/custom_app_bar_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -115,6 +117,13 @@ class _PaymentGatewayScreenState extends ConsumerState<PaymentGatewayScreen> {
                     onPressed: _loading || bill == null
                         ? null
                         : () async {
+                            final child = ref.read(selectedChildProvider);
+                            if (child == null) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Data siswa tidak ditemukan')),
+                              );
+                              return;
+                            }
                             setState(() => _loading = true);
                             try {
                               final data = await ref
@@ -122,7 +131,9 @@ class _PaymentGatewayScreenState extends ConsumerState<PaymentGatewayScreen> {
                                   .createPayment(
                                 'winpay',
                                 {
+                                  'student_id': child.id,
                                   'bill_trx_id': bill.id,
+                                  'payment_type': 'bill',
                                   'amount': ref
                                       .read(paymentFlowNotifierProvider.notifier)
                                       .effectiveAmount,
@@ -143,6 +154,8 @@ class _PaymentGatewayScreenState extends ConsumerState<PaymentGatewayScreen> {
                                 Uri.parse(redirectUrl),
                                 mode: LaunchMode.externalApplication,
                               );
+                              if (!mounted) return;
+                              context.pushNamed(RouteName.pendingConfirmation);
                             } catch (e) {
                               if (!mounted) return;
                               ScaffoldMessenger.of(context).showSnackBar(

@@ -93,7 +93,13 @@ class PaymentFlowNotifier extends _$PaymentFlowNotifier {
     state = const PaymentFlowState();
   }
 
+  bool get isMultiBill => state.selectedBills.isNotEmpty;
+
   int get effectiveAmount {
+    if (state.selectedBills.isNotEmpty) {
+      return state.selectedBills
+          .fold<int>(0, (sum, b) => sum + b.billAmount);
+    }
     final bill = state.selectedBill;
     if (bill == null) return 0;
     return state.nominalAmount ?? bill.billAmount;

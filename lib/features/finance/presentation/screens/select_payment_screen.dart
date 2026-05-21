@@ -8,6 +8,7 @@ import 'package:icarus/features/finance/domain/entities/emoney_detail_entity.dar
 import 'package:icarus/features/finance/domain/entities/payment_method_entity.dart';
 import 'package:icarus/features/finance/domain/types/va_bank_type.dart';
 import 'package:icarus/features/finance/presentation/providers/emoney_detail_controller.dart';
+import 'package:icarus/features/finance/presentation/providers/payment_action_controller.dart';
 import 'package:icarus/features/finance/presentation/providers/payment_flow_notifier.dart';
 import 'package:icarus/features/finance/presentation/providers/payment_methods_controller.dart';
 import 'package:icarus/features/finance/presentation/widgets/payment_action_button.dart';
@@ -15,6 +16,7 @@ import 'package:icarus/features/finance/presentation/widgets/payment_method_radi
 import 'package:icarus/shared/core/infrastructure/routes/route_name.dart';
 import 'package:icarus/shared/utils/currency_helper.dart';
 import 'package:icarus/shared/widgets/custom_app_bar_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PaymentMethodOption {
   const PaymentMethodOption({
@@ -36,13 +38,58 @@ class SelectPaymentScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedSlug = useState<String?>(null);
+    final submitting = useState(false);
     final methodsAsync = ref.watch(paymentMethodsControllerProvider);
     final emoneyDetail = ref.watch(emoneyDetailControllerProvider).valueOrNull;
+    final flow = ref.watch(paymentFlowNotifierProvider);
+    final isMultiBill = flow.selectedBills.isNotEmpty;
 
-    void onLanjutkan() {
+    const multiBillSlugs = {'emoney', 'transfer-bank', 'winpay'};
+
+    void onLanjutkan() async {
       final slug = selectedSlug.value;
-      if (slug == null) return;
+      if (slug == null || submitting.value) return;
       ref.read(paymentFlowNotifierProvider.notifier).setPaymentMethod(slug);
+
+      if (isMultiBill) {
+        final bills = flow.selectedBills
+            .map((b) => <String, dynamic>{
+                  'bill_trx_id': b.id,
+                  'notes': flow.notes ?? '',
+                  'amount': b.billAmount,
+                })
+            .toList();
+        submitting.value = true;
+        try {
+          final data = await ref
+              .read(paymentActionControllerProvider.notifier)
+              .payMultiple(slug, bills);
+          if (!context.mounted) return;
+          if (slug == 'winpay') {
+            final redirectUrl = data['redirect_url'] as String?;
+            if (redirectUrl != null) {
+              ref
+                  .read(paymentFlowNotifierProvider.notifier)
+                  .setRedirectUrl(redirectUrl);
+              await launchUrl(
+                Uri.parse(redirectUrl),
+                mode: LaunchMode.externalApplication,
+              );
+            }
+          }
+          if (!context.mounted) return;
+          context.pushNamed(RouteName.pendingConfirmation);
+        } catch (e) {
+          if (!context.mounted) return;
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(e.toString())),
+          );
+        } finally {
+          submitting.value = false;
+        }
+        return;
+      }
+
       switch (slug) {
         case 'transfer-bank':
           context.pushNamed(RouteName.bankTransferPayment);
@@ -53,12 +100,35 @@ class SelectPaymentScreen extends HookConsumerWidget {
         case 'winpay':
           context.pushNamed(RouteName.paymentGateway);
         case 'emoney':
-          context.pushNamed(RouteName.pendingConfirmation);
+          final bill = flow.selectedBill;
+          if (bill == null) return;
+          submitting.value = true;
+          try {
+            await ref
+                .read(paymentActionControllerProvider.notifier)
+                .payWithEmoney(
+                  billTrxId: bill.id,
+                  amount: ref
+                      .read(paymentFlowNotifierProvider.notifier)
+                      .effectiveAmount,
+                  notes: flow.notes,
+                );
+            if (!context.mounted) return;
+            context.pushNamed(RouteName.transactionSuccess);
+          } catch (e) {
+            if (!context.mounted) return;
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(e.toString())),
+            );
+          } finally {
+            submitting.value = false;
+          }
       }
     }
 
     final methods = methodsAsync.valueOrNull
-        ?.map((method) => paymentMethod(method, emoneyDetail))
+        ?.where((m) => !isMultiBill || multiBillSlugs.contains(m.slug))
+        .map((method) => paymentMethod(method, emoneyDetail))
         .toList();
 
     useEffect(() {
@@ -135,8 +205,10 @@ class SelectPaymentScreen extends HookConsumerWidget {
         ),
         child: SafeArea(
           child: PaymentActionButton(
-            label: 'Lanjutkan',
-            onPressed: methodsAsync.hasValue ? onLanjutkan : () {},
+            label: submitting.value ? 'Memproses...' : 'Lanjutkan',
+            onPressed: (methodsAsync.hasValue && !submitting.value)
+                ? onLanjutkan
+                : () {},
           ),
         ),
       ),

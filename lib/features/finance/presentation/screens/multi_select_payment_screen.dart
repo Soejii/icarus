@@ -106,6 +106,12 @@ class MultiSelectPaymentScreen extends HookConsumerWidget {
           }
         }
       }
+      if (checkedEntities.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Pilih setidaknya satu tagihan')),
+        );
+        return;
+      }
       ref.read(paymentFlowNotifierProvider.notifier).setSelectedBills(checkedEntities);
       context.pushNamed(RouteName.selectPayment);
     }

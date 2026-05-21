@@ -27,7 +27,7 @@ abstract class BillRepository {
   Future<Result<Map<String, dynamic>>> createPayment(
       String slug, Map<String, dynamic> body);
 
-  Future<Result<void>> submitTransfer({
+  Future<Result<Map<String, dynamic>>> submitTransfer({
     required int billTrxId,
     required int amount,
     String? notes,
